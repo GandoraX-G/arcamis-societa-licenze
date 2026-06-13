@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚖️ Gilde & Licenze di Arcamis</title>
+<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=IM+Fell+English:ital@0;1&family=Uncial+Antiqua&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1510; --bg2: #211c15; --bg3: #28211a;
+    --panel: #231e17; --panel2: #2d2620;
+    --border: #5a3e1e; --border2: #7a5428;
+    --gold: #c8a050; --gold2: #e0b860; --gold3: #f0d080;
+    --amber: #d4954a; --red2: #c04040; --green2: #4a9a58;
+    --blue2: #5a8ad8; --purple: #8a50b0; --purple2: #a070c8;
+    --text: #f0e0c0; --text2: #c8a878; --text3: #806848;
+    --common: #60b840; --uncommon: #50a0d8;
+    --rare: #a060d8; --very-rare: #d88040; --legendary: #d8b020;
+    --shadow: 0 4px 16px rgba(0,0,0,.6);
+    --glow: 0 0 16px rgba(200,160,80,.15);
+    --header-bg-start: #0e0c08;
+    --header-bg-end: #1a1510;
+    --guide-hero-end: #2a2418;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(180deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%);
+    border-bottom: 2px solid var(--border2);
+    padding: 20px 24px 16px;
+    text-align: center;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 32px rgba(0,0,0,.8);
+  }
+  header h1 {
+    font-family: 'MedievalSharp', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-weight: 900; color: var(--gold2);
+    letter-spacing: .06em;
+    text-shadow: 0 0 30px rgba(201,168,76,.4), 0 2px 4px rgba(0,0,0,.8);
+    margin-bottom: 4px;
+  }
+  header p { font-family: 'Uncial Antiqua', serif; font-size: .85rem; color: var(--text3); letter-spacing: .12em; text-transform: uppercase; }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 16px 20px 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    position: sticky; top: 97px; z-index: 90;
+  }
+  .tab-btn {
+    background: var(--panel); border: 1px solid var(--border);
+    color: var(--text2); font-family: 'Uncial Antiqua', serif;
+    font-size: .78rem; letter-spacing: .08em;
+    padding: 7px 14px; border-radius: 4px 4px 0 0;
+    cursor: pointer; transition: all .2s; white-space: nowrap;
+  }
+  .tab-btn:hover { background: var(--panel2); color: var(--gold2); border-color: var(--border2); }
+  .tab-btn.active {
+    background: var(--bg3); color: var(--gold2); border-color: var(--gold);
+    border-bottom-color: var(--bg3); position: relative; bottom: -1px;
+    box-shadow: 0 -2px 12px rgba(201,168,76,.12);
+  }
+  .tab-btn.active-amber { border-color: var(--amber) !important; color: var(--amber) !important; }
+
+  /* ── LAYOUT ── */
+  .main { display: flex; min-height: calc(100vh - 160px); }
+
+  /* ── SIDENAV ── */
+  .sidenav {
+    width: 210px; flex-shrink: 0;
+    background: var(--bg2); border-right: 1px solid var(--border);
+    padding: 20px 0;
+    position: sticky; top: calc(97px + 44px);
+    max-height: calc(100vh - 145px); overflow-y: auto;
+  }
+  .sidenav-section { padding: 0 0 16px; }
+  .sidenav-title {
+    font-family: 'Uncial Antiqua', serif; font-size: .65rem;
+    letter-spacing: .15em; text-transform: uppercase; color: var(--text3);
+    padding: 0 16px 8px;
+  }
+  .sidenav-btn {
+    display: block; width: 100%; background: none; border: none;
+    color: var(--text2); font-family: 'IM Fell English', serif;
+    font-size: .92rem; text-align: left; padding: 7px 20px;
+    cursor: pointer; transition: all .15s;
+    border-left: 3px solid transparent;
+  }
+  .sidenav-btn:hover { color: var(--gold); background: rgba(201,168,76,.05); }
+  .sidenav-btn.active { color: var(--gold2); border-left-color: var(--gold); background: rgba(201,168,76,.08); font-weight: 600; }
+
+  /* ── CONTENT ── */
+  .content { flex: 1; padding: 28px 28px; overflow-x: auto; max-width: 960px; }
+
+  /* ── HERO / INTRO ── */
+  .page-hero {
+    background: linear-gradient(135deg, var(--panel) 0%, var(--guide-hero-end) 100%);
+    border: 1px solid var(--border2); border-radius: 8px;
+    padding: 32px 36px; margin-bottom: 28px;
+    box-shadow: var(--shadow), var(--glow); position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+    font-size: 6rem; opacity: .06; pointer-events: none;
+  }
+  .page-hero.gilde::before { content: '🏛️'; }
+  .page-hero.licenze::before { content: '⚖️'; }
+  .page-hero h2 {
+    font-family: 'MedievalSharp', serif; font-size: 1.55rem; color: var(--gold2);
+    margin-bottom: 10px; text-shadow: 0 0 24px rgba(201,168,76,.35);
+  }
+  .page-hero p { color: var(--text2); font-size: .98rem; line-height: 1.65; }
+
+  /* ── SECTION ── */
+  .doc-section { margin-bottom: 32px; }
+  .doc-section-title {
+    font-family: 'Uncial Antiqua', serif; font-size: .82rem;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 14px; padding-bottom: 7px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  /* ── CARD GRID ── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 20px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 6px; padding: 16px 18px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .card:hover { border-color: var(--border2); box-shadow: var(--glow); }
+  .card.gold-border { border-color: var(--border2); }
+  .card h4 {
+    font-family: 'Uncial Antiqua', serif; font-size: .88rem;
+    color: var(--gold2); margin-bottom: 8px;
+  }
+  .card p, .card li { font-size: .88rem; color: var(--text2); line-height: 1.55; }
+  .card ul { padding-left: 14px; }
+  .card li { margin-bottom: 3px; }
+  .card .sub { font-size: .78rem; color: var(--text3); font-style: italic; margin-bottom: 6px; display: block; }
+
+  /* ── IMPRESA TYPE CARD ── */
+  .impresa-card {
+    background: var(--panel); border-radius: 6px;
+    border: 1px solid var(--border2); margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .impresa-header {
+    padding: 14px 20px; display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .impresa-header h3 {
+    font-family: 'Uncial Antiqua', serif; font-size: .98rem; color: var(--gold2); letter-spacing: .05em;
+  }
+  .impresa-header .patente-badge {
+    font-family: 'Uncial Antiqua', serif; font-size: .7rem; letter-spacing: .1em;
+    padding: 3px 9px; border-radius: 12px; white-space: nowrap;
+    margin-left: auto;
+  }
+  .pat-pmc  { background: rgba(96,184,64,.15);  color: var(--common);    border: 1px solid rgba(96,184,64,.3); }
+  .pat-pmt  { background: rgba(90,138,216,.15); color: var(--uncommon);  border: 1px solid rgba(90,138,216,.3); }
+  .pat-pasv { background: rgba(212,149,74,.15); color: var(--amber);     border: 1px solid rgba(212,149,74,.3); }
+  .pat-poe  { background: rgba(216,176,32,.15); color: var(--legendary); border: 1px solid rgba(216,176,32,.3); }
+  .pat-mista{ background: rgba(138,80,176,.15); color: var(--purple2);   border: 1px solid rgba(138,80,176,.3); }
+  .impresa-body { padding: 16px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .impresa-body .info-block p { font-size: .85rem; color: var(--text2); margin-bottom: 4px; }
+  .impresa-body .info-block strong { color: var(--gold); }
+  .benefit-list, .limit-list { list-style: none; padding: 0; margin-top: 8px; }
+  .benefit-list li { font-size: .85rem; color: var(--green2); padding: 3px 0; display: flex; gap: 6px; }
+  .benefit-list li::before { content: '✦'; color: var(--gold); flex-shrink: 0; }
+  .limit-list li { font-size: .85rem; color: var(--amber); padding: 3px 0; display: flex; gap: 6px; }
+  .limit-list li::before { content: '⚠'; flex-shrink: 0; }
+  .impresa-body h5 {
+    font-family: 'Uncial Antiqua', serif; font-size: .7rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--text3); margin-bottom: 6px;
+  }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; margin-bottom: 24px; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  thead tr { background: var(--panel2); border-bottom: 2px solid var(--border2); }
+  thead th {
+    font-family: 'Uncial Antiqua', serif; font-size: .7rem; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--gold); padding: 10px 12px;
+    text-align: left; white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid rgba(58,47,85,.4); transition: background .15s; }
+  tbody tr:hover { background: rgba(201,168,76,.04); }
+  tbody td { padding: 9px 12px; color: var(--text2); vertical-align: top; }
+  tbody td:first-child { color: var(--text); font-weight: 600; }
+  tbody td strong { color: var(--gold); }
+
+  /* highlight row colors for gilda gradi */
+  .row-app  td { color: var(--text3) !important; }
+  .row-art  td:first-child { color: var(--common) !important; }
+  .row-mst  td:first-child { color: var(--uncommon) !important; }
+  .row-gran td:first-child { color: var(--legendary) !important; }
+  .row-on   td:first-child { color: var(--purple2) !important; }
+
+  /* patente rows */
+  .row-pmc  td:first-child { color: var(--common) !important; }
+  .row-pmt  td:first-child { color: var(--uncommon) !important; }
+  .row-pasv td:first-child { color: var(--amber) !important; }
+  .row-poe  td:first-child { color: var(--legendary) !important; }
+
+  /* ── STRUTTURE GRID ── */
+  .strutt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .strutt-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 5px; padding: 14px 16px;
+    transition: border-color .2s;
+  }
+  .strutt-card:hover { border-color: var(--border2); }
+  .strutt-card h5 { font-family: 'Uncial Antiqua', serif; font-size: .82rem; color: var(--gold2); margin-bottom: 4px; }
+  .strutt-card .strutt-cost { font-size: .78rem; color: var(--amber); font-weight: 700; margin-bottom: 6px; }
+  .strutt-card p { font-size: .82rem; color: var(--text2); line-height: 1.45; }
+  .strutt-card.lv2 { border-left: 3px solid var(--purple); }
+  .strutt-card.lv2 h5 { color: var(--purple2); }
+
+  /* ── SANZIONI ── */
+  .sanz-lieve    td:first-child { color: var(--common) !important; }
+  .sanz-grave    td:first-child { color: var(--amber) !important; }
+  .sanz-graviss  td:first-child { color: var(--red2) !important; }
+  .sanz-gilda-g  td:first-child { color: var(--purple2) !important; }
+  .sanz-gilda-r  td:first-child { color: var(--legendary) !important; }
+
+  /* ── LICENZA CARD ── */
+  .licenza-card {
+    background: var(--panel); border: 1px solid var(--border2); border-radius: 8px;
+    margin-bottom: 22px; overflow: hidden; box-shadow: var(--shadow);
+  }
+  .licenza-header { padding: 18px 24px; border-bottom: 1px solid var(--border); }
+  .licenza-header h3 {
+    font-family: 'MedievalSharp', serif; font-size: 1.15rem; margin-bottom: 4px;
+  }
+  .licenza-header .lh-meta { font-size: .82rem; color: var(--text3); font-style: italic; }
+  .licenza-body { padding: 16px 24px 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .licenza-block h5 {
+    font-family: 'Uncial Antiqua', serif; font-size: .7rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--text3); margin-bottom: 6px;
+  }
+  .licenza-block ul { list-style: none; padding: 0; }
+  .licenza-block li { font-size: .85rem; color: var(--text2); padding: 2px 0; display: flex; gap: 6px; line-height: 1.4; }
+  .licenza-block li::before { content: '·'; color: var(--gold); flex-shrink: 0; }
+
+  /* ── INCHIOSTRI TABLE color dots ── */
+  .dot-i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+
+  /* ── RULE BOX ── */
+  .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 14px; }
+  .rule-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 12px 14px; }
+  .rule-box h4 { font-family: 'Uncial Antiqua', serif; font-size: .72rem; letter-spacing: .1em; color: var(--gold); margin-bottom: 6px; text-transform: uppercase; }
+  .rule-box p, .rule-box li { font-size: .87rem; color: var(--text2); line-height: 1.5; }
+  .rule-box ul { padding-left: 14px; }
+
+  /* ── NOTE BOX ── */
+  .note-box {
+    background: rgba(212,137,26,.07); border: 1px solid rgba(212,137,26,.28);
+    border-radius: 5px; padding: 12px 16px;
+    font-size: .86rem; color: var(--amber); margin-top: 12px; line-height: 1.5;
+  }
+  .note-box strong { color: var(--gold2); }
+
+  /* ── GILDA RICONOSCIUTA ── */
+  .gilde-table-wrap td:first-child { color: var(--gold) !important; font-style: italic; }
+  .gilde-table-wrap td:nth-child(2) { color: var(--text3) !important; }
+
+  /* ── SCROLL ── */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+
+  /* ── MOBILE DRAWER ── */
+  .mobile-nav-btn {
+    display: none; position: fixed; bottom: 20px; right: 20px; z-index: 200;
+    background: var(--gold2); color: var(--bg); border: none; border-radius: 50%;
+    width: 52px; height: 52px; font-size: 1.3rem; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,.5); align-items: center; justify-content: center;
+  }
+  .mobile-drawer-overlay { display: none; position: fixed; inset: 0; z-index: 150; background: rgba(0,0,0,.55); }
+  .mobile-drawer-overlay.open { display: block; }
+  .mobile-drawer {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 160;
+    width: min(280px, 85vw); background: var(--bg2); border-right: 1px solid var(--border2);
+    padding: 20px 0 40px; overflow-y: auto;
+    transform: translateX(-100%); transition: transform .3s ease;
+  }
+  .mobile-drawer.open { transform: translateX(0); }
+  .mobile-drawer-header {
+    padding: 0 16px 16px; border-bottom: 1px solid var(--border); margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .mobile-drawer-header h3 { font-family: 'Uncial Antiqua', serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+  .mobile-drawer-close { background: none; border: none; color: var(--text3); font-size: 1.3rem; cursor: pointer; padding: 2px 6px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .sidenav { display: none; }
+    .mobile-nav-btn { display: flex; }
+    header { padding: 14px 16px 12px; }
+    header h1 { font-size: clamp(1.1rem, 5vw, 1.5rem); }
+    .tabs { top: 0; position: relative; overflow-x: auto; flex-wrap: nowrap; padding: 10px 12px 0; gap: 4px; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab-btn { font-size: .72rem; padding: 6px 10px; flex-shrink: 0; }
+    .main { flex-direction: column; }
+    .content { padding: 14px 12px; }
+    .impresa-body { grid-template-columns: 1fr; }
+    .card-grid { grid-template-columns: 1fr; }
+    .strutt-grid { grid-template-columns: 1fr; }
+    .licenza-body { grid-template-columns: 1fr; }
+    .rules-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚖️ Gilde &amp; Licenze di Arcamis ⚖️</h1>
+  <p>Imprese · Gilde · Patenti · Camera del Commercio — Arcadia</p>
+</header>
+
+<div class="tabs" id="tabs"></div>
+
+<div class="mobile-drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <h3>📑 Navigazione</h3>
+    <button class="mobile-drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <nav id="mobileDrawerNav"></nav>
+</div>
+<button class="mobile-nav-btn" id="mobileNavBtn" onclick="openDrawer()" title="Navigazione">☰</button>
+
+<div class="main">
+  <nav class="sidenav" id="sidenav"></nav>
+  <div class="content" id="content"></div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════
+let currentPage = 'gilde'; // 'gilde' | 'licenze'
+let currentSection = 'panoramica';
+
+const PAGES = ['gilde', 'licenze'];
+
+const NAV = {
+  gilde: [
+    { id:'panoramica',  label:'📖 Panoramica' },
+    { id:'impresa',     label:'🏢 Imprese' },
+    { id:'fondazione',  label:'📜 Fondazione' },
+    { id:'tipologie',   label:'⚒️ Tipologie' },
+    { id:'gestione',    label:'💰 Gestione' },
+    { id:'sede',        label:'🏗️ Sede Fisica' },
+    { id:'gilda',       label:'🏛️ Costituzione Gilda' },
+    { id:'benefici',    label:'✦ Benefici Gilda' },
+    { id:'sanzioni',    label:'⚠️ Sanzioni' },
+    { id:'costi',       label:'🪙 Riepilogo Costi' },
+  ],
+  licenze: [
+    { id:'panoramica',  label:'📖 Panoramica' },
+    { id:'vantaggi',    label:'✦ Vantaggi' },
+    { id:'quadro',      label:'📋 Quadro Patenti' },
+    { id:'pmc',         label:'🟢 P.M.C.' },
+    { id:'pmt',         label:'🔵 P.M.T.' },
+    { id:'pasv',        label:'🟠 P.A.S.V.' },
+    { id:'poe',         label:'🟡 P.O.E.' },
+    { id:'inchiostri',  label:'🖋️ Inchiostri' },
+  ],
+};
+
+// ════════════════════════════════════════════════
+//  MOBILE
+// ════════════════════════════════════════════════
+function openDrawer() { document.getElementById('mobileDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeDrawer() { document.getElementById('mobileDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+function syncMobile() { const d = document.getElementById('mobileDrawerNav'); const s = document.getElementById('sidenav'); if (d && s) d.innerHTML = s.innerHTML; }
+
+// ════════════════════════════════════════════════
+//  RENDER TABS
+// ════════════════════════════════════════════════
+function renderTabs() {
+  const labels = { gilde:'🏛️ Gilde &amp; Imprese', licenze:'⚖️ Licenze &amp; Patenti' };
+  const el = document.getElementById('tabs');
+  el.innerHTML = PAGES.map(p =>
+    `<button class="tab-btn ${p===currentPage?'active':''}" onclick="setPage('${p}')">${labels[p]}</button>`
+  ).join('');
+}
+
+// ════════════════════════════════════════════════
+//  RENDER SIDENAV
+// ════════════════════════════════════════════════
+function renderSideNav() {
+  const el = document.getElementById('sidenav');
+  const nav = NAV[currentPage];
+  let h = '<div class="sidenav-section"><div class="sidenav-title">Sezioni</div>';
+  nav.forEach(n => {
+    h += `<button class="sidenav-btn ${currentSection===n.id?'active':''}" onclick="setSection('${n.id}')">${n.label}</button>`;
+  });
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+// ════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════
+function sectionTitle(icon, label) {
+  return `<div class="doc-section-title">${icon} ${label}</div>`;
+}
+function tableWrap(inner) { return `<div class="table-wrap">${inner}</div>`; }
+
+// ════════════════════════════════════════════════
+//  RENDER GILDE
+// ════════════════════════════════════════════════
+const RENDER_GILDE = {
+
+panoramica: () => `
+  <div class="page-hero gilde">
+    <h2>🏛️ Codice delle Imprese e delle Gilde<br><small style="font-size:.55em;color:var(--text3);letter-spacing:.08em">Camera del Commercio e dei Mestieri — Arcadia</small></h2>
+    <p>Il presente Codice regola la <strong style="color:var(--gold)">costituzione, l'operatività e lo scioglimento</strong> delle Imprese e delle Gilde nel regno di Arcadia.<br>
+    Un'<strong style="color:var(--gold)">Impresa</strong> è una società formale tra due o più personaggi con sede fisica, capacità produttiva condivisa e responsabilità collettiva verso l'U.R.V. e il Marchesato.<br>
+    Una <strong style="color:var(--gold2)">Gilda</strong> è invece un'associazione di categoria che raggruppa più Imprese o artigiani indipendenti sotto un marchio comune, con accesso a privilegi esclusivi.</p>
+  </div>
+
+  <div class="doc-section">
+    ${sectionTitle('⚖️', 'Impresa vs Gilda — Differenze Fondamentali')}
+    ${tableWrap(`<table>
+      <thead><tr><th>Aspetto</th><th>Impresa</th><th>Gilda</th></tr></thead>
+      <tbody>
+        <tr><td>Definizione</td><td>Società tra 2–6 PG con mestiere comune o complementare, sede fisica e cassa condivisa.</td><td>Associazione che unisce più Imprese (o artigiani indip.) sotto un simbolo e regolamento comune.</td></tr>
+        <tr><td>Fondatori</td><td>Min. 2, max 6 PG. Almeno uno deve avere una Patente attiva.</td><td>Min. 3 Imprese registrate, oppure min. 5 artigiani indip. con Patente.</td></tr>
+        <tr><td>Sede</td><td>Obbligatoria. Almeno una struttura LV1 costruita dall'Architetto.</td><td>Obbligatoria. Sede propria + sede delle Imprese affiliate.</td></tr>
+        <tr><td>Registrazione</td><td>Camera del Commercio di Arcadia. Costo una tantum.</td><td>Camera del Commercio + approvazione dell'U.R.V. Costo più elevato.</td></tr>
+        <tr><td>Cassa Comune</td><td>Sì. Gestita dal Responsabile Finanziario eletto dai soci.</td><td>Sì, con Fondo di Categoria aggiuntivo (quota mensile delle Imprese affiliate).</td></tr>
+        <tr><td>Marchio</td><td>Timbro d'Impresa (ottone). Apposto su ogni opera venduta.</td><td>Sigillo di Gilda (argento incantato). Apposto su opere di Imprese affiliate.</td></tr>
+        <tr><td>Scioglimento</td><td>Voto unanime dei soci oppure revoca dall'U.R.V.</td><td>Voto di 2/3 delle Imprese affiliate oppure intervento del Marchesato.</td></tr>
+      </tbody>
+    </table>`)}
+  </div>`,
+
+impresa: () => `
+  <div class="doc-section">
+    ${sectionTitle('🏢', '2. Costituzione di un\'Impresa')}
+    <p style="color:var(--text2);font-size:.92rem;margin-bottom:16px;line-height:1.6">Fondare un'Impresa ad Arcadia è un atto giuridico formale. Non basta accordarsi tra avventurieri: serve carta, sigillo e struttura.</p>
+
+    <h4 style="font-family:'Uncial Antiqua',serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">2.1 Requisiti per la Fondazione</h4>
+    ${tableWrap(`<table>
+      <thead><tr><th>Requisito</th><th>Dettaglio</th></tr></thead>
+      <tbody>
+        <tr><td>Numero Soci</td><td>Minimo 2, massimo 6 PG fondatori. Possono essere ammessi soci di minoranza successivamente.</td></tr>
+        <tr><td>Patente Attiva</td><td>Almeno il <strong>50% dei soci fondatori</strong> deve possedere una Patente valida (P.M.C., P.M.T., P.A.S.V. o P.O.E.).</td></tr>
+        <tr><td>Sede Fisica</td><td>Almeno una struttura LV1 costruita da un Architetto iscritto alla Camera del Commercio. Minimo consigliato: <strong>Magazzino (150 Mo) + Cucina (70 Mo)</strong>.</td></tr>
+        <tr><td>Atto Costitutivo</td><td>Documento scritto e firmato da tutti i soci, con: nome dell'Impresa, mestieri esercitati, quote di partecipazione, nome del Responsabile, sede legale.</td></tr>
+        <tr><td>Tassa di Registrazione</td><td><strong>75 Mo</strong> (una tantum). Include: emissione del Timbro d'Impresa, iscrizione al Registro delle Imprese, copia autenticata dell'Atto.</td></tr>
+        <tr><td>Fondo Iniziale</td><td>Cassa comune di avvio: minimo <strong>50 Mo</strong> versati collettivamente. Serve come garanzia per i primi fornitori.</td></tr>
+      </tbody>
+    </table>`)}
+
+    <h4 style="font-family:'Uncial Antiqua',serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin:20px 0 10px">2.2 Procedura di Registrazione</h4>
+    <div class="rules-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+      ${[
+        ['1️⃣','Atto Costitutivo','I soci redigono l\'Atto in triplice copia: una per la Camera del Commercio, una per l\'U.R.V., una per l\'Impresa.'],
+        ['2️⃣','Presentazione','Il Responsabile si presenta fisicamente alla Camera del Commercio con l\'Atto e le Patenti di tutti i soci.'],
+        ['3️⃣','Verifica','Il funzionario verifica i requisiti ed emette il Certificato di Impresa e il Timbro d\'Impresa in ottone.'],
+        ['4️⃣','Iscrizione','L\'Impresa viene inscritta nel Registro Pubblico delle Imprese di Arcadia (consultabile da chiunque).'],
+        ['5️⃣','Notifica U.R.V.','La Camera del Commercio notifica l\'U.R.V., che aggiorna i fascicoli delle Patenti di ciascun socio.'],
+      ].map(([n,t,d]) => `<div class="rule-box"><h4>${n} ${t}</h4><p>${d}</p></div>`).join('')}
+    </div>
+
+    <h4 style="font-family:'Uncial Antiqua',serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin:20px 0 10px">2.3 Struttura Interna Obbligatoria</h4>
+    ${tableWrap(`<table>
+      <thead><tr><th>Ruolo</th><th>Funzioni e Responsabilità</th></tr></thead>
+      <tbody>
+        <tr><td>Responsabile</td><td>Firma l'Atto Costitutivo. Rappresenta legalmente l'Impresa davanti all'U.R.V. e alla Camera del Commercio. In caso di infrazioni, risponde personalmente in prima istanza.</td></tr>
+        <tr><td>Resp. Finanziario</td><td>Gestisce la cassa comune, tiene il Registro delle Entrate e Uscite. Può coincidere col Responsabile in Imprese con meno di 3 soci.</td></tr>
+        <tr><td>Mastro Artigiano</td><td>Il socio col livello di mestiere più alto. Coordina la produzione, approva l'uso dei materiali vincolati, firma il Libretto degli Acquisti per conto dell'Impresa.</td></tr>
+        <tr><td>Soci Ordinari</td><td>Contribuiscono con Downtime, risorse e competenze. Partecipano ai profitti secondo le quote stabilite nell'Atto Costitutivo.</td></tr>
+        <tr><td>Apprendisti (opz.)</td><td>PG con Mestiere LV1 o NPC assunti. Non possono firmare documenti legali. Max 2 per ogni socio con P.O.E., max 1 per ogni socio con P.M.T./P.A.S.V.</td></tr>
+      </tbody>
+    </table>`)}
+  </div>`,
+
+fondazione: () => `
+  <div class="doc-section">
+    ${sectionTitle('📜', '4.2 Ingresso e Uscita dei Soci')}
+    ${tableWrap(`<table>
+      <thead><tr><th>Evento</th><th>Procedura</th></tr></thead>
+      <tbody>
+        <tr><td>Ingresso nuovo socio</td><td>Voto favorevole di almeno 2/3 dei soci esistenti. Aggiornamento dell'Atto Costitutivo presso la Camera del Commercio (costo: <strong>20 Mo</strong>). Il nuovo socio porta la propria Patente.</td></tr>
+        <tr><td>Uscita volontaria</td><td>Il socio uscente deve comunicarlo formalmente con <strong>30 giorni di preavviso</strong>. Riceve la sua quota dalla cassa comune (al netto dei debiti). L'Atto viene aggiornato.</td></tr>
+        <tr><td>Espulsione</td><td>Voto unanime degli altri soci, motivato da: infrazione grave, revoca della Patente, mancato contributo per 2+ mesi. Il socio espulso perde la quota solo se indicato nell'Atto.</td></tr>
+        <tr><td>Morte / Assenza prolungata</td><td>Dopo 6 mesi di assenza non giustificata, i restanti soci possono richiedere alla Camera del Commercio la rimozione del socio. La sua quota viene distribuita proporzionalmente.</td></tr>
+        <tr><td>Scioglimento consensuale</td><td>Voto unanime. L'Impresa viene cancellata dal Registro. La cassa viene divisa per quote. I debiti verso l'U.R.V. e la Camera vengono saldati prima.</td></tr>
+      </tbody>
+    </table>`)}
+  </div>`,
+
+tipologie: () => `
+  <div class="doc-section">
+    ${sectionTitle('⚒️', '3. Tipologie di Impresa')}
+    <p style="color:var(--text3);font-size:.88rem;margin-bottom:20px;font-style:italic">Non tutte le Imprese sono uguali: il tipo dipende dai mestieri esercitati e dalle Patenti possedute.</p>
+    ${[
+      {
+        nome:'Bottega Artigiana', pat:'P.M.C.', cls:'pat-pmc',
+        tassa:'75 Mo + struttura LV1',
+        mestieri:'Oste · Falegname · Sarto · Artista',
+        prod:'Beni comuni, cibo, abiti, armi in legno, opere d\'arte',
+        benefici:['Accesso ai mercati comunali di Arcadia senza commissione extra.','Sconto del 10% sull\'acquisto di materie prime ordinarie (min. 100 Mo).','Priorità nelle commesse pubbliche di basso livello (fino a 200 Mo).'],
+        limiti:['Non può produrre né vendere oggetti magici senza upgrade a Bottega Tecnica.','Massimo 2 apprendisti NPC per Impresa.'],
+      },
+      {
+        nome:'Officina Tecnica', pat:'P.M.T. (almeno 1 socio)', cls:'pat-pmt',
+        tassa:'150 Mo + struttura LV1 + Forgia o strumento equivalente',
+        mestieri:'Metallurgo · Artigiano · Architetto',
+        prod:'Armi, armature, strutture, oggetti magici Comuni, documenti legali',
+        benefici:['Contratti preferenziali con i fornitori di metalli e cristalli del Marchesato.','Accesso ai bandi di gara militari (commesse fino a 2.000 Mo).','Diritto a esporre il Timbro Imperiale (+15% valore percepito).','Un socio con P.M.T. può assumere fino a 2 apprendisti PG.'],
+        limiti:['La produzione di armi in serie (10+/mese) richiede dichiarazione mensile all\'U.R.V.','Ogni struttura costruita per conto terzi deve essere registrata con numero di progetto.'],
+      },
+      {
+        nome:'Studio Alchemico', pat:'P.A.S.V. (almeno 1 socio)', cls:'pat-pasv',
+        tassa:'200 Mo + struttura LV1 + Stanza degli Esperimenti o equivalente',
+        mestieri:'Alchimista · Artigiano Hextech',
+        prod:'Pozioni, veleni registrati, inchiostri magici, componenti Hextech',
+        benefici:['Libretto degli Acquisti Collettivo: un unico Libretto per tutta l\'Impresa.','Limite di acquisto inchiostri aumentato del 30%.','Accesso al Catalogo Riservato dei Reagenti dell\'U.R.V. (prezzi calmierati).','Possibilità di contratti di fornitura continuativa con ospedali e gilde militari.'],
+        limiti:['Ispezione U.R.V. obbligatoria ogni 6 mesi.','Il Mastro Artigiano risponde penalmente di ogni sostanza prodotta.','Produzione di veleni vietata senza registro firmato per ogni vendita.'],
+      },
+      {
+        nome:'Bottega Mastrale', pat:'P.O.E. (almeno 1 socio)', cls:'pat-poe',
+        tassa:'400 Mo + struttura LV2 minima',
+        mestieri:'Tutti i mestieri (LV4+)',
+        prod:'Oggetti magici Rari e Molto Rari, commesse della Corte, opere numerate',
+        benefici:['Accesso esclusivo ai bandi della Corte del Marchesato (nessun limite di valore).','Certificati di autenticità con sigillo della Camera del Commercio (+25% valore).','Titolo collettivo di Manifattura d\'Eccellenza di Arcadia.','Accesso all\'Archivio Tecnico Segreto dell\'U.R.V.','Fino a 3 apprendisti PG per ogni socio con P.O.E.'],
+        limiti:['Ogni opera Rara deve essere numerata e registrata singolarmente.','Ispezione U.R.V. annuale obbligatoria senza preavviso.','Revoca automatica se nessun socio mantiene la P.O.E. attiva.'],
+      },
+      {
+        nome:'Impresa Mista', pat:'Combinazione di patenti diverse', cls:'pat-mista',
+        tassa:'Somma delle tasse dei mestieri coinvolti + 50 Mo di coordinamento',
+        mestieri:'Combinazione libera (es. Metallurgo + Alchimista + Artista)',
+        prod:'Dipende dai mestieri: ogni socio produce solo ciò che la sua Patente consente',
+        benefici:['Possibilità di coprire l\'intera filiera produttiva.','Sinergia di mestieri (es. Falegname + Metallurgo → carrozze armate).','Accesso ai bandi inter-categoriali del Marchesato (commesse miste, alto valore).'],
+        limiti:['Ogni socio risponde individualmente per la propria Patente.','La produzione multi-mestiere deve documentare il contributo di ogni socio.','L\'U.R.V. può sospendere l\'intera Impresa anche per il reato di un solo socio.'],
+      },
+    ].map(t => `
+      <div class="impresa-card">
+        <div class="impresa-header">
+          <h3>${t.nome}</h3>
+          <span class="patente-badge ${t.cls}">${t.pat}</span>
+        </div>
+        <div class="impresa-body">
+          <div class="info-block">
+            <p><strong>Tassa:</strong> ${t.tassa}</p>
+            <p style="margin-top:4px"><strong>Mestieri:</strong> ${t.mestieri}</p>
+            <p style="margin-top:4px"><strong>Produzione:</strong> ${t.prod}</p>
+            <h5 style="margin-top:12px">Benefici</h5>
+            <ul class="benefit-list">${t.benefici.map(b=>`<li>${b}</li>`).join('')}</ul>
+          </div>
+          <div class="info-block">
+            <h5>Limiti</h5>
+            <ul class="limit-list">${t.limiti.map(l=>`<li>${l}</li>`).join('')}</ul>
+          </div>
+        </div>
+      </div>`).join('')}`,
+
+gestione: () => `
+  <div class="doc-section">
+    ${sectionTitle('💰', '4. Gestione Economica dell\'Impresa')}
+
+    <h4 style="font-family:'Uncial Antiqua',serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">4.1 Cassa Comune e Quote</h4>
+    <p style="color:var(--text3);font-size:.86rem;margin-bottom:12px;font-style:italic">Ogni Impresa deve tenere un Registro delle Entrate e Uscite aggiornato. L'U.R.V. può richiederne la visione in qualsiasi momento.</p>
+    ${tableWrap(`<table>
+      <thead><tr><th>Voce</th><th>Regola</th></tr></thead>
+      <tbody>
+        <tr><td>Quote di partecipazione</td><td>Stabilite nell'Atto Costitutivo. Possono essere uguali (es. 50/50) o proporzionali al contributo (Downtime, materiali, capitale). <strong>Non modificabili senza nuovo Atto.</strong></td></tr>
+        <tr><td>Distribuzione profitti</td><td>Proporzionale alle quote. Avviene su base mensile o a discrezione dei soci, previa riunione formale. Deve essere documentata nel Registro Finanziario.</td></tr>
+        <tr><td>Spese comuni</td><td>Manutenzione sede, acquisto materiali, tasse e licenze, stipendi apprendisti NPC. Pagate dalla cassa comune.</td></tr>
+        <tr><td>Fondo di Riserva</td><td>Obbligatorio: almeno il <strong>10% dei profitti mensili</strong> viene accantonato. Serve per coprire sanzioni, riparazioni urgenti o periodi di inattività.</td></tr>
+        <tr><td>Tasse alla Camera</td><td><strong>1% del fatturato mensile</strong> dichiarato, versato trimestralmente. Esenzione per i primi 3 mesi dalla fondazione.</td></tr>
+        <tr><td>Dichiarazione annuale</td><td>Ogni anno il Responsabile Finanziario presenta alla Camera del Commercio un rendiconto del fatturato. <strong>Falsa dichiarazione = sanzione grave.</strong></td></tr>
+      </tbody>
+    </table>`)}
+  </div>`,
+
+sede: () => `
+  <div class="doc-section">
+    ${sectionTitle('🏗️', '5. Sede Fisica — Strutture e Upgrade')}
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:20px;line-height:1.6">Ogni Impresa deve avere una sede fisica costruita da un Architetto. La sede non è solo un requisito burocratico: le strutture costruite al suo interno danno <strong style="color:var(--gold)">bonus produttivi concreti</strong>. L'upgrade della sede è quindi un investimento strategico.</p>
+
+    <h4 style="font-family:'Uncial Antiqua',serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">5.1 Strutture Base (LV1 Architetto)</h4>
+    <div class="strutt-grid">
+      ${[
+        ['Magazzino','150 Mo','Capacità di stoccaggio materiali fino a 500 Mo di valore. Riduce i tempi di approvvigionamento.'],
+        ['Cucina','70 Mo','Permette all\'Oste di produrre ricette. Necessità carbone (4 Mo/settimana).'],
+        ['Orto','80 Mo','Produce 15 Mo di erbe al mese (8h DT semina + 8h DT raccolta). Max 2 per sede.'],
+        ['Stalla','70 Mo','Contenitore per fino a 5 animali da trasporto/lavoro. Riduce i costi di consegna.'],
+        ['Scantinato','100 Mo','Conservazione indefinita delle cibarie. Ideale per Oste e Alchimista.'],
+        ['Recinzione / Mura','70–200 Mo','Protegge la sede da intrusioni. Le Mura LV2 richiedono un Architetto LV2.'],
+      ].map(([n,c,d]) => `<div class="strutt-card"><h5>${n}</h5><div class="strutt-cost">💰 ${c}</div><p>${d}</p></div>`).join('')}
+    </div>
+
+    <h4 style="font-family:'Uncial Antiqua',serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin:20px 0 8px">5.2 Strutture Avanzate (LV2 Architetto) — Bonus Meccanici</h4>
+    <p style="color:var(--text3);font-size:.84rem;margin-bottom:14px;font-style:italic">Le strutture LV2 sblocano bonus meccanici permanenti per la classe del personaggio, utilizzabili una volta per Riposo Lungo.</p>
+    <div class="strutt-grid">
+      ${[
+        ['Forgia Noxiana','250 Mo','Riparazioni armature/armi a Riposo Breve. +2 danni contro strutture per 24h.'],
+        ['Torre Difensiva','250 Mo','Torretta automatica: Azione Bonus, +6 a colpire, 2d6 fulmine (60/120 ft).'],
+        ['Cucina Professionale','Upgrade +75 Mo','Sblocca ricette Oste LV2+. Carbone 8 Mo/settimana.'],
+        ['Covo Arcano','250 Mo','Mago: d4 extra a Intelligenza(Arcano), +1 CD e TS incantesimi.'],
+        ['Altare del Devoto','250 Mo','Paladino: +1 ai colpire, d4 Carisma in aura (CD 20 − livello Paladino).'],
+        ['Sala della Musica','250 Mo','Bardo: Dadi Ispirazione ritirati se 1–2. +1 colpire/TS incantesimi.'],
+        ['Stanza degli Esperimenti','250 Mo','Artefice: d4 extra agli strumenti, +1 colpire/TS incantesimi.'],
+        ['Campo di Addestramento','250 Mo','Guerriero/Barbaro: d4 contro Spaventato, +1 colpire/TS abilità di classe.'],
+        ['Covo del Fuorilegge','250 Mo','Ladro: d4 Iniziativa, d4 Strumenti da Scasso, +1 colpire e danni.'],
+      ].map(([n,c,d]) => `<div class="strutt-card lv2"><h5>${n}</h5><div class="strutt-cost">💰 ${c}</div><p>${d}</p></div>`).join('')}
+    </div>
+    <div class="note-box">⚠ <strong>Nota:</strong> Le strutture LV2 sono accessibili solo alle Imprese con almeno un socio Architetto LV2+. Ogni struttura conta come una stanza separata della sede. Il costo indicato è il costo dei <strong>materiali</strong>: il Downtime di costruzione è a carico dell'Architetto.</div>
+  </div>`,
+
+gilda: () => `
+  <div class="doc-section">
+    ${sectionTitle('🏛️', '6. Costituzione di una Gilda')}
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px;line-height:1.6">Una Gilda è il passo successivo: non più una singola Impresa, ma un'organizzazione che raggruppa più artigiani o Imprese sotto un simbolo comune. Le Gilde sono riconosciute dal Marchesato e godono di <strong style="color:var(--gold)">privilegi esclusivi</strong>, ma sono sottoposte a controlli più stringenti.</p>
+
+    <h4 style="font-family:'Uncial Antiqua',serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">6.1 Requisiti di Fondazione</h4>
+    ${tableWrap(`<table>
+      <thead><tr><th>Requisito</th><th>Dettaglio</th></tr></thead>
+      <tbody>
+        <tr><td>Imprese Affiliate</td><td>Minimo 3 Imprese registrate (o 5 artigiani indipendenti con Patente). Almeno una deve avere soci con P.M.T. o superiore.</td></tr>
+        <tr><td>Sede della Gilda</td><td>Struttura LV2 dedicata, non condivisa con le Imprese affiliate. Costruita ex-novo o acquistata.</td></tr>
+        <tr><td>Statuto di Gilda</td><td>Documento con: nome, emblema, categoria, norme interne, quote mensili delle affiliate, regole di espulsione.</td></tr>
+        <tr><td>Approvazione U.R.V.</td><td>A differenza delle Imprese, la Gilda richiede l'approvazione esplicita dell'U.R.V. Una commissione di 3 funzionari esamina lo Statuto entro <strong>30 giorni</strong>.</td></tr>
+        <tr><td>Tassa di Fondazione</td><td><strong>200 Mo</strong> una tantum + <strong>10 Mo mensili</strong> (Fondo di Categoria). Include: emissione del Sigillo di Gilda in argento incantato.</td></tr>
+        <tr><td>Cauzione di Gilda</td><td><strong>500 Mo</strong> trattenuti dall'U.R.V. come garanzia collettiva. Restituiti allo scioglimento regolare.</td></tr>
+      </tbody>
+    </table>`)}
+
+    <h4 style="font-family:'Uncial Antiqua',serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin:20px 0 10px">6.2 Gradi Interni della Gilda</h4>
+    <p style="color:var(--text3);font-size:.84rem;margin-bottom:12px;font-style:italic">Ogni Gilda ha una gerarchia interna formale, riconosciuta dalla Camera del Commercio.</p>
+    ${tableWrap(`<table>
+      <thead><tr><th>Grado</th><th>Requisito</th><th>Privilegi e Doveri</th></tr></thead>
+      <tbody>
+        <tr class="row-app"><td>Apprendista</td><td>Mestiere LV1</td><td>Accesso alla sede e ai materiali comuni. Nessun voto nelle riunioni. Quota: <strong>5 Mo/mese</strong>.</td></tr>
+        <tr class="row-art"><td>Artigiano</td><td>Mestiere LV2 + P.M.C.</td><td>Voto consultivo nelle riunioni. Accesso ai bandi della Gilda. Quota: <strong>15 Mo/mese</strong>.</td></tr>
+        <tr class="row-mst"><td>Mastro</td><td>Mestiere LV3 + P.M.T. o P.A.S.V.</td><td>Voto deliberativo. Può proporre cambiamenti allo Statuto. Accesso a commesse riservate. Quota: <strong>30 Mo/mese</strong>.</td></tr>
+        <tr class="row-gran"><td>Gran Mastro</td><td>Mestiere LV4 + P.O.E.</td><td>Uno per Gilda. Eletto dai Mastri. Rappresenta la Gilda davanti al Marchesato. Quota: <strong>0</strong> (esentato, ma dedica 1 DT/mese alla Gilda).</td></tr>
+        <tr class="row-on"><td>Membro Onorario</td><td>Assegnato dal Gran Mastro</td><td>Titolo onorifico senza doveri. Può consultare l'Archivio della Gilda. Nessuna quota.</td></tr>
+      </tbody>
+    </table>`)}
+
+    <h4 style="font-family:'Uncial Antiqua',serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin:20px 0 10px">6.3 Gilde Riconosciute di Arcadia</h4>
+    <div class="gilde-table-wrap">
+    ${tableWrap(`<table>
+      <thead><tr><th>Nome Gilda</th><th>Mestieri Primari</th><th>Ruolo nel Marchesato</th></tr></thead>
+      <tbody>
+        <tr><td>Gilda dei Fabbri e Corazzai</td><td>Metallurgo · Artigiano</td><td style="color:var(--text2)">Forniture militari, armature su commissione, manutenzione arsenale cittadino.</td></tr>
+        <tr><td>Gilda delle Spezie e dei Veleni</td><td>Alchimista</td><td style="color:var(--text2)">Fornitura ospedali, commercio di pozioni, controllo del mercato nero alchemico.</td></tr>
+        <tr><td>Gilda dei Costruttori</td><td>Architetto · Falegname</td><td style="color:var(--text2)">Opere pubbliche, edifici civili, manutenzione delle mura cittadine.</td></tr>
+        <tr><td>Gilda dei Tessitori e Pellicciai</td><td>Sarto</td><td style="color:var(--text2)">Abiti nobiliari, armature leggere, forniture per le cerimonie di Corte.</td></tr>
+        <tr><td>Gilda degli Scribi e Cartografi</td><td>Artista</td><td style="color:var(--text2)">Mappe ufficiali, pergamene legali, archivio storico del Marchesato.</td></tr>
+        <tr><td>Gilda dell'Osteria e del Gusto</td><td>Oste</td><td style="color:var(--text2)">Standard gastronomici, taverne certificate, forniture per banchetti della Corte.</td></tr>
+        <tr><td>Gilda delle Arti Combinate</td><td>Mista (tutte le categorie)</td><td style="color:var(--text2)">Commesse multidisciplinari, grandi opere che richiedono più mestieri.</td></tr>
+      </tbody>
+    </table>`)}
+    </div>
+  </div>`,
+
+benefici: () => `
+  <div class="doc-section">
+    ${sectionTitle('✦', '7. Benefici Esclusivi delle Gilde')}
+    <div class="card-grid">
+      ${[
+        ['🏆','Monopolio di Categoria','La Gilda può richiedere all\'U.R.V. un <strong>Privilegio di Settore</strong>: per 1 anno, le commesse pubbliche di quel tipo vengono assegnate preferenzialmente alle Imprese affiliate. Costo: 100 Mo + voto del Consiglio.'],
+        ['📚','Archivio della Gilda','Le Gilde riconosciute mantengono un archivio di Progetti (ricette, schemi, planimetrie). I membri possono studiarli riducendo del <strong>50% il costo in Mo e DT</strong> per imparare un Progetto.'],
+        ['🤝','Fondo di Solidarietà','Se un\'Impresa affiliata subisce una sanzione grave, il Fondo di Categoria può coprire fino al <strong>40% della multa</strong>, a discrezione del Gran Mastro e previo voto dei Mastri.'],
+        ['🔖','Certificazione di Qualità','Un\'opera marcheggiata col Sigillo di Gilda vale il <strong>+20% sul mercato</strong>. Il Gran Mastro può revocare il diritto al Sigillo a un\'Impresa che abbassa la qualità.'],
+        ['📰','Rete di Informazioni','Le Gilde hanno accesso a informazioni di mercato privilegiate: prezzi all\'ingrosso, arrivi di materie prime, nuovi bandi del Marchesato. I membri ricevono un <strong>Bollettino mensile</strong>.'],
+        ['🏛️','Rappresentanza al Consiglio','Ogni Gilda riconosciuta ha un seggio nel <strong>Consiglio dei Mercanti di Arcadia</strong>. Il Gran Mastro partecipa alle riunioni mensili sulle politiche commerciali.'],
+        ['⚖️','Protezione Legale Collettiva','Se un membro viene accusato ingiustamente, la Gilda può fornire un <strong>Avvocato del Marchesato</strong> (costo coperto dal Fondo di Categoria) e testimoniare davanti all\'U.R.V.'],
+      ].map(([e,t,d]) => `<div class="card gold-border"><h4>${e} ${t}</h4><p>${d}</p></div>`).join('')}
+    </div>
+  </div>`,
+
+sanzioni: () => `
+  <div class="doc-section">
+    ${sectionTitle('⚠️', '8. Sanzioni Specifiche per Imprese e Gilde')}
+    <p style="color:var(--text3);font-size:.86rem;margin-bottom:14px;font-style:italic">Le sanzioni del Codice delle Patenti si applicano ai singoli artigiani. Quelle qui elencate si applicano invece all'Impresa o alla Gilda come entità giuridica.</p>
+    ${tableWrap(`<table>
+      <thead><tr><th>Gravità</th><th>Infrazione</th><th>Sanzione</th></tr></thead>
+      <tbody>
+        <tr class="sanz-lieve">
+          <td>Lieve</td>
+          <td>Mancata dichiarazione annuale. Ritardo tassa trimestrale (fino a 30 gg). Timbro d'Impresa non apposto su un'opera.</td>
+          <td>Multa: <strong>50 Mo</strong>. Obbligo di regolarizzazione entro 15 giorni.</td>
+        </tr>
+        <tr class="sanz-grave">
+          <td>Grave</td>
+          <td>Falsa dichiarazione di fatturato. Utilizzo del Timbro dopo la scadenza. Produzione oltre il livello delle Patenti. Socio non registrato che esercita come socio.</td>
+          <td>Multa: <strong>200 Mo</strong>. Sospensione 3 mesi. Revisione dell'Atto Costitutivo obbligatoria.</td>
+        </tr>
+        <tr class="sanz-graviss">
+          <td>Gravissima</td>
+          <td>Frode ai danni del Marchesato. Produzione di materiali vietati. Protezione di un socio con Patente revocata.</td>
+          <td>Scioglimento coatto. Confisca della cassa comune. Tutti i soci ricevono il 2° Sigillo Spezzato. Il Responsabile riceve il 3°.</td>
+        </tr>
+        <tr class="sanz-gilda-g">
+          <td>Gilda — Grave</td>
+          <td>Gilda che copre infrazioni di una Impresa affiliata. Uso del Sigillo su opere non qualificate. Mancato pagamento Fondo Categoria per 3+ mesi.</td>
+          <td>Multa: <strong>500 Mo</strong>. Sospensione Sigillo 6 mesi. Il Gran Mastro riceve il 1° Sigillo Spezzato.</td>
+        </tr>
+        <tr class="sanz-gilda-r">
+          <td>Gilda — Revoca</td>
+          <td>Gestione sistematica di attività illegali. Coinvolgimento in eversione contro il Marchesato.</td>
+          <td>Scioglimento coatto. Cauzione 500 Mo confiscata. Tutte le Imprese affiliate perdono i benefici e vengono revisionate singolarmente.</td>
+        </tr>
+      </tbody>
+    </table>`)}
+  </div>`,
+
+costi: () => `
+  <div class="doc-section">
+    ${sectionTitle('🪙', '9. Riepilogo Costi di Fondazione')}
+    ${tableWrap(`<table>
+      <thead><tr><th>Ente</th><th>Tassa una tantum</th><th>Struttura Minima</th><th>Ricorrente</th></tr></thead>
+      <tbody>
+        <tr class="row-pmc"><td>Bottega Artigiana (P.M.C.)</td><td>75 Mo</td><td>LV1 (es. Magazzino 150 Mo)</td><td>Tassa 1%/mese</td></tr>
+        <tr class="row-pmt"><td>Officina Tecnica (P.M.T.)</td><td>150 Mo</td><td>LV1 + Forgia (400+ Mo)</td><td>Tassa 1%/mese</td></tr>
+        <tr class="row-pasv"><td>Studio Alchemico (P.A.S.V.)</td><td>200 Mo</td><td>LV1 + Stanza Esp. (400+ Mo)</td><td>Tassa 1%/mese</td></tr>
+        <tr class="row-poe"><td>Bottega Mastrale (P.O.E.)</td><td>400 Mo</td><td>LV2 minima (700+ Mo)</td><td>Tassa 1%/mese</td></tr>
+        <tr><td style="color:var(--purple2)">Impresa Mista</td><td>Somma patenti + 50 Mo</td><td>LV1 (adeguata ai mestieri)</td><td>Tassa 1%/mese</td></tr>
+        <tr class="row-gran"><td>Gilda (qualsiasi categoria)</td><td>200 Mo + 500 Mo cauzione</td><td>LV2 dedicata (700+ Mo)</td><td>10 Mo/mese fisso + 1%</td></tr>
+      </tbody>
+    </table>`)}
+    <div class="note-box">⚠ <strong>Nota:</strong> Il costo delle strutture riportato è il costo dei <strong>materiali</strong>. Il Downtime di costruzione è a carico dell'Architetto socio (o commissionato a un Architetto esterno). La tassa dell'1% mensile si applica al <strong>fatturato dichiarato</strong>, non ai profitti.</div>
+  </div>`,
+};
+
+// ════════════════════════════════════════════════
+//  RENDER LICENZE
+// ════════════════════════════════════════════════
+const RENDER_LICENZE = {
+
+panoramica: () => `
+  <div class="page-hero licenze">
+    <h2>⚖️ Codice Patenti di Arcadia<br><small style="font-size:.55em;color:var(--text3);letter-spacing:.08em">Ufficio del Registro e della Vigilanza (U.R.V.) — Regno di Arcadia</small></h2>
+    <p>Il presente sistema regola l'esercizio dei mestieri, la compravendita di manufatti e l'uso di sostanze speciali nel Regno. Ogni licenza ha una <strong style="color:var(--gold)">durata triennale</strong> e il possesso del <strong style="color:var(--gold)">Sigillo di Riconoscimento</strong> (medaglione incantato) garantisce lo status legale dell'artigiano.</p>
+  </div>`,
+
+vantaggi: () => `
+  <div class="doc-section">
+    ${sectionTitle('✦', 'Vantaggi Generali del Licenziatario')}
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px">Il possesso di una patente valida offre benefici immediati a ogni cittadino di Arcadia:</p>
+    <div class="card-grid">
+      ${[
+        ['🛡️','Protezione Legale','Intervento prioritario della Guardia cittadina in caso di truffe o controversie commerciali.'],
+        ['📋','Accesso ai Grandi Appalti','Solo i licenziatari possono partecipare a commesse statali superiori alle <strong>1.000 Mo</strong>.'],
+        ['⭐','Prestigio Professionale','Vantaggio alle prove di <strong>Persuasione</strong> legate al proprio mestiere mostrando il Sigillo.'],
+        ['🏥','Assicurazione Statale','Copertura del <strong>30% dei danni</strong> in caso di incidenti documentati in laboratorio.'],
+        ['🏠','Diritto di Bottega','Esenzione dai controlli arbitrari e diritto di esporre l\'insegna ufficiale.'],
+      ].map(([e,t,d]) => `<div class="card"><h4>${e} ${t}</h4><p>${d}</p></div>`).join('')}
+    </div>
+  </div>`,
+
+quadro: () => `
+  <div class="doc-section">
+    ${sectionTitle('📋', 'Quadro Generale delle Patenti')}
+    ${tableWrap(`<table>
+      <thead><tr><th>Sigla</th><th>Denominazione</th><th style="text-align:right">Costo (3 anni)</th><th style="text-align:right">Cauzione</th><th style="text-align:right">Totale</th></tr></thead>
+      <tbody>
+        <tr class="row-pmc"><td>P.M.C.</td><td>Manifattura Comune</td><td style="text-align:right">40 Mo</td><td style="text-align:right">10 Mo</td><td style="text-align:right"><strong>50 Mo</strong></td></tr>
+        <tr class="row-pmt"><td>P.M.T.</td><td>Manifattura Tecnica</td><td style="text-align:right">85 Mo</td><td style="text-align:right">25 Mo</td><td style="text-align:right"><strong>110 Mo</strong></td></tr>
+        <tr class="row-pasv"><td>P.A.S.V.</td><td>Alchimia e Sostanze Vincolate</td><td style="text-align:right">140 Mo</td><td style="text-align:right">40 Mo</td><td style="text-align:right"><strong>180 Mo</strong></td></tr>
+        <tr class="row-poe"><td>P.O.E.</td><td>Opere Eccezionali</td><td style="text-align:right">300 Mo</td><td style="text-align:right">100 Mo</td><td style="text-align:right"><strong>400 Mo</strong></td></tr>
+      </tbody>
+    </table>`)}
+  </div>`,
+
+pmc: () => `
+  <div class="licenza-card" style="border-color:var(--common)">
+    <div class="licenza-header" style="background:rgba(96,184,64,.07)">
+      <h3 style="color:var(--common)">🟢 P.M.C. — Manifattura Comune</h3>
+      <p class="lh-meta">Costo: 40 Mo · Cauzione: 10 Mo · <strong style="color:var(--text2)">Totale: 50 Mo</strong> · Durata: 3 anni</p>
+      <p class="lh-meta" style="margin-top:4px">Ideale per: Osti, Sarti, Falegnami e Artisti.</p>
+    </div>
+    <div class="licenza-body">
+      <div class="licenza-block">
+        <h5>✦ Permessi</h5>
+        <ul>
+          <li>Vendita di beni comuni (cibo, abiti, mobili, arte non magica).</li>
+          <li>Commesse fino a <strong style="color:var(--gold)">500 Mo</strong>.</li>
+        </ul>
+      </div>
+      <div class="licenza-block">
+        <h5>📦 Materiali</h5>
+        <ul>
+          <li>Acquisto libero di materie prime ordinarie.</li>
+          <li>Alcol fino al Grado II.</li>
+        </ul>
+      </div>
+      <div class="licenza-block">
+        <h5>⚠ Limiti</h5>
+        <ul>
+          <li>Divieto assoluto di produrre veleni o sostanze alchemiche pure.</li>
+        </ul>
+      </div>
+    </div>
+  </div>`,
+
+pmt: () => `
+  <div class="licenza-card" style="border-color:var(--uncommon)">
+    <div class="licenza-header" style="background:rgba(90,138,216,.07)">
+      <h3 style="color:var(--uncommon)">🔵 P.M.T. — Manifattura Tecnica</h3>
+      <p class="lh-meta">Costo: 85 Mo · Cauzione: 25 Mo · <strong style="color:var(--text2)">Totale: 110 Mo</strong> · Durata: 3 anni</p>
+      <p class="lh-meta" style="margin-top:4px">Ideale per: Fabbri, Gioiellieri, Architetti e Cartografi ufficiali.</p>
+    </div>
+    <div class="licenza-body">
+      <div class="licenza-block">
+        <h5>✦ Permessi</h5>
+        <ul>
+          <li>Produzione di armi, armature pesanti, strutture civili/militari.</li>
+          <li>Oggetti magici <strong style="color:var(--gold)">Comuni</strong>.</li>
+          <li>Emissione di documenti legali e mappe ufficiali.</li>
+        </ul>
+      </div>
+      <div class="licenza-block">
+        <h5>📦 Materiali</h5>
+        <ul>
+          <li>Cristalli conduttori (Hextech Grado I).</li>
+          <li>Leghe speciali (Acciaio di Noxus, ecc.).</li>
+        </ul>
+      </div>
+      <div class="licenza-block">
+        <h5>⚠ Obblighi</h5>
+        <ul>
+          <li>Responsabilità legale sulla stabilità delle strutture costruite.</li>
+          <li>Tracciabilità delle armi da guerra.</li>
+        </ul>
+      </div>
+    </div>
+  </div>`,
+
+pasv: () => `
+  <div class="licenza-card" style="border-color:var(--amber)">
+    <div class="licenza-header" style="background:rgba(212,149,74,.07)">
+      <h3 style="color:var(--amber)">🟠 P.A.S.V. — Alchimia e Sostanze Vincolate</h3>
+      <p class="lh-meta">Costo: 140 Mo · Cauzione: 40 Mo · <strong style="color:var(--text2)">Totale: 180 Mo</strong> · Durata: 3 anni</p>
+      <p class="lh-meta" style="margin-top:4px">Ideale per: Alchimisti e Artigiani Hextech.</p>
+    </div>
+    <div class="licenza-body">
+      <div class="licenza-block">
+        <h5>✦ Permessi</h5>
+        <ul>
+          <li>Produzione di pozioni fino a <strong style="color:var(--gold)">Non Comuni</strong>.</li>
+          <li>Veleni etichettati e motori Hextech.</li>
+          <li><strong style="color:var(--gold)">Unica licenza</strong> che permette l'acquisto di Inchiostri Magici.</li>
+        </ul>
+      </div>
+      <div class="licenza-block">
+        <h5>📦 Materiali</h5>
+        <ul>
+          <li>Reagenti rari (Sangue di Demone, Ghiandola di Drago).</li>
+          <li>Inchiostri fino al Grado III.</li>
+        </ul>
+      </div>
+      <div class="licenza-block">
+        <h5>⚠ Rigore</h5>
+        <ul>
+          <li>Ogni boccetta è tracciata tramite il <strong style="color:var(--gold)">Marchio Spettrale</strong>.</li>
+          <li>Ogni transazione registrata nel Libretto degli Acquisti.</li>
+        </ul>
+      </div>
+    </div>
+  </div>`,
+
+poe: () => `
+  <div class="licenza-card" style="border-color:var(--legendary)">
+    <div class="licenza-header" style="background:rgba(216,176,32,.07)">
+      <h3 style="color:var(--legendary)">🟡 P.O.E. — Opere Eccezionali</h3>
+      <p class="lh-meta">Costo: 300 Mo · Cauzione: 100 Mo · <strong style="color:var(--text2)">Totale: 400 Mo</strong> · Durata: 3 anni</p>
+      <p class="lh-meta" style="margin-top:4px">Riservata ai Maestri Artigiani (Livello 4+).</p>
+    </div>
+    <div class="licenza-body">
+      <div class="licenza-block">
+        <h5>✦ Permessi</h5>
+        <ul>
+          <li>Accesso alle commesse della Corte e titoli onorifici.</li>
+        </ul>
+      </div>
+      <div class="licenza-block">
+        <h5>🏆 Privilegi</h5>
+        <ul>
+          <li>Diritto di formare fino a <strong style="color:var(--gold)">3 apprendisti</strong>.</li>
+          <li>Certificare la qualità delle opere (<strong style="color:var(--gold)">+20% valore di mercato</strong>).</li>
+        </ul>
+      </div>
+      <div class="licenza-block">
+        <h5>📦 Materiali</h5>
+        <ul>
+          <li>Accesso a materiali speciali su approvazione del Consiglio.</li>
+        </ul>
+      </div>
+    </div>
+  </div>`,
+
+inchiostri: () => `
+  <div class="doc-section">
+    ${sectionTitle('🖋️', 'Sezione Tecnica: Materiali Vincolati e Inchiostri')}
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px">L'uso di inchiostri magici è strettamente regolamentato per evitare abusi arcani. <strong style="color:var(--gold)">Solo la P.A.S.V.</strong> permette l'acquisto di inchiostri magici.</p>
+    ${tableWrap(`<table>
+      <thead><tr><th>Grado Inchiostro</th><th>Patente Richiesta</th><th>Limite (3 anni)</th><th>Uso Tipico</th></tr></thead>
+      <tbody>
+        <tr class="row-pmc">
+          <td><span class="dot-i" style="background:var(--common)"></span>Grado I</td>
+          <td>P.M.C.</td>
+          <td>Uso libero entro soglie ordinarie</td>
+          <td>Inchiostri comuni, scrittura base, documenti</td>
+        </tr>
+        <tr class="row-pmt">
+          <td><span class="dot-i" style="background:var(--uncommon)"></span>Grado II</td>
+          <td>P.M.T.</td>
+          <td>Tracciato nel Libretto degli Acquisti</td>
+          <td>Mappe ufficiali, documenti legali sigillati, Hextech Grado I</td>
+        </tr>
+        <tr class="row-pasv">
+          <td><span class="dot-i" style="background:var(--amber)"></span>Grado III</td>
+          <td>P.A.S.V.</td>
+          <td>Tracciato con Marchio Spettrale</td>
+          <td>Pergamene magiche, Tattoo magici, componenti alchemici avanzati</td>
+        </tr>
+        <tr class="row-poe">
+          <td><span class="dot-i" style="background:var(--legendary)"></span>Grado IV+</td>
+          <td>P.O.E. + approvazione U.R.V.</td>
+          <td>Approvazione caso per caso</td>
+          <td>Manufatti leggendari, opere della Corte, Grimori avanzati</td>
+        </tr>
+      </tbody>
+    </table>`)}
+    <div class="note-box">⚠ <strong>Marchio Spettrale:</strong> Ogni fiala di inchiostro di Grado III o superiore viene marchiata spettralmente dall'U.R.V. al momento dell'acquisto. Il marchio registra automaticamente data, acquirente e quantità. La rimozione del marchio è un reato grave.</div>
+  </div>`,
+};
+
+// ════════════════════════════════════════════════
+//  RENDER CONTENT
+// ════════════════════════════════════════════════
+function renderContent() {
+  const el = document.getElementById('content');
+  const map = currentPage === 'gilde' ? RENDER_GILDE : RENDER_LICENZE;
+  const fn = map[currentSection];
+  el.innerHTML = fn ? fn() : '<div style="color:var(--text3);padding:40px;text-align:center">Sezione non trovata.</div>';
+}
+
+// ════════════════════════════════════════════════
+//  STATE SETTERS
+// ════════════════════════════════════════════════
+function setPage(p) {
+  currentPage = p;
+  currentSection = 'panoramica';
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function setSection(s) {
+  currentSection = s;
+  render();
+  closeDrawer();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function render() {
+  renderTabs();
+  renderSideNav();
+  renderContent();
+  syncMobile();
+  const btn = document.getElementById('mobileNavBtn');
+  if (btn) btn.style.display = 'flex';
+}
+
+render();
+</script>
+</body>
+</html>
