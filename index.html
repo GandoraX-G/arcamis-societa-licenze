@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚖️ Gilde & Licenze di Arcamis</title>
+<title>⚖️ Società & Licenze di Arcamis</title>
 <style>
   :root {
     --bg: #1a1510; --bg2: #211c15; --bg3: #28211a;
@@ -320,8 +320,8 @@
 <body>
 
 <header>
-  <h1>⚖️ Gilde &amp; Licenze di Arcamis ⚖️</h1>
-  <p>Imprese · Gilde · Patenti · Camera del Commercio — Arcadia</p>
+  <h1>⚖️ Società &amp; Licenze di Arcamis ⚖️</h1>
+  <p>Imprese · Società · Patenti · Camera del Commercio — Arcadia</p>
 </header>
 
 <div class="tabs" id="tabs"></div>
@@ -358,8 +358,8 @@ const NAV = {
     { id:'tipologie',   label:'⚒️ Tipologie' },
     { id:'gestione',    label:'💰 Gestione' },
     { id:'sede',        label:'🏗️ Sede Fisica' },
-    { id:'gilda',       label:'🏛️ Costituzione Gilda' },
-    { id:'benefici',    label:'✦ Benefici Gilda' },
+    { id:'gilda',       label:'🏛️ Costituzione Società' },
+    { id:'benefici',    label:'✦ Benefici Società' },
     { id:'sanzioni',    label:'⚠️ Sanzioni' },
     { id:'costi',       label:'🪙 Riepilogo Costi' },
   ],
@@ -386,7 +386,7 @@ function syncMobile() { const d = document.getElementById('mobileDrawerNav'); co
 //  RENDER TABS
 // ════════════════════════════════════════════════
 function renderTabs() {
-  const labels = { gilde:'🏛️ Gilde &amp; Imprese', licenze:'⚖️ Licenze &amp; Patenti' };
+  const labels = { gilde:'🏛️ Società &amp; Imprese', licenze:'⚖️ Licenze &amp; Patenti' };
   const el = document.getElementById('tabs');
   el.innerHTML = PAGES.map(p =>
     `<button class="tab-btn ${p===currentPage?'active':''}" onclick="setPage('${p}')">${labels[p]}</button>`
@@ -422,23 +422,23 @@ const RENDER_GILDE = {
 
 panoramica: () => `
   <div class="page-hero gilde">
-    <h2>🏛️ Codice delle Imprese e delle Gilde<br><small style="font-size:.55em;color:var(--text3);letter-spacing:.08em">Camera del Commercio e dei Mestieri — Arcadia</small></h2>
-    <p>Il presente Codice regola la <strong style="color:var(--gold)">costituzione, l'operatività e lo scioglimento</strong> delle Imprese e delle Gilde nel regno di Arcadia.<br>
+    <h2>🏛️ Codice delle Imprese e delle Società<br><small style="font-size:.55em;color:var(--text3);letter-spacing:.08em">Camera del Commercio e dei Mestieri — Arcadia</small></h2>
+    <p>Il presente Codice regola la <strong style="color:var(--gold)">costituzione, l'operatività e lo scioglimento</strong> delle Imprese e delle Società nel regno di Arcadia.<br>
     Un'<strong style="color:var(--gold)">Impresa</strong> è una società formale tra due o più personaggi con sede fisica, capacità produttiva condivisa e responsabilità collettiva verso l'U.R.V. e il Marchesato.<br>
-    Una <strong style="color:var(--gold2)">Gilda</strong> è invece un'associazione di categoria che raggruppa più Imprese o artigiani indipendenti sotto un marchio comune, con accesso a privilegi esclusivi.</p>
+    Una <strong style="color:var(--gold2)">Società</strong> è invece un'associazione di categoria che raggruppa più Imprese o artigiani indipendenti sotto un marchio comune, con accesso a privilegi esclusivi.</p>
   </div>
 
   <div class="doc-section">
-    ${sectionTitle('⚖️', 'Impresa vs Gilda — Differenze Fondamentali')}
+    ${sectionTitle('⚖️', 'Impresa vs Società — Differenze Fondamentali')}
     ${tableWrap(`<table>
-      <thead><tr><th>Aspetto</th><th>Impresa</th><th>Gilda</th></tr></thead>
+      <thead><tr><th>Aspetto</th><th>Impresa</th><th>Società</th></tr></thead>
       <tbody>
         <tr><td>Definizione</td><td>Società tra 2–6 PG con mestiere comune o complementare, sede fisica e cassa condivisa.</td><td>Associazione che unisce più Imprese (o artigiani indip.) sotto un simbolo e regolamento comune.</td></tr>
         <tr><td>Fondatori</td><td>Min. 2, max 6 PG. Almeno uno deve avere una Patente attiva.</td><td>Min. 3 Imprese registrate, oppure min. 5 artigiani indip. con Patente.</td></tr>
         <tr><td>Sede</td><td>Obbligatoria. Almeno una struttura LV1 costruita dall'Architetto.</td><td>Obbligatoria. Sede propria + sede delle Imprese affiliate.</td></tr>
         <tr><td>Registrazione</td><td>Camera del Commercio di Arcadia. Costo una tantum.</td><td>Camera del Commercio + approvazione dell'U.R.V. Costo più elevato.</td></tr>
         <tr><td>Cassa Comune</td><td>Sì. Gestita dal Responsabile Finanziario eletto dai soci.</td><td>Sì, con Fondo di Categoria aggiuntivo (quota mensile delle Imprese affiliate).</td></tr>
-        <tr><td>Marchio</td><td>Timbro d'Impresa (ottone). Apposto su ogni opera venduta.</td><td>Sigillo di Gilda (argento incantato). Apposto su opere di Imprese affiliate.</td></tr>
+        <tr><td>Marchio</td><td>Timbro d'Impresa (ottone). Apposto su ogni opera venduta.</td><td>Sigillo di Società (argento incantato). Apposto su opere di Imprese affiliate.</td></tr>
         <tr><td>Scioglimento</td><td>Voto unanime dei soci oppure revoca dall'U.R.V.</td><td>Voto di 2/3 delle Imprese affiliate oppure intervento del Marchesato.</td></tr>
       </tbody>
     </table>`)}
@@ -527,7 +527,7 @@ tipologie: () => `
         tassa:'200 Mo + struttura LV1 + Stanza degli Esperimenti o equivalente',
         mestieri:'Alchimista · Artigiano Hextech',
         prod:'Pozioni, veleni registrati, inchiostri magici, componenti Hextech',
-        benefici:['Libretto degli Acquisti Collettivo: un unico Libretto per tutta l\'Impresa.','Limite di acquisto inchiostri aumentato del 30%.','Accesso al Catalogo Riservato dei Reagenti dell\'U.R.V. (prezzi calmierati).','Possibilità di contratti di fornitura continuativa con ospedali e gilde militari.'],
+        benefici:['Libretto degli Acquisti Collettivo: un unico Libretto per tutta l\'Impresa.','Limite di acquisto inchiostri aumentato del 30%.','Accesso al Catalogo Riservato dei Reagenti dell\'U.R.V. (prezzi calmierati).','Possibilità di contratti di fornitura continuativa con ospedali e società militari.'],
         limiti:['Ispezione U.R.V. obbligatoria ogni 6 mesi.','Il Mastro Artigiano risponde penalmente di ogni sostanza prodotta.','Produzione di veleni vietata senza registro firmato per ogni vendita.'],
       },
       {
@@ -623,47 +623,47 @@ sede: () => `
 
 gilda: () => `
   <div class="doc-section">
-    ${sectionTitle('🏛️', '6. Costituzione di una Gilda')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px;line-height:1.6">Una Gilda è il passo successivo: non più una singola Impresa, ma un'organizzazione che raggruppa più artigiani o Imprese sotto un simbolo comune. Le Gilde sono riconosciute dal Marchesato e godono di <strong style="color:var(--gold)">privilegi esclusivi</strong>, ma sono sottoposte a controlli più stringenti.</p>
+    ${sectionTitle('🏛️', '6. Costituzione di una Società')}
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px;line-height:1.6">Una Società è il passo successivo: non più una singola Impresa, ma un'organizzazione che raggruppa più artigiani o Imprese sotto un simbolo comune. Le Società sono riconosciute dal Marchesato e godono di <strong style="color:var(--gold)">privilegi esclusivi</strong>, ma sono sottoposte a controlli più stringenti.</p>
 
     <h4 style="font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">6.1 Requisiti di Fondazione</h4>
     ${tableWrap(`<table>
       <thead><tr><th>Requisito</th><th>Dettaglio</th></tr></thead>
       <tbody>
         <tr><td>Imprese Affiliate</td><td>Minimo 3 Imprese registrate (o 5 artigiani indipendenti con Patente). Almeno una deve avere soci con P.M.T. o superiore.</td></tr>
-        <tr><td>Sede della Gilda</td><td>Struttura LV2 dedicata, non condivisa con le Imprese affiliate. Costruita ex-novo o acquistata.</td></tr>
-        <tr><td>Statuto di Gilda</td><td>Documento con: nome, emblema, categoria, norme interne, quote mensili delle affiliate, regole di espulsione.</td></tr>
-        <tr><td>Approvazione U.R.V.</td><td>A differenza delle Imprese, la Gilda richiede l'approvazione esplicita dell'U.R.V. Una commissione di 3 funzionari esamina lo Statuto entro <strong>30 giorni</strong>.</td></tr>
-        <tr><td>Tassa di Fondazione</td><td><strong>200 Mo</strong> una tantum + <strong>10 Mo mensili</strong> (Fondo di Categoria). Include: emissione del Sigillo di Gilda in argento incantato.</td></tr>
-        <tr><td>Cauzione di Gilda</td><td><strong>500 Mo</strong> trattenuti dall'U.R.V. come garanzia collettiva. Restituiti allo scioglimento regolare.</td></tr>
+        <tr><td>Sede della Società</td><td>Struttura LV2 dedicata, non condivisa con le Imprese affiliate. Costruita ex-novo o acquistata.</td></tr>
+        <tr><td>Statuto di Società</td><td>Documento con: nome, emblema, categoria, norme interne, quote mensili delle affiliate, regole di espulsione.</td></tr>
+        <tr><td>Approvazione U.R.V.</td><td>A differenza delle Imprese, la Società richiede l'approvazione esplicita dell'U.R.V. Una commissione di 3 funzionari esamina lo Statuto entro <strong>30 giorni</strong>.</td></tr>
+        <tr><td>Tassa di Fondazione</td><td><strong>200 Mo</strong> una tantum + <strong>10 Mo mensili</strong> (Fondo di Categoria). Include: emissione del Sigillo di Società in argento incantato.</td></tr>
+        <tr><td>Cauzione di Società</td><td><strong>500 Mo</strong> trattenuti dall'U.R.V. come garanzia collettiva. Restituiti allo scioglimento regolare.</td></tr>
       </tbody>
     </table>`)}
 
-    <h4 style="font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin:20px 0 10px">6.2 Gradi Interni della Gilda</h4>
-    <p style="color:var(--text3);font-size:.84rem;margin-bottom:12px;font-style:italic">Ogni Gilda ha una gerarchia interna formale, riconosciuta dalla Camera del Commercio.</p>
+    <h4 style="font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin:20px 0 10px">6.2 Gradi Interni della Società</h4>
+    <p style="color:var(--text3);font-size:.84rem;margin-bottom:12px;font-style:italic">Ogni Società ha una gerarchia interna formale, riconosciuta dalla Camera del Commercio.</p>
     ${tableWrap(`<table>
       <thead><tr><th>Grado</th><th>Requisito</th><th>Privilegi e Doveri</th></tr></thead>
       <tbody>
         <tr class="row-app"><td>Apprendista</td><td>Mestiere LV1</td><td>Accesso alla sede e ai materiali comuni. Nessun voto nelle riunioni. Quota: <strong>5 Mo/mese</strong>.</td></tr>
-        <tr class="row-art"><td>Artigiano</td><td>Mestiere LV2 + P.M.C.</td><td>Voto consultivo nelle riunioni. Accesso ai bandi della Gilda. Quota: <strong>15 Mo/mese</strong>.</td></tr>
+        <tr class="row-art"><td>Artigiano</td><td>Mestiere LV2 + P.M.C.</td><td>Voto consultivo nelle riunioni. Accesso ai bandi della Società. Quota: <strong>15 Mo/mese</strong>.</td></tr>
         <tr class="row-mst"><td>Mastro</td><td>Mestiere LV3 + P.M.T. o P.A.S.V.</td><td>Voto deliberativo. Può proporre cambiamenti allo Statuto. Accesso a commesse riservate. Quota: <strong>30 Mo/mese</strong>.</td></tr>
-        <tr class="row-gran"><td>Gran Mastro</td><td>Mestiere LV4 + P.O.E.</td><td>Uno per Gilda. Eletto dai Mastri. Rappresenta la Gilda davanti al Marchesato. Quota: <strong>0</strong> (esentato, ma dedica 1 DT/mese alla Gilda).</td></tr>
-        <tr class="row-on"><td>Membro Onorario</td><td>Assegnato dal Gran Mastro</td><td>Titolo onorifico senza doveri. Può consultare l'Archivio della Gilda. Nessuna quota.</td></tr>
+        <tr class="row-gran"><td>Gran Mastro</td><td>Mestiere LV4 + P.O.E.</td><td>Uno per Società. Eletto dai Mastri. Rappresenta la Società davanti al Marchesato. Quota: <strong>0</strong> (esentato, ma dedica 1 DT/mese alla Società).</td></tr>
+        <tr class="row-on"><td>Membro Onorario</td><td>Assegnato dal Gran Mastro</td><td>Titolo onorifico senza doveri. Può consultare l'Archivio della Società. Nessuna quota.</td></tr>
       </tbody>
     </table>`)}
 
-    <h4 style="font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin:20px 0 10px">6.3 Gilde Riconosciute di Arcadia</h4>
+    <h4 style="font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;color:var(--gold);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin:20px 0 10px">6.3 Società Riconosciute di Arcadia</h4>
     <div class="gilde-table-wrap">
     ${tableWrap(`<table>
-      <thead><tr><th>Nome Gilda</th><th>Mestieri Primari</th><th>Ruolo nel Marchesato</th></tr></thead>
+      <thead><tr><th>Nome Società</th><th>Mestieri Primari</th><th>Ruolo nel Marchesato</th></tr></thead>
       <tbody>
-        <tr><td>Gilda dei Fabbri e Corazzai</td><td>Metallurgo · Artigiano</td><td style="color:var(--text2)">Forniture militari, armature su commissione, manutenzione arsenale cittadino.</td></tr>
-        <tr><td>Gilda delle Spezie e dei Veleni</td><td>Alchimista</td><td style="color:var(--text2)">Fornitura ospedali, commercio di pozioni, controllo del mercato nero alchemico.</td></tr>
-        <tr><td>Gilda dei Costruttori</td><td>Architetto · Falegname</td><td style="color:var(--text2)">Opere pubbliche, edifici civili, manutenzione delle mura cittadine.</td></tr>
-        <tr><td>Gilda dei Tessitori e Pellicciai</td><td>Sarto</td><td style="color:var(--text2)">Abiti nobiliari, armature leggere, forniture per le cerimonie di Corte.</td></tr>
-        <tr><td>Gilda degli Scribi e Cartografi</td><td>Artista</td><td style="color:var(--text2)">Mappe ufficiali, pergamene legali, archivio storico del Marchesato.</td></tr>
-        <tr><td>Gilda dell'Osteria e del Gusto</td><td>Oste</td><td style="color:var(--text2)">Standard gastronomici, taverne certificate, forniture per banchetti della Corte.</td></tr>
-        <tr><td>Gilda delle Arti Combinate</td><td>Mista (tutte le categorie)</td><td style="color:var(--text2)">Commesse multidisciplinari, grandi opere che richiedono più mestieri.</td></tr>
+        <tr><td>Società dei Fabbri e Corazzai</td><td>Metallurgo · Artigiano</td><td style="color:var(--text2)">Forniture militari, armature su commissione, manutenzione arsenale cittadino.</td></tr>
+        <tr><td>Società delle Spezie e dei Veleni</td><td>Alchimista</td><td style="color:var(--text2)">Fornitura ospedali, commercio di pozioni, controllo del mercato nero alchemico.</td></tr>
+        <tr><td>Società dei Costruttori</td><td>Architetto · Falegname</td><td style="color:var(--text2)">Opere pubbliche, edifici civili, manutenzione delle mura cittadine.</td></tr>
+        <tr><td>Società dei Tessitori e Pellicciai</td><td>Sarto</td><td style="color:var(--text2)">Abiti nobiliari, armature leggere, forniture per le cerimonie di Corte.</td></tr>
+        <tr><td>Società degli Scribi e Cartografi</td><td>Artista</td><td style="color:var(--text2)">Mappe ufficiali, pergamene legali, archivio storico del Marchesato.</td></tr>
+        <tr><td>Società dell'Osteria e del Gusto</td><td>Oste</td><td style="color:var(--text2)">Standard gastronomici, taverne certificate, forniture per banchetti della Corte.</td></tr>
+        <tr><td>Società delle Arti Combinate</td><td>Mista (tutte le categorie)</td><td style="color:var(--text2)">Commesse multidisciplinari, grandi opere che richiedono più mestieri.</td></tr>
       </tbody>
     </table>`)}
     </div>
@@ -671,24 +671,24 @@ gilda: () => `
 
 benefici: () => `
   <div class="doc-section">
-    ${sectionTitle('✦', '7. Benefici Esclusivi delle Gilde')}
+    ${sectionTitle('✦', '7. Benefici Esclusivi delle Società')}
     <div class="card-grid">
       ${[
-        ['🏆','Monopolio di Categoria','La Gilda può richiedere all\'U.R.V. un <strong>Privilegio di Settore</strong>: per 1 anno, le commesse pubbliche di quel tipo vengono assegnate preferenzialmente alle Imprese affiliate. Costo: 100 Mo + voto del Consiglio.'],
-        ['📚','Archivio della Gilda','Le Gilde riconosciute mantengono un archivio di Progetti (ricette, schemi, planimetrie). I membri possono studiarli riducendo del <strong>50% il costo in Mo e DT</strong> per imparare un Progetto.'],
+        ['🏆','Monopolio di Categoria','La Società può richiedere all\'U.R.V. un <strong>Privilegio di Settore</strong>: per 1 anno, le commesse pubbliche di quel tipo vengono assegnate preferenzialmente alle Imprese affiliate. Costo: 100 Mo + voto del Consiglio.'],
+        ['📚','Archivio della Società','Le Società riconosciute mantengono un archivio di Progetti (ricette, schemi, planimetrie). I membri possono studiarli riducendo del <strong>50% il costo in Mo e DT</strong> per imparare un Progetto.'],
         ['🤝','Fondo di Solidarietà','Se un\'Impresa affiliata subisce una sanzione grave, il Fondo di Categoria può coprire fino al <strong>40% della multa</strong>, a discrezione del Gran Mastro e previo voto dei Mastri.'],
-        ['🔖','Certificazione di Qualità','Un\'opera marcheggiata col Sigillo di Gilda vale il <strong>+20% sul mercato</strong>. Il Gran Mastro può revocare il diritto al Sigillo a un\'Impresa che abbassa la qualità.'],
-        ['📰','Rete di Informazioni','Le Gilde hanno accesso a informazioni di mercato privilegiate: prezzi all\'ingrosso, arrivi di materie prime, nuovi bandi del Marchesato. I membri ricevono un <strong>Bollettino mensile</strong>.'],
-        ['🏛️','Rappresentanza al Consiglio','Ogni Gilda riconosciuta ha un seggio nel <strong>Consiglio dei Mercanti di Arcadia</strong>. Il Gran Mastro partecipa alle riunioni mensili sulle politiche commerciali.'],
-        ['⚖️','Protezione Legale Collettiva','Se un membro viene accusato ingiustamente, la Gilda può fornire un <strong>Avvocato del Marchesato</strong> (costo coperto dal Fondo di Categoria) e testimoniare davanti all\'U.R.V.'],
+        ['🔖','Certificazione di Qualità','Un\'opera marcheggiata col Sigillo di Società vale il <strong>+20% sul mercato</strong>. Il Gran Mastro può revocare il diritto al Sigillo a un\'Impresa che abbassa la qualità.'],
+        ['📰','Rete di Informazioni','Le Società hanno accesso a informazioni di mercato privilegiate: prezzi all\'ingrosso, arrivi di materie prime, nuovi bandi del Marchesato. I membri ricevono un <strong>Bollettino mensile</strong>.'],
+        ['🏛️','Rappresentanza al Consiglio','Ogni Società riconosciuta ha un seggio nel <strong>Consiglio dei Mercanti di Arcadia</strong>. Il Gran Mastro partecipa alle riunioni mensili sulle politiche commerciali.'],
+        ['⚖️','Protezione Legale Collettiva','Se un membro viene accusato ingiustamente, la Società può fornire un <strong>Avvocato del Marchesato</strong> (costo coperto dal Fondo di Categoria) e testimoniare davanti all\'U.R.V.'],
       ].map(([e,t,d]) => `<div class="card gold-border"><h4>${e} ${t}</h4><p>${d}</p></div>`).join('')}
     </div>
   </div>`,
 
 sanzioni: () => `
   <div class="doc-section">
-    ${sectionTitle('⚠️', '8. Sanzioni Specifiche per Imprese e Gilde')}
-    <p style="color:var(--text3);font-size:.86rem;margin-bottom:14px;font-style:italic">Le sanzioni del Codice delle Patenti si applicano ai singoli artigiani. Quelle qui elencate si applicano invece all'Impresa o alla Gilda come entità giuridica.</p>
+    ${sectionTitle('⚠️', '8. Sanzioni Specifiche per Imprese e Società')}
+    <p style="color:var(--text3);font-size:.86rem;margin-bottom:14px;font-style:italic">Le sanzioni del Codice delle Patenti si applicano ai singoli artigiani. Quelle qui elencate si applicano invece all'Impresa o alla Società come entità giuridica.</p>
     ${tableWrap(`<table>
       <thead><tr><th>Gravità</th><th>Infrazione</th><th>Sanzione</th></tr></thead>
       <tbody>
@@ -708,12 +708,12 @@ sanzioni: () => `
           <td>Scioglimento coatto. Confisca della cassa comune. Tutti i soci ricevono il 2° Sigillo Spezzato. Il Responsabile riceve il 3°.</td>
         </tr>
         <tr class="sanz-gilda-g">
-          <td>Gilda — Grave</td>
-          <td>Gilda che copre infrazioni di una Impresa affiliata. Uso del Sigillo su opere non qualificate. Mancato pagamento Fondo Categoria per 3+ mesi.</td>
+          <td>Società — Grave</td>
+          <td>Società che copre infrazioni di una Impresa affiliata. Uso del Sigillo su opere non qualificate. Mancato pagamento Fondo Categoria per 3+ mesi.</td>
           <td>Multa: <strong>500 Mo</strong>. Sospensione Sigillo 6 mesi. Il Gran Mastro riceve il 1° Sigillo Spezzato.</td>
         </tr>
         <tr class="sanz-gilda-r">
-          <td>Gilda — Revoca</td>
+          <td>Società — Revoca</td>
           <td>Gestione sistematica di attività illegali. Coinvolgimento in eversione contro il Marchesato.</td>
           <td>Scioglimento coatto. Cauzione 500 Mo confiscata. Tutte le Imprese affiliate perdono i benefici e vengono revisionate singolarmente.</td>
         </tr>
@@ -732,7 +732,7 @@ costi: () => `
         <tr class="row-pasv"><td>Studio Alchemico (P.A.S.V.)</td><td>200 Mo</td><td>LV1 + Stanza Esp. (400+ Mo)</td><td>Tassa 1%/mese</td></tr>
         <tr class="row-poe"><td>Bottega Mastrale (P.O.E.)</td><td>400 Mo</td><td>LV2 minima (700+ Mo)</td><td>Tassa 1%/mese</td></tr>
         <tr><td style="color:var(--purple2)">Impresa Mista</td><td>Somma patenti + 50 Mo</td><td>LV1 (adeguata ai mestieri)</td><td>Tassa 1%/mese</td></tr>
-        <tr class="row-gran"><td>Gilda (qualsiasi categoria)</td><td>200 Mo + 500 Mo cauzione</td><td>LV2 dedicata (700+ Mo)</td><td>10 Mo/mese fisso + 1%</td></tr>
+        <tr class="row-gran"><td>Società (qualsiasi categoria)</td><td>200 Mo + 500 Mo cauzione</td><td>LV2 dedicata (700+ Mo)</td><td>10 Mo/mese fisso + 1%</td></tr>
       </tbody>
     </table>`)}
     <div class="note-box">⚠ <strong>Nota:</strong> Il costo delle strutture riportato è il costo dei <strong>materiali</strong>. Il Downtime di costruzione è a carico dell'Architetto socio (o commissionato a un Architetto esterno). La tassa dell'1% mensile si applica al <strong>fatturato dichiarato</strong>, non ai profitti.</div>
