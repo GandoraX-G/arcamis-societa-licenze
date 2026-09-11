@@ -15,7 +15,7 @@ function abbr(s) {
 function patBtn(sigla) {
   var p = DATA.patenti.filter(function(x){ return x.sigla === sigla; })[0];
   if (!p) return abbr(sigla);
-  return '<button class="patente-badge '+p.cls+' tip" data-tip="Vai alla Patente '+sigla+'" onclick="goto(\u0027licenze\u0027,\u0027'+p.sezione+'\u0027)">'+sigla+'</button>';
+  return '<button class="patente-badge '+p.cls.replace('row-','pat-')+' tip" data-tip="Vai alla Patente '+sigla+'" onclick="goto(\u0027licenze\u0027,\u0027'+p.sezione+'\u0027)">'+sigla+'</button>';
 }
 function patLink(sigla) {
   var p = DATA.patenti.filter(function(x){ return x.sigla === sigla; })[0];
@@ -215,9 +215,9 @@ const RENDER_GILDE = {
 // ─────────────────────────────────────────────
 panoramica: () => `
   <div class="page-hero gilde">
-    <h2>🏛️ Le Imprese di Arcadia<br><small style="font-size:.55em;color:var(--text3);letter-spacing:.08em">Camera del Commercio e dei Mestieri — Regno di Arcadia</small></h2>
+    <h2>🏛️ Le Imprese di Arcadia<br><small class="hero-sub">Camera del Commercio e dei Mestieri — Regno di Arcadia</small></h2>
     <p><strong style="color:var(--gold)">Che cos'è un'Impresa?</strong> Un'Impresa è l'unione di due o più personaggi che condividono una cassa comune e una sede fisica per produrre e vendere il frutto dei propri mestieri.</p>
-    <p style="margin-top:8px">Il percorso di crescita è strutturato in <strong style="color:var(--gold)">4 livelli progressivi</strong>: si parte da una semplice <strong style="color:var(--gold)">Bottega Artigiana</strong> per evolversi, passo dopo passo, fino a diventare una <strong style="color:var(--gold)">Grande Corporazione</strong>. Il meccanismo di avanzamento è diretto e intuitivo: versando la tassa di espansione richiesta, l'Impresa ingrandisce la propria sede e sblocca immediatamente nuovi benefici e privilegi.</p>
+    <p>Il percorso di crescita è strutturato in <strong style="color:var(--gold)">4 livelli progressivi</strong>: si parte da una semplice <strong style="color:var(--gold)">Bottega Artigiana</strong> per evolversi, passo dopo passo, fino a diventare una <strong style="color:var(--gold)">Grande Corporazione</strong>. Il meccanismo di avanzamento è diretto e intuitivo: versando la tassa di espansione richiesta, l'Impresa ingrandisce la propria sede e sblocca immediatamente nuovi benefici e privilegi.</p>
     <div class="hero-links">
       ${DATA.patenti.map(p => `<button class="hero-link-btn" onclick="goto('licenze','${p.sezione}')">${p.sigla} · ${p.nome}</button>`).join('')}
     </div>
@@ -225,7 +225,7 @@ panoramica: () => `
 
   <div class="doc-section">
     ${sectionTitle('📋', 'Come Creare un\u0027Impresa')}
-    <div class="rule-box" style="margin-bottom:16px">
+    <div class="rule-box">
       <h4>🏦 Dove si fa la pratica</h4>
       <p>I personaggi interessati devono recarsi <strong>al Castello</strong> e parlare con il <strong>Reparto Finanze</strong>. È l\u0027unico ufficio che rilascia le licenze di esercizio e registra le nuove Imprese nel Libro delle Corporazioni.</p>
     </div>
@@ -271,14 +271,14 @@ panoramica: () => `
       </div>
     </div>
 
-    <div class="note-box" style="margin-top:16px">
+    <div class="note-box">
       💡 <strong>Suggerimento:</strong> usa il <strong>Gestore di Società</strong> per simulare la creazione e verificare che tutti i requisiti siano soddisfatti prima di andare al Castello. Puoi anche generare un\u0027Impresa casuale con il pulsante 🎲 per avere un\u0027ispirazione.
     </div>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('⚖️', 'I 4 Livelli in Sintesi')}
-    <div class="note-box" style="margin-bottom:18px">💡 <strong>Regola d'oro:</strong> sali di livello quando hai soddisfatto i requisiti e paghi la tassa di espansione. Più è alto il Livello, più privilegi ottieni — ma anche più controlli. Ogni sigla è un pulsante: il gioco è <strong>intrecciato con le Patenti</strong>, clicca per approfondire.</div>
+    <div class="note-box">💡 <strong>Regola d'oro:</strong> sali di livello quando hai soddisfatto i requisiti e paghi la tassa di espansione. Più è alto il Livello, più privilegi ottieni — ma anche più controlli. Ogni sigla è un pulsante: il gioco è <strong>intrecciato con le Patenti</strong>, clicca per approfondire.</div>
     ${tableWrap(`<table>
       <thead><tr><th>Livello</th><th>Nome</th><th>Patente collegata</th><th>In una frase</th></tr></thead>
       <tbody>
@@ -301,7 +301,7 @@ livelli: () => `
   <div class="impresa-card">
     <div class="impresa-header">
       <h3>Livello ${l.id} — ${l.name}</h3>
-      ${l.patente ? patBtn(l.patente) : '<span class="tip" data-tip="Approvazione istituzionale, non una patente" style="font-size:.9rem;padding:4px 10px;border-radius:10px;background:rgba(216,176,32,.1);color:var(--legendary)">🏛 Approvazione</span>'}
+      ${l.patente ? patBtn(l.patente) : '<span class="tip pat-poe" data-tip="Approvazione istituzionale, non una patente" style="font-size:.9rem;padding:4px 10px;border-radius:12px">🏛 Approvazione</span>'}
     </div>
     <div class="impresa-body">
       <div class="info-block">
@@ -309,7 +309,7 @@ livelli: () => `
         ${l.id > 1 ? '<p><strong>Investimento cumulativo in tasse al Livello ' + l.id + ':</strong> ' + l.sumFee + ' Mo</p>' : ''}
         <p><strong>Manutenzione triennale:</strong> ${l.taxRange} Mo ogni 3 anni</p>
         <p><strong>Sede fisica:</strong> ${l.sede}</p>
-        <h5 style="margin-top:12px">Requisiti</h5>
+        <h5>Requisiti</h5>
         <ul class="limit-list">${l.requisiti.map(r => '<li>' + r + '</li>').join('')}</ul>
       </div>
       <div class="info-block">
@@ -319,17 +319,17 @@ livelli: () => `
     </div>
   </div>`).join('')}
 
-  <div class="note-box" style="margin-top:16px">⚠ <strong>Le tasse di costituzione / upgrade si sommano:</strong> per arrivare alla Grande Corporazione servono ${DATA.livelli.map(l => l.feeRange).join(' + ')} ≈ <strong>${DATA.livelli[3].sumFee} Mo</strong> cumulativi (tasse di struttura). A queste si aggiungono le <strong>manutenzioni triennali</strong> di ogni Livello e una <strong>sede adeguata</strong>. Il Fondo Iniziale di <strong>${DATA.fondi.init} Mo</strong> è separato dalla cassa.</div>
+  <div class="note-box">⚠ <strong>Le tasse di costituzione / upgrade si sommano:</strong> per arrivare alla Grande Corporazione servono ${DATA.livelli.map(l => l.feeRange).join(' + ')} ≈ <strong>${DATA.livelli[3].sumFee} Mo</strong> cumulativi (tasse di struttura). A queste si aggiungono le <strong>manutenzioni triennali</strong> di ogni Livello e una <strong>sede adeguata</strong>. Il Fondo Iniziale di <strong>${DATA.fondi.init} Mo</strong> è separato dalla cassa.</div>
 
-  <div class="doc-section" style="margin-top:22px">
+  <div class="doc-section">
     ${sectionTitle('🧮', 'Esempio Pratico — La Bottega dei Martelli')}
-    <div class="rule-box" style="margin-top:8px">
+    <div class="rule-box">
       <p>Un percorso concreto, passo dopo passo:</p>
-      <p style="margin-top:6px"><strong style="color:var(--gold2)">L1 — Bottega Artigiana:</strong> Aldric (Responsabile, P.M.C. 50 Mo) e Brenna (Mastro Artigiano, P.M.C. 50 Mo). Costituzione 100 Mo + Magazzino 150 Mo + Fondo 30 Mo = <strong>280 Mo</strong>; manutenzione triennale 15 Mo.</p>
-      <p style="margin-top:6px"><strong style="color:var(--gold2)">L2 — Fondaco / Officina (dopo ~3 mesi):</strong> +625 Mo di upgrade + P.M.T. per il Responsabile 110 Mo ≈ <strong>+735 Mo</strong> (totale investito ~1.015 Mo). Apertura a un terzo socio: si lavora in 3.</p>
-      <p style="margin-top:6px"><strong style="color:var(--gold2)">L3 — Compagnia Commerciale (dopo ~6 mesi):</strong> +3.000 Mo di upgrade + P.O.E. 400 Mo = <strong>+3.400 Mo</strong> (totale ~4.415 Mo). Un quarto socio conduce appalti del Regno e ottiene sconti sulle licenze personali.</p>
-      <p style="margin-top:6px"><strong style="color:var(--gold2)">L4 — Grande Corporazione (il grande salto):</strong> +12.500 Mo di upgrade, 5+ soci e approvazione della Camera = <strong>+12.500 Mo</strong> (totale ≈ <strong>16.915 Mo</strong>). In cambio: sconto massivo sulle risorse, influenza politica e (a scelta del gruppo) monopoli.</p>
-      <p style="margin-top:8px;color:var(--text3);font-size:.92rem">I numeri sono indicativi: usate i valori centrali dei range e adattateli alla vostra campagna.</p>
+      <p><strong style="color:var(--gold2)">L1 — Bottega Artigiana:</strong> Aldric (Responsabile, P.M.C. 50 Mo) e Brenna (Mastro Artigiano, P.M.C. 50 Mo). Costituzione 100 Mo + Magazzino 150 Mo + Fondo 30 Mo = <strong>280 Mo</strong>; manutenzione triennale 15 Mo.</p>
+      <p><strong style="color:var(--gold2)">L2 — Fondaco / Officina (dopo ~3 mesi):</strong> +625 Mo di upgrade + P.M.T. per il Responsabile 110 Mo ≈ <strong>+735 Mo</strong> (totale investito ~1.015 Mo). Apertura a un terzo socio: si lavora in 3.</p>
+      <p><strong style="color:var(--gold2)">L3 — Compagnia Commerciale (dopo ~6 mesi):</strong> +3.000 Mo di upgrade + P.O.E. 400 Mo = <strong>+3.400 Mo</strong> (totale ~4.415 Mo). Un quarto socio conduce appalti del Regno e ottiene sconti sulle licenze personali.</p>
+      <p><strong style="color:var(--gold2)">L4 — Grande Corporazione (il grande salto):</strong> +12.500 Mo di upgrade, 5+ soci e approvazione della Camera = <strong>+12.500 Mo</strong> (totale ≈ <strong>16.915 Mo</strong>). In cambio: sconto massivo sulle risorse, influenza politica e (a scelta del gruppo) monopoli.</p>
+      <p class="txt-note">I numeri sono indicativi: usate i valori centrali dei range e adattateli alla vostra campagna.</p>
     </div>
   </div>
 `,
@@ -342,7 +342,7 @@ procedura: () => `
 
   <div class="doc-section">
     ${sectionTitle('📜', 'Passo 1 — Fondazione')}
-    <p style="color:var(--text2);margin-bottom:16px">Per fondare: <strong>soci</strong> (2-6), una <strong>patente</strong> valida, una <strong>sede</strong>, e l'<strong>Atto Costitutivo</strong> (documento con nome, mestieri, quote e Responsabile).</p>
+    <p class="txt-intro">Per fondare: <strong>soci</strong> (2-6), una <strong>patente</strong> valida, una <strong>sede</strong>, e l'<strong>Atto Costitutivo</strong> (documento con nome, mestieri, quote e Responsabile).</p>
     ${tableWrap(`<table>
       <thead><tr><th>Cosa serve</th><th>Costo</th></tr></thead>
       <tbody>
@@ -351,7 +351,7 @@ procedura: () => `
         <tr><td>Fondo Iniziale (cassa comune)</td><td><strong>${DATA.fondi.init} Mo</strong></td></tr>
       </tbody>
     </table>`)}
-    <p style="color:var(--text3);font-size:.92rem;margin-top:10px">Presenti l'Atto alla Camera del Commercio, paghi, e ricevi il <strong>Certificato</strong> e il <strong>Timbro d'Impresa</strong>. Un socio può entrare/uscire in seguito (ingresso: voto di 2/3 dei soci, 20 Mo).</p>
+    <p class="txt-note">Presenti l'Atto alla Camera del Commercio, paghi, e ricevi il <strong>Certificato</strong> e il <strong>Timbro d'Impresa</strong>. Un socio può entrare/uscire in seguito (ingresso: voto di 2/3 dei soci, 20 Mo).</p>
   </div>
 
   <div class="doc-section">
@@ -359,7 +359,7 @@ procedura: () => `
     ${tableWrap(`<table>
       <thead><tr><th>Voce</th><th>Regola</th></tr></thead>
       <tbody>
-        <tr><td>Registro Entrate/Uscite</td><td>Tienilo aggiornato: l'${abbr('U.R.V.')} può chiederlo. <button class="btn secondary small" style="margin-left:6px" onclick="goto('gilde','gestore')">📗 Apri Gestore</button></td></tr>
+        <tr><td>Registro Entrate/Uscite</td><td>Tienilo aggiornato: l'${abbr('U.R.V.')} può chiederlo. <button class="btn secondary small" onclick="goto('gilde','gestore')">📗 Apri Gestore</button></td></tr>
         <tr><td>Fondo di Riserva</td><td>Accantona il <strong>10%</strong> dei profitti mensili.</td></tr>
         <tr><td>Tassa alla Camera</td><td><strong>1% del fatturato complessivo</strong> (vendite + contratti + affitti), trimestrale (esente i primi 3 mesi).</td></tr>
         <tr><td>Apprendisti</td><td>PG LV1 o NPC assunti. Non firmano documenti legali. Costi: NPC 8 Mo/mese, PG 20 Mo/mese.</td></tr>
@@ -369,14 +369,14 @@ procedura: () => `
 
   <div class="doc-section">
     ${sectionTitle('🏗️', 'Passo 3 — Sede e Strutture')}
-    <p style="color:var(--text2);margin-bottom:14px">Le strutture della sede danno <strong>bonus concreti</strong>. Le LV1 sono economiche; le LV2 costano 250 Mo ciascuna e danno un <strong>bonus meccanico di classe per un PG, una volta per Riposo Lungo</strong> (tematico per ogni struttura).</p>
+    <p class="txt-intro">Le strutture della sede danno <strong>bonus concreti</strong>. Le LV1 sono economiche; le LV2 costano 250 Mo ciascuna e danno un <strong>bonus meccanico di classe per un PG, una volta per Riposo Lungo</strong> (tematico per ogni struttura).</p>
     ${tableWrap(`<table>
       <thead><tr><th>Struttura</th><th>Liv</th><th style="text-align:right">Costo</th><th>Effetto</th></tr></thead>
       <tbody>
         ${DATA.strutture.map(s => `<tr class="${s.lv === 2 ? 'row-pmt' : ''}"><td>${s.nome}</td><td>${s.lv}</td><td style="text-align:right">${s.cost} Mo</td><td>${s.effetto}</td></tr>`).join('')}
       </tbody>
     </table>`)}
-    <p style="color:var(--text3);font-size:.92rem;margin-top:10px">Max <strong>1 struttura LV2 per tipo</strong> per sede. Costo di costruzione (Downtime) a carico dell'Architetto.</p>
+    <p class="txt-note">Max <strong>1 struttura LV2 per tipo</strong> per sede. Costo di costruzione (Downtime) a carico dell'Architetto.</p>
   </div>
 
   <div class="doc-section">
@@ -389,8 +389,8 @@ procedura: () => `
         <tr class="sanz-graviss"><td>Gravissima</td><td>Scioglimento coatto + confisca cassa (e revoca dell'approvazione per la Grande Corporazione) + Sigillo Spezzato ai soci.</td></tr>
       </tbody>
     </table>`)}
-    <button class="btn secondary" style="margin-top:10px" onclick="goto('gilde','gestore')">⚠️ Gestione sanzioni nel Gestore</button>
-    <p style="color:var(--text3);font-size:.92rem;margin-top:10px"><strong>Grande Corporazione:</strong> abuso dei privilegi istituzionali → Gravissima (revoca dell'approvazione); Fondo di Categoria mancante → Grave. Vedi l'elenco completo nello strumento qui sopra.</p>
+    <button class="btn secondary" onclick="goto('gilde','gestore')">⚠️ Gestione sanzioni nel Gestore</button>
+    <p class="txt-note"><strong>Grande Corporazione:</strong> abuso dei privilegi istituzionali → Gravissima (revoca dell'approvazione); Fondo di Categoria mancante → Grave. Vedi l'elenco completo nello strumento qui sopra.</p>
   </div>
 `,
 // ─────────────────────────────────────────────
@@ -402,7 +402,7 @@ entrate: () => `
 
   <div class="doc-section">
     ${sectionTitle('💵', 'Contratti di Fornitura')}
-    <p style="color:var(--text2);margin-bottom:16px">Negozi <strong>una volta</strong> (con un roleplay o un Downtime) e ottieni una rendita <strong>automatica ogni mese</strong>, finché l'Impresa resta attiva. Investimento a rientro rapido (≈ 3 mesi).</p>
+    <p class="txt-intro">Negozi <strong>una volta</strong> (con un roleplay o un Downtime) e ottieni una rendita <strong>automatica ogni mese</strong>, finché l'Impresa resta attiva. Investimento a rientro rapido (≈ 3 mesi).</p>
     ${tableWrap(`<table>
       <thead><tr><th>Patente richiesta</th><th style="text-align:right">Investimento</th><th style="text-align:right">Rendita/mese</th><th style="text-align:right">Rientro</th></tr></thead>
       <tbody>
@@ -412,17 +412,17 @@ entrate: () => `
         }).join('')}
       </tbody>
     </table>`)}
-    <p style="color:var(--text3);font-size:.92rem;margin-top:10px">Un solo contratto attivo per socio che possiede la Patente richiesta. <strong>Tetto massimo:</strong> i Contratti attivi non possono superare il Livello dell'Impresa (max 1 al Livello 1, max 4 alla Grande Corporazione).</p>
+    <p class="txt-note">Un solo contratto attivo per socio che possiede la Patente richiesta. <strong>Tetto massimo:</strong> i Contratti attivi non possono superare il Livello dell'Impresa (max 1 al Livello 1, max 4 alla Grande Corporazione).</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('🏠', 'Affitto di Struttura')}
-    <p style="color:var(--text2)">Una struttura inutilizzata può essere affittata: rendita del <strong>5–10%</strong> del suo valore, ogni mese.</p>
+    <p>Una struttura inutilizzata può essere affittata: rendita del <strong>5–10%</strong> del suo valore, ogni mese.</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('🛍️', 'Vendita diretta a Bottega')}
-    <p style="color:var(--text2);margin-bottom:14px">La vendita diretta è il pane quotidiano. Regole semplici consigliate:</p>
+    <p class="txt-intro">La vendita diretta è il pane quotidiano. Regole semplici consigliate:</p>
     ${tableWrap(`<table>
       <thead><tr><th>Voce</th><th>Regola</th></tr></thead>
       <tbody>
@@ -436,14 +436,14 @@ entrate: () => `
 
   <div class="doc-section">
     ${sectionTitle('📝', 'Lavori su Commissione privata')}
-    <p style="color:var(--text2)">Prezzi orientativi <em>(adattate alla campagna)</em>: oggetto comune 1–20 Mo, oggetto non comune 20–80 Mo, oggetto raro 80–200 Mo, oggetto molto raro 200–500 Mo, leggendario: trattativa. La <strong style="color:var(--gold2)">P.O.E.</strong> può certificare (+20% valore).</p>
+    <p>Prezzi orientativi <em>(adattate alla campagna)</em>: oggetto comune 1–20 Mo, oggetto non comune 20–80 Mo, oggetto raro 80–200 Mo, oggetto molto raro 200–500 Mo, leggendario: trattativa. La <strong style="color:var(--gold2)">P.O.E.</strong> può certificare (+20% valore).</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('🧮', 'Come calcolare il Fatturato mensile')}
-    <div class="rule-box" style="margin-top:8px">
+    <div class="rule-box">
       <p><strong>Fatturato = Vendite dirette + Rendita Contratti + Affitti</strong></p>
-      <p style="margin-top:6px;color:var(--text2)">La <strong>Tassa Camera (1%)</strong> si calcola sul fatturato complessivo (quindi anche su contratti e affitti). Il <strong>Fondo di Riserva (10%)</strong> si accantona sull'utile netto. Durante una sospensione (sanzione Grave o superiore) i contratti e gli affitti <strong>si sospendono</strong>.</p>
+      <p>La <strong>Tassa Camera (1%)</strong> si calcola sul fatturato complessivo (quindi anche su contratti e affitti). Il <strong>Fondo di Riserva (10%)</strong> si accantona sull'utile netto. Durante una sospensione (sanzione Grave o superiore) i contratti e gli affitti <strong>si sospendono</strong>.</p>
     </div>
   </div>
 
@@ -458,14 +458,14 @@ riferimenti: () => `
 
   <div class="doc-section">
     ${sectionTitle('🤝', 'Alleanze e Joint Venture')}
-    <p style="color:var(--text2);margin-bottom:14px"><strong>Alleanza Commerciale</strong> (fino a 3 Imprese): registrazione 20 Mo/impresa, sconto 5% su acquisti congiunti, bandi oltre 1.000 Mo, durata 3 mesi-1 anno.</p>
-    <p style="color:var(--text2)"><strong>Joint Venture:</strong> progetto condiviso con budget dedicato. Registrazione 30 Mo alla Camera, Amministratore eletto, responsabilità separate.</p>
+    <p><strong>Alleanza Commerciale</strong> (fino a 3 Imprese): registrazione 20 Mo/impresa, sconto 5% su acquisti congiunti, bandi oltre 1.000 Mo, durata 3 mesi-1 anno.</p>
+    <p><strong>Joint Venture:</strong> progetto condiviso con budget dedicato. Registrazione 30 Mo alla Camera, Amministratore eletto, responsabilità separate.</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('⚔️', 'Conflitti e Spionaggio')}
-    <p style="color:var(--text2);margin-bottom:14px"><strong>Conflitto Commerciale:</strong> dichiarazione ${DATA.conflitti.dichiarazione} Mo, poi −10% prezzi vendita per 3 mesi. Escalation ${DATA.conflitti.escalation} Mo/mese, mediazione ${DATA.conflitti.mediazione} Mo. Dopo ${DATA.conflitti.durataMax} mesi termina da solo e il vincitore ottiene Privilegio di Preferenza. Max 1 conflitto attivo.</p>
-    <button class="btn secondary small" style="margin-bottom:12px" onclick="goto('gilde','gestore')">⚔️ Registra un conflitto nel Gestore</button>
+    <p class="txt-intro"><strong>Conflitto Commerciale:</strong> dichiarazione ${DATA.conflitti.dichiarazione} Mo, poi −10% prezzi vendita per 3 mesi. Escalation ${DATA.conflitti.escalation} Mo/mese, mediazione ${DATA.conflitti.mediazione} Mo. Dopo ${DATA.conflitti.durataMax} mesi termina da solo e il vincitore ottiene Privilegio di Preferenza. Max 1 conflitto attivo.</p>
+    <button class="btn secondary small" onclick="goto('gilde','gestore')">⚔️ Registra un conflitto nel Gestore</button>
     ${tableWrap(`<table>
       <thead><tr><th>Mezzo</th><th>Costo/Durata</th><th>CD</th><th>Se scoperti</th></tr></thead>
       <tbody>
@@ -476,7 +476,7 @@ riferimenti: () => `
 
   <div class="doc-section">
     ${sectionTitle('🎲', 'Eventi Stagionali')}
-    <p style="color:var(--text2);margin-bottom:14px">Tira <strong>1d20</strong> a inizio mese (+2 per ogni Livello dell'Impresa) o usa gli eventi stagionali fissi qui sotto. <button class="btn secondary small" style="margin-left:4px" onclick="goto('gilde','gestore')">🎲 Tira l'evento nel Gestore</button></p>
+    <p class="txt-intro">Tira <strong>1d20</strong> a inizio mese (+2 per ogni Livello dell'Impresa) o usa gli eventi stagionali fissi qui sotto. <button class="btn secondary small" onclick="goto('gilde','gestore')">🎲 Tira l'evento nel Gestore</button></p>
     ${tableWrap(`<table>
       <thead><tr><th>Evento</th><th>Stagione</th><th>Effetto</th></tr></thead>
       <tbody>
@@ -487,7 +487,7 @@ riferimenti: () => `
 
   <div class="doc-section">
     ${sectionTitle('🏛️', 'Organizzazioni di Arcadia')}
-    <p style="color:var(--text2);margin-bottom:14px">Nomi di categoria e lore (es. Società dei Fabbri, dei Tessitori, dell'Osteria): un'Impresa di alto livello può usarli come titolo di prestigio, <strong>senza effetti meccanici extra</strong>.</p>
+    <p>Nomi di categoria e lore (es. Società dei Fabbri, dei Tessitori, dell'Osteria): un'Impresa di alto livello può usarli come titolo di prestigio, <strong>senza effetti meccanici extra</strong>.</p>
   </div>
 
   <div class="doc-section">
@@ -526,15 +526,15 @@ const RENDER_LICENZE = {
 
 panoramica: () => `
   <div class="page-hero licenze">
-    <h2>⚖️ Codice Patenti di Arcadia<br><small style="font-size:.55em;color:var(--text3);letter-spacing:.08em">Ufficio del Registro e della Vigilanza (U.R.V.) — Regno di Arcadia</small></h2>
+    <h2>⚖️ Codice Patenti di Arcadia<br><small class="hero-sub">Ufficio del Registro e della Vigilanza (U.R.V.) — Regno di Arcadia</small></h2>
     <p>Il presente regolamento disciplina l'esercizio dei mestieri, la compravendita dei manufatti e la gestione delle sostanze speciali all'interno del Regno.</p>
-    <p style="margin-top:6px">Ogni licenza ha una <strong style="color:var(--gold)">validità di tre anni</strong>. Lo status legale dell'artigiano e la legittimità delle sue attività sono formalmente attestati dal possesso del <strong style="color:var(--gold)">Sigillo di Riconoscimento</strong>, un medaglione incantato personalizzato.</p>
+    <p>Ogni licenza ha una <strong style="color:var(--gold)">validità di tre anni</strong>. Lo status legale dell'artigiano e la legittimità delle sue attività sono formalmente attestati dal possesso del <strong style="color:var(--gold)">Sigillo di Riconoscimento</strong>, un medaglione incantato personalizzato.</p>
   </div>`,
 
 vantaggi: () => `
   <div class="doc-section">
     ${sectionTitle('✦', 'Vantaggi Generali del Licenziatario')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px">Il possesso di una patente valida offre benefici immediati a ogni cittadino di Arcadia:</p>
+    <p class="txt-intro">Il possesso di una patente valida offre benefici immediati a ogni cittadino di Arcadia:</p>
     <div class="card-grid">
       ${[
         ['🛡️','Protezione Legale','Intervento prioritario della Guardia cittadina in caso di truffe o controversie commerciali.'],
@@ -562,7 +562,7 @@ pmc: () => `
     <div class="licenza-header" style="background:rgba(96,184,64,.07)">
       <h3 style="color:var(--common)">🟢 P.M.C. — Manifattura Comune</h3>
       <p class="lh-meta">Costo: 40 Mo · Cauzione: 10 Mo · <strong style="color:var(--text2)">Totale: 50 Mo</strong> · Durata: 3 anni</p>
-      <p class="lh-meta" style="margin-top:4px">Ideale per: Osti, Sarti, Falegnami e Artisti.</p>
+      <p class="lh-meta">Ideale per: Osti, Sarti, Falegnami e Artisti.</p>
     </div>
     <div class="licenza-body">
       <div class="licenza-block">
@@ -586,7 +586,7 @@ pmc: () => `
         </ul>
       </div>
     </div>
-    <div class="note-box" style="margin:0 24px 20px">⚠ <strong>Nota:</strong> Ciò che il licenziatario può craftare e vendere è sempre limitato dal <strong>livello del mestiere</strong> posseduto: la Patente abilita all'esercizio dell'attività, ma non sblocca da sola le ricette o gli oggetti di livello superiore. Mestiere e Patente avanzano di pari passo.</div>
+    <div class="note-box">⚠ <strong>Nota:</strong> Ciò che il licenziatario può craftare e vendere è sempre limitato dal <strong>livello del mestiere</strong> posseduto: la Patente abilita all'esercizio dell'attività, ma non sblocca da sola le ricette o gli oggetti di livello superiore. Mestiere e Patente avanzano di pari passo.</div>
   </div>`,
 
 pmt: () => `
@@ -594,7 +594,7 @@ pmt: () => `
     <div class="licenza-header" style="background:rgba(90,138,216,.07)">
       <h3 style="color:var(--uncommon)">🔵 P.M.T. — Manifattura Tecnica</h3>
       <p class="lh-meta">Costo: 85 Mo · Cauzione: 25 Mo · <strong style="color:var(--text2)">Totale: 110 Mo</strong> · Durata: 3 anni</p>
-      <p class="lh-meta" style="margin-top:4px">Ideale per: Fabbri, Gioiellieri, Architetti e Cartografi ufficiali.</p>
+      <p class="lh-meta">Ideale per: Fabbri, Gioiellieri, Architetti e Cartografi ufficiali.</p>
     </div>
     <div class="licenza-body">
       <div class="licenza-block">
@@ -620,7 +620,7 @@ pmt: () => `
         </ul>
       </div>
     </div>
-    <div class="note-box" style="margin:0 24px 20px">⚠ <strong>Nota:</strong> Ciò che il licenziatario può craftare e vendere è sempre limitato dal <strong>livello del mestiere</strong> posseduto: la Patente abilita all'esercizio dell'attività, ma non sblocca da sola le ricette o gli oggetti di livello superiore. Mestiere e Patente avanzano di pari passo.</div>
+    <div class="note-box">⚠ <strong>Nota:</strong> Ciò che il licenziatario può craftare e vendere è sempre limitato dal <strong>livello del mestiere</strong> posseduto: la Patente abilita all'esercizio dell'attività, ma non sblocca da sola le ricette o gli oggetti di livello superiore. Mestiere e Patente avanzano di pari passo.</div>
   </div>`,
 
 pasv: () => `
@@ -628,7 +628,7 @@ pasv: () => `
     <div class="licenza-header" style="background:rgba(212,149,74,.07)">
       <h3 style="color:var(--amber)">🟠 P.A.S.V. — Alchimia e Sostanze Vincolate</h3>
       <p class="lh-meta">Costo: 140 Mo · Cauzione: 40 Mo · <strong style="color:var(--text2)">Totale: 180 Mo</strong> · Durata: 3 anni</p>
-      <p class="lh-meta" style="margin-top:4px">Ideale per: Alchimisti e Artigiani Hextech.</p>
+      <p class="lh-meta">Ideale per: Alchimisti e Artigiani Hextech.</p>
     </div>
     <div class="licenza-body">
       <div class="licenza-block">
@@ -654,7 +654,7 @@ pasv: () => `
         </ul>
       </div>
     </div>
-    <div class="note-box" style="margin:0 24px 20px">⚠ <strong>Nota:</strong> Ciò che il licenziatario può craftare e vendere è sempre limitato dal <strong>livello del mestiere</strong> posseduto: la Patente abilita all'esercizio dell'attività, ma non sblocca da sola le ricette o gli oggetti di livello superiore. Mestiere e Patente avanzano di pari passo.</div>
+    <div class="note-box">⚠ <strong>Nota:</strong> Ciò che il licenziatario può craftare e vendere è sempre limitato dal <strong>livello del mestiere</strong> posseduto: la Patente abilita all'esercizio dell'attività, ma non sblocca da sola le ricette o gli oggetti di livello superiore. Mestiere e Patente avanzano di pari passo.</div>
   </div>`,
 
 poe: () => `
@@ -662,7 +662,7 @@ poe: () => `
     <div class="licenza-header" style="background:rgba(216,176,32,.07)">
       <h3 style="color:var(--legendary)">🟡 P.O.E. — Opere Eccezionali</h3>
       <p class="lh-meta">Costo: 300 Mo · Cauzione: 100 Mo · <strong style="color:var(--text2)">Totale: 400 Mo</strong> · Durata: 3 anni</p>
-      <p class="lh-meta" style="margin-top:4px">Riservata ai Maestri Artigiani (Livello 4+).</p>
+      <p class="lh-meta">Riservata ai Maestri Artigiani (Livello 4+).</p>
     </div>
     <div class="licenza-body">
       <div class="licenza-block">
@@ -685,13 +685,13 @@ poe: () => `
         </ul>
       </div>
     </div>
-    <div class="note-box" style="margin:0 24px 20px">⚠ <strong>Nota:</strong> Ciò che il licenziatario può craftare e vendere è sempre limitato dal <strong>livello del mestiere</strong> posseduto: la Patente abilita all'esercizio dell'attività, ma non sblocca da sola le ricette o gli oggetti di livello superiore. Mestiere e Patente avanzano di pari passo.</div>
+    <div class="note-box">⚠ <strong>Nota:</strong> Ciò che il licenziatario può craftare e vendere è sempre limitato dal <strong>livello del mestiere</strong> posseduto: la Patente abilita all'esercizio dell'attività, ma non sblocca da sola le ricette o gli oggetti di livello superiore. Mestiere e Patente avanzano di pari passo.</div>
   </div>`,
 
 inchiostri: () => `
   <div class="doc-section">
     ${sectionTitle('🖋️', 'Sezione Tecnica: Materiali Vincolati e Inchiostri')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px">L'uso di inchiostri magici è strettamente regolamentato per evitare abusi arcani. <strong style="color:var(--gold)">Solo la P.A.S.V.</strong> permette l'acquisto di inchiostri magici.</p>
+    <p class="txt-intro">L'uso di inchiostri magici è strettamente regolamentato per evitare abusi arcani. <strong style="color:var(--gold)">Solo la P.A.S.V.</strong> permette l'acquisto di inchiostri magici.</p>
     ${tableWrap(`<table>
       <thead><tr><th>Grado Inchiostro</th><th>Patente Richiesta</th><th>Limite (3 anni)</th><th>Uso Tipico</th></tr></thead>
       <tbody>
@@ -732,7 +732,7 @@ strumenti: () => `
 
   <div class="doc-section">
     ${sectionTitle('🧮', 'Confronto & Costi Patenti')}
-    <p style="color:var(--text2);margin-bottom:16px">I dati delle 4 Patenti, aggregati e confrontabili. Inchiostri e materiali inclusi.</p>
+    <p class="txt-intro">I dati delle 4 Patenti, aggregati e confrontabili. Inchiostri e materiali inclusi.</p>
     ${tableWrap(`<table>
       <thead><tr><th>Patente</th><th>Costo (3 anni)</th><th>Cauzione</th><th>Totale</th><th>Durata</th><th>Destinatari</th></tr></thead>
       <tbody>
@@ -743,7 +743,7 @@ strumenti: () => `
 
   <div class="doc-section">
     ${sectionTitle('📊', 'Tracker Patenti dei Licenziatari')}
-    <p style="color:var(--text2);margin-bottom:16px">Tieni traccia delle Patenti di ogni personaggio: tipo, costo, scadenza triennale e stato. Dati salvati in locale (localStorage) con export/import JSON.</p>
+    <p class="txt-intro">Tieni traccia delle Patenti di ogni personaggio: tipo, costo, scadenza triennale e stato. Dati salvati in locale (localStorage) con export/import JSON.</p>
     <button class="btn" onclick="openPatentiTracker()">Apri Tracker Patenti</button>
   </div>
 `,

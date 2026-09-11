@@ -249,7 +249,7 @@ function gPathHtml(d) {
     html += '<div class="calc-row" style="border-bottom:none;font-size:.74rem;color:var(--text3)"><span class="label">' + notes.join(' · ') + '</span><span class="value"></span></div>';
     for (var k = lv; k < L; k++) have[lvPatente(k)] = true;
   }
-  if (!html) html = '<p style="color:var(--text3);font-size:.82rem">Sei già al livello massimo (Grande Corporazione).</p>';
+  if (!html) html = '<p style="color:var(--text3);font-size:.92rem">Sei già al livello massimo (Grande Corporazione).</p>';
   return html;
 }
 
@@ -405,7 +405,7 @@ function gSociHtml(d) {
     + '<button class="btn" onclick="gAddSocio()">＋ Aggiungi</button></div>';
   if (nApp >= maxApp) addForm = '<div class="note-box" style="margin-bottom:8px">⚠ Limite apprendisti raggiunto (' + nApp + '/' + maxApp + '): serve un Responsabile con P.O.E. per averne 3.</div>' + addForm;
   html += addForm;
-  if (!soci.length) return html + '<p style="color:var(--text3);font-size:.82rem">Nessun socio: aggiungi almeno un Responsabile, un Mastro Artigiano e altri soci (min 2).</p>';
+  if (!soci.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessun socio: aggiungi almeno un Responsabile, un Mastro Artigiano e altri soci (min 2).</p>';
   html += '<table><thead><tr><th>Nome</th><th>Mestiere</th><th>Patente</th><th>Ruolo</th><th>Tipo</th><th>Cost. Appr.</th><th></th></tr></thead><tbody>';
   soci.forEach(function(s, i) {
     var cost = s.isApprendista ? (s.tipo === 'PG' ? 20 : 8) + ' Mo' : '—';
@@ -512,7 +512,7 @@ function gContrHtml(d) {
   html += '<div class="add-row"><select id="cSel">' + opts + '</select>'
     + '<button class="btn" onclick="gAddContratto()" ' + (can ? '' : 'disabled') + '>＋ Stipula</button></div>';
   if (!can) html += '<div class="note-box" style="margin-top:8px">⚠ Hai raggiunto il limite di contratti pari al Livello (' + max + '). Aumenta il Livello per stipularne altri.</div>';
-  if (!contr.length) return html + '<p style="color:var(--text3);font-size:.82rem">Nessun contratto attivo con la Camera del Commercio.</p>';
+  if (!contr.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessun contratto attivo con la Camera del Commercio.</p>';
   html += '<table><thead><tr><th>Contratto</th><th>Patente</th><th>Costo stipula</th><th>Rendita</th><th></th></tr></thead><tbody>';
   contr.forEach(function(c, i) {
     html += '<tr><td>' + att(c.name || c.patente) + '</td><td>' + (c.patente || '') + '</td>'
@@ -553,7 +553,7 @@ function gTransHtml(d) {
     + '<label class="chk"><input type="checkbox" id="xAutoRis" checked onchange="gAutoRisToggle()"> Accantonamento automatico Fondo di Riserva (10%)</label>'
     + '<label class="chk"><input type="checkbox" id="xAutoTassa" checked onchange="gAutoTassaToggle()"> Versamento tassa Camera 1%</label>'
     + '</div>';
-  if (!tx.length) return html + '<p style="color:var(--text3);font-size:.82rem">Registro vuoto.</p>';
+  if (!tx.length) return html + '<p style="color:var(--text3);font-size:.92rem">Registro vuoto.</p>';
   html += '<table><thead><tr><th>Data</th><th>Voce</th><th>Importo</th><th>Cassa</th><th></th></tr></thead><tbody>';
   var tot = 0;
   var runs = tx.slice().reverse();
