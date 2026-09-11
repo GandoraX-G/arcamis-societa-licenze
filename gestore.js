@@ -287,7 +287,7 @@ function gTopHtml() {
     + '<button class="btn secondary" onclick="restoreAll()">📂 Ripristina backup</button>'
     + '</div>';
   if (!store.ordine.length) {
-    html += '<p style="color:var(--text3);font-size:.84rem">Nessuna società salvata: creane una nuova o generane una casuale.</p>';
+    html += '<p style="color:var(--text3);font-size:.92rem">Nessuna società salvata: creane una nuova o generane una casuale.</p>';
     return html;
   }
   html += '<table><thead><tr><th>Società</th><th>Livello</th><th>Stato</th><th>Soci</th><th>Strutture</th><th>Contratti</th><th>Netto/mese</th><th></th></tr></thead><tbody>';
@@ -466,7 +466,7 @@ function gStruttHtml(d) {
   var html = '<h4>🏗 Strutture e sedi <span class="small" style="color:var(--text3)">(' + strutt.length + ')</span></h4>';
   html += '<div class="add-row"><select id="tNome">' + opts + '</select>'
     + '<button class="btn" onclick="gAddStrutt()">＋ Acquista</button></div>';
-  if (!strutt.length) return html + '<p style="color:var(--text3);font-size:.82rem">Nessuna struttura: ogni società deve partire dal Magazzino (150 Mo).</p>';
+  if (!strutt.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessuna struttura: ogni società deve partire dal Magazzino (150 Mo).</p>';
   html += '<table><thead><tr><th>Struttura</th><th>Costo</th><th>Tipo</th><th></th></tr></thead><tbody>';
   var totCost = 0;
   strutt.forEach(function(s, i) {
@@ -625,7 +625,7 @@ function gSanHtml(d) {
     + '</select>'
     + '<button class="btn" onclick="gAddSanzione()">＋ Applica sanzione</button>'
     + '</div>';
-  if (!san.length) return html + '<p style="color:var(--text3);font-size:.82rem">Nessuna sanzione registrata. Società pulita.</p>';
+  if (!san.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessuna sanzione registrata. Società pulita.</p>';
   html += '<table><thead><tr><th>Sanzione</th><th>Tipo</th><th>Penale</th><th>Stato</th><th></th></tr></thead><tbody>';
   san.forEach(function(s, i) {
     html += '<tr><td>' + att(s.name || s.tipo) + '</td><td>' + att(s.tipo) + '</td><td>' + (s.penal || 0) + ' Mo</td>'
@@ -678,7 +678,7 @@ function gDelSanzione(i) {
 function gEvHtml(d) {
   var html = '<h4>🎲 Eventi stagionali <span class="small" style="color:var(--text3)">(d20 + 2 per Livello)</span></h4>';
   html += '<div class="add-row"><button class="btn" onclick="gRoll()">🎲 Tira d20 per l\u0027evento</button></div>';
-  html += '<p style="color:var(--text3);font-size:.82rem;margin-top:6px">A ogni stagione tira il dado: il risultato indica l\u0027evento che coinvolge la società (tabella nella guida). Molti eventi chiedono una parata o una penale: trascrivi l\u0027esito nel registro.</p>';
+  html += '<p style="color:var(--text3);font-size:.9rem;margin-top:6px">A ogni stagione tira il dado: il risultato indica l\u0027evento che coinvolge la società (tabella nella guida). Molti eventi chiedono una parata o una penale: trascrivi l\u0027esito nel registro.</p>';
   return html;
 }
 function gRoll() {
@@ -704,7 +704,7 @@ function gRoll() {
 function gNoteHtml(d) {
   return '<h4>📝 Note libere</h4>'
     + '<textarea id="gNotes" rows="4" style="width:100%;resize:vertical" onchange="gSave()">' + att(d.notes || '') + '</textarea>'
-    + '<p style="color:var(--text3);font-size:.78rem;margin-top:4px">Memorizza accordi, legami, obiettivi e cronaca della società. Il salvataggio è automatico a ogni uscita dal campo.</p>';
+    + '<p style="color:var(--text3);font-size:.88rem;margin-top:4px">Memorizza accordi, legami, obiettivi e cronaca della società. Il salvataggio è automatico a ogni uscita dal campo.</p>';
 }
 function gExportCompany() {
   var d = trackerLoad();

@@ -329,7 +329,7 @@ livelli: () => `
       <p style="margin-top:6px"><strong style="color:var(--gold2)">L2 — Fondaco / Officina (dopo ~3 mesi):</strong> +625 Mo di upgrade + P.M.T. per il Responsabile 110 Mo ≈ <strong>+735 Mo</strong> (totale investito ~1.015 Mo). Apertura a un terzo socio: si lavora in 3.</p>
       <p style="margin-top:6px"><strong style="color:var(--gold2)">L3 — Compagnia Commerciale (dopo ~6 mesi):</strong> +3.000 Mo di upgrade + P.O.E. 400 Mo = <strong>+3.400 Mo</strong> (totale ~4.415 Mo). Un quarto socio conduce appalti del Regno e ottiene sconti sulle licenze personali.</p>
       <p style="margin-top:6px"><strong style="color:var(--gold2)">L4 — Grande Corporazione (il grande salto):</strong> +12.500 Mo di upgrade, 5+ soci e approvazione della Camera = <strong>+12.500 Mo</strong> (totale ≈ <strong>16.915 Mo</strong>). In cambio: sconto massivo sulle risorse, influenza politica e (a scelta del gruppo) monopoli.</p>
-      <p style="margin-top:6px;color:var(--text3);font-size:.82rem">I numeri sono indicativi: usate i valori centrali dei range e adattateli alla vostra campagna.</p>
+      <p style="margin-top:8px;color:var(--text3);font-size:.92rem">I numeri sono indicativi: usate i valori centrali dei range e adattateli alla vostra campagna.</p>
     </div>
   </div>
 `,
@@ -342,7 +342,7 @@ procedura: () => `
 
   <div class="doc-section">
     ${sectionTitle('📜', 'Passo 1 — Fondazione')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px;line-height:1.6">Per fondare: <strong>soci</strong> (2-6), una <strong>patente</strong> valida, una <strong>sede</strong>, e l'<strong>Atto Costitutivo</strong> (documento con nome, mestieri, quote e Responsabile).</p>
+    <p style="color:var(--text2);margin-bottom:16px">Per fondare: <strong>soci</strong> (2-6), una <strong>patente</strong> valida, una <strong>sede</strong>, e l'<strong>Atto Costitutivo</strong> (documento con nome, mestieri, quote e Responsabile).</p>
     ${tableWrap(`<table>
       <thead><tr><th>Cosa serve</th><th>Costo</th></tr></thead>
       <tbody>
@@ -351,7 +351,7 @@ procedura: () => `
         <tr><td>Fondo Iniziale (cassa comune)</td><td><strong>${DATA.fondi.init} Mo</strong></td></tr>
       </tbody>
     </table>`)}
-    <p style="color:var(--text3);font-size:.86rem;margin-top:10px">Presenti l'Atto alla Camera del Commercio, paghi, e ricevi il <strong>Certificato</strong> e il <strong>Timbro d'Impresa</strong>. Un socio può entrare/uscire in seguito (ingresso: voto di 2/3 dei soci, 20 Mo).</p>
+    <p style="color:var(--text3);font-size:.92rem;margin-top:10px">Presenti l'Atto alla Camera del Commercio, paghi, e ricevi il <strong>Certificato</strong> e il <strong>Timbro d'Impresa</strong>. Un socio può entrare/uscire in seguito (ingresso: voto di 2/3 dei soci, 20 Mo).</p>
   </div>
 
   <div class="doc-section">
@@ -369,14 +369,14 @@ procedura: () => `
 
   <div class="doc-section">
     ${sectionTitle('🏗️', 'Passo 3 — Sede e Strutture')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:14px;line-height:1.6">Le strutture della sede danno <strong>bonus concreti</strong>. Le LV1 sono economiche; le LV2 costano 250 Mo ciascuna e danno un <strong>bonus meccanico di classe per un PG, una volta per Riposo Lungo</strong> (tematico per ogni struttura).</p>
+    <p style="color:var(--text2);margin-bottom:14px">Le strutture della sede danno <strong>bonus concreti</strong>. Le LV1 sono economiche; le LV2 costano 250 Mo ciascuna e danno un <strong>bonus meccanico di classe per un PG, una volta per Riposo Lungo</strong> (tematico per ogni struttura).</p>
     ${tableWrap(`<table>
       <thead><tr><th>Struttura</th><th>Liv</th><th style="text-align:right">Costo</th><th>Effetto</th></tr></thead>
       <tbody>
         ${DATA.strutture.map(s => `<tr class="${s.lv === 2 ? 'row-pmt' : ''}"><td>${s.nome}</td><td>${s.lv}</td><td style="text-align:right">${s.cost} Mo</td><td>${s.effetto}</td></tr>`).join('')}
       </tbody>
     </table>`)}
-    <p style="color:var(--text3);font-size:.86rem;margin-top:10px">Max <strong>1 struttura LV2 per tipo</strong> per sede. Costo di costruzione (Downtime) a carico dell'Architetto.</p>
+    <p style="color:var(--text3);font-size:.92rem;margin-top:10px">Max <strong>1 struttura LV2 per tipo</strong> per sede. Costo di costruzione (Downtime) a carico dell'Architetto.</p>
   </div>
 
   <div class="doc-section">
@@ -390,7 +390,7 @@ procedura: () => `
       </tbody>
     </table>`)}
     <button class="btn secondary" style="margin-top:10px" onclick="goto('gilde','gestore')">⚠️ Gestione sanzioni nel Gestore</button>
-    <p style="color:var(--text3);font-size:.86rem;margin-top:10px"><strong>Grande Corporazione:</strong> abuso dei privilegi istituzionali → Gravissima (revoca dell'approvazione); Fondo di Categoria mancante → Grave. Vedi l'elenco completo nello strumento qui sopra.</p>
+    <p style="color:var(--text3);font-size:.92rem;margin-top:10px"><strong>Grande Corporazione:</strong> abuso dei privilegi istituzionali → Gravissima (revoca dell'approvazione); Fondo di Categoria mancante → Grave. Vedi l'elenco completo nello strumento qui sopra.</p>
   </div>
 `,
 // ─────────────────────────────────────────────
@@ -402,7 +402,7 @@ entrate: () => `
 
   <div class="doc-section">
     ${sectionTitle('💵', 'Contratti di Fornitura')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px;line-height:1.6">Negozi <strong>una volta</strong> (con un roleplay o un Downtime) e ottieni una rendita <strong>automatica ogni mese</strong>, finché l'Impresa resta attiva. Investimento a rientro rapido (≈ 3 mesi).</p>
+    <p style="color:var(--text2);margin-bottom:16px">Negozi <strong>una volta</strong> (con un roleplay o un Downtime) e ottieni una rendita <strong>automatica ogni mese</strong>, finché l'Impresa resta attiva. Investimento a rientro rapido (≈ 3 mesi).</p>
     ${tableWrap(`<table>
       <thead><tr><th>Patente richiesta</th><th style="text-align:right">Investimento</th><th style="text-align:right">Rendita/mese</th><th style="text-align:right">Rientro</th></tr></thead>
       <tbody>
@@ -412,17 +412,17 @@ entrate: () => `
         }).join('')}
       </tbody>
     </table>`)}
-    <p style="color:var(--text3);font-size:.86rem;margin-top:10px">Un solo contratto attivo per socio che possiede la Patente richiesta. <strong>Tetto massimo:</strong> i Contratti attivi non possono superare il Livello dell'Impresa (max 1 al Livello 1, max 4 alla Grande Corporazione).</p>
+    <p style="color:var(--text3);font-size:.92rem;margin-top:10px">Un solo contratto attivo per socio che possiede la Patente richiesta. <strong>Tetto massimo:</strong> i Contratti attivi non possono superare il Livello dell'Impresa (max 1 al Livello 1, max 4 alla Grande Corporazione).</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('🏠', 'Affitto di Struttura')}
-    <p style="color:var(--text2);font-size:.9rem;line-height:1.6">Una struttura inutilizzata può essere affittata: rendita del <strong>5–10%</strong> del suo valore, ogni mese.</p>
+    <p style="color:var(--text2)">Una struttura inutilizzata può essere affittata: rendita del <strong>5–10%</strong> del suo valore, ogni mese.</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('🛍️', 'Vendita diretta a Bottega')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:14px;line-height:1.6">La vendita diretta è il pane quotidiano. Regole semplici consigliate:</p>
+    <p style="color:var(--text2);margin-bottom:14px">La vendita diretta è il pane quotidiano. Regole semplici consigliate:</p>
     ${tableWrap(`<table>
       <thead><tr><th>Voce</th><th>Regola</th></tr></thead>
       <tbody>
@@ -436,7 +436,7 @@ entrate: () => `
 
   <div class="doc-section">
     ${sectionTitle('📝', 'Lavori su Commissione privata')}
-    <p style="color:var(--text2);font-size:.9rem;line-height:1.6">Prezzi orientativi <em>(adattate alla campagna)</em>: oggetto comune 1–20 Mo, oggetto non comune 20–80 Mo, oggetto raro 80–200 Mo, oggetto molto raro 200–500 Mo, leggendario: trattativa. La <strong style="color:var(--gold2)">P.O.E.</strong> può certificare (+20% valore).</p>
+    <p style="color:var(--text2)">Prezzi orientativi <em>(adattate alla campagna)</em>: oggetto comune 1–20 Mo, oggetto non comune 20–80 Mo, oggetto raro 80–200 Mo, oggetto molto raro 200–500 Mo, leggendario: trattativa. La <strong style="color:var(--gold2)">P.O.E.</strong> può certificare (+20% valore).</p>
   </div>
 
   <div class="doc-section">
@@ -458,13 +458,13 @@ riferimenti: () => `
 
   <div class="doc-section">
     ${sectionTitle('🤝', 'Alleanze e Joint Venture')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:14px;line-height:1.6"><strong>Alleanza Commerciale</strong> (fino a 3 Imprese): registrazione 20 Mo/impresa, sconto 5% su acquisti congiunti, bandi oltre 1.000 Mo, durata 3 mesi-1 anno.</p>
-    <p style="color:var(--text2);font-size:.9rem;line-height:1.6"><strong>Joint Venture:</strong> progetto condiviso con budget dedicato. Registrazione 30 Mo alla Camera, Amministratore eletto, responsabilità separate.</p>
+    <p style="color:var(--text2);margin-bottom:14px"><strong>Alleanza Commerciale</strong> (fino a 3 Imprese): registrazione 20 Mo/impresa, sconto 5% su acquisti congiunti, bandi oltre 1.000 Mo, durata 3 mesi-1 anno.</p>
+    <p style="color:var(--text2)"><strong>Joint Venture:</strong> progetto condiviso con budget dedicato. Registrazione 30 Mo alla Camera, Amministratore eletto, responsabilità separate.</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('⚔️', 'Conflitti e Spionaggio')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:14px;line-height:1.6"><strong>Conflitto Commerciale:</strong> dichiarazione ${DATA.conflitti.dichiarazione} Mo, poi −10% prezzi vendita per 3 mesi. Escalation ${DATA.conflitti.escalation} Mo/mese, mediazione ${DATA.conflitti.mediazione} Mo. Dopo ${DATA.conflitti.durataMax} mesi termina da solo e il vincitore ottiene Privilegio di Preferenza. Max 1 conflitto attivo.</p>
+    <p style="color:var(--text2);margin-bottom:14px"><strong>Conflitto Commerciale:</strong> dichiarazione ${DATA.conflitti.dichiarazione} Mo, poi −10% prezzi vendita per 3 mesi. Escalation ${DATA.conflitti.escalation} Mo/mese, mediazione ${DATA.conflitti.mediazione} Mo. Dopo ${DATA.conflitti.durataMax} mesi termina da solo e il vincitore ottiene Privilegio di Preferenza. Max 1 conflitto attivo.</p>
     <button class="btn secondary small" style="margin-bottom:12px" onclick="goto('gilde','gestore')">⚔️ Registra un conflitto nel Gestore</button>
     ${tableWrap(`<table>
       <thead><tr><th>Mezzo</th><th>Costo/Durata</th><th>CD</th><th>Se scoperti</th></tr></thead>
@@ -476,7 +476,7 @@ riferimenti: () => `
 
   <div class="doc-section">
     ${sectionTitle('🎲', 'Eventi Stagionali')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:14px;line-height:1.6">Tira <strong>1d20</strong> a inizio mese (+2 per ogni Livello dell'Impresa) o usa gli eventi stagionali fissi qui sotto. <button class="btn secondary small" style="margin-left:4px" onclick="goto('gilde','gestore')">🎲 Tira l'evento nel Gestore</button></p>
+    <p style="color:var(--text2);margin-bottom:14px">Tira <strong>1d20</strong> a inizio mese (+2 per ogni Livello dell'Impresa) o usa gli eventi stagionali fissi qui sotto. <button class="btn secondary small" style="margin-left:4px" onclick="goto('gilde','gestore')">🎲 Tira l'evento nel Gestore</button></p>
     ${tableWrap(`<table>
       <thead><tr><th>Evento</th><th>Stagione</th><th>Effetto</th></tr></thead>
       <tbody>
@@ -487,7 +487,7 @@ riferimenti: () => `
 
   <div class="doc-section">
     ${sectionTitle('🏛️', 'Organizzazioni di Arcadia')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:14px;line-height:1.6">Nomi di categoria e lore (es. Società dei Fabbri, dei Tessitori, dell'Osteria): un'Impresa di alto livello può usarli come titolo di prestigio, <strong>senza effetti meccanici extra</strong>.</p>
+    <p style="color:var(--text2);margin-bottom:14px">Nomi di categoria e lore (es. Società dei Fabbri, dei Tessitori, dell'Osteria): un'Impresa di alto livello può usarli come titolo di prestigio, <strong>senza effetti meccanici extra</strong>.</p>
   </div>
 
   <div class="doc-section">
@@ -732,7 +732,7 @@ strumenti: () => `
 
   <div class="doc-section">
     ${sectionTitle('🧮', 'Confronto & Costi Patenti')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px;line-height:1.6">I dati delle 4 Patenti, aggregati e confrontabili. Inchiostri e materiali inclusi.</p>
+    <p style="color:var(--text2);margin-bottom:16px">I dati delle 4 Patenti, aggregati e confrontabili. Inchiostri e materiali inclusi.</p>
     ${tableWrap(`<table>
       <thead><tr><th>Patente</th><th>Costo (3 anni)</th><th>Cauzione</th><th>Totale</th><th>Durata</th><th>Destinatari</th></tr></thead>
       <tbody>
@@ -743,7 +743,7 @@ strumenti: () => `
 
   <div class="doc-section">
     ${sectionTitle('📊', 'Tracker Patenti dei Licenziatari')}
-    <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px;line-height:1.6">Tieni traccia delle Patenti di ogni personaggio: tipo, costo, scadenza triennale e stato. Dati salvati in locale (localStorage) con export/import JSON.</p>
+    <p style="color:var(--text2);margin-bottom:16px">Tieni traccia delle Patenti di ogni personaggio: tipo, costo, scadenza triennale e stato. Dati salvati in locale (localStorage) con export/import JSON.</p>
     <button class="btn" onclick="openPatentiTracker()">Apri Tracker Patenti</button>
   </div>
 `,
