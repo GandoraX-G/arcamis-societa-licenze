@@ -26,6 +26,11 @@ const NAV = {
   ],
 };
 
+const SIDEBAR = [
+  { pg:'gilde',   group:'🏛️ Imprese',          items: NAV.gilde },
+  { pg:'licenze', group:'⚖️ Licenze & Patenti', items: NAV.licenze },
+];
+
 // ════════════════════════════════════════════════
 //  DATA CENTRALIZZATI
 // ════════════════════════════════════════════════
@@ -40,7 +45,7 @@ const DATA = {
       ],
       benefici:[
         '<strong>Spazio Comune:</strong> cassa comune e magazzino condiviso per i soci.',
-        '<strong>Crafting Base:</strong> riduzione del <strong>10%</strong> del tempo di crafting dei propri mestieri quando si usa la sede.',
+        '<strong>Crafting Base:</strong> crafting più rapido del <strong>10%</strong> nella propria sede.',
         '<strong>Vendita Diretta:</strong> possibilità di vendere manufatti base al prezzo di listino pieno, senza intermediazione.'
       ] },
     { id:2, name:'Fondaco / Officina', patente:'P.M.T.', fee:625, feeRange:'500–750', tax:50, taxRange:'50', sumFee:725,
@@ -52,7 +57,7 @@ const DATA = {
       ],
       benefici:[
         '<strong>Crafting Aumentato:</strong> riduce del 10% il costo in materie prime o del 25% il tempo di creazione dei manufatti.',
-        '<strong>Dipendenti NPG (Downtime Passivo):</strong> 1–2 NPG che producono risorse base nei Downtime: rendimento minimo di <strong><span class="nw">10 Mo/mese</span></strong> a testa (risorse o vendite).',
+        '<strong>Dipendenti NPG:</strong> 1–2 NPG che producono nei Downtime (minimo <strong><span class="nw">10 Mo/mese a testa</span></strong>).',
         '<strong>Magazzino Sicuro:</strong> protezione contro furti ed eventi sfortunati per le scorte.'
       ] },
     { id:3, name:'Compagnia Commerciale', patente:'P.A.S.V.', fee:3000, feeRange:'2.500–3.500', tax:200, taxRange:'200', sumFee:3725,
@@ -68,7 +73,7 @@ const DATA = {
         '<strong>Sconto sulle Licenze:</strong> i soci ottengono sconti o rinnovo gratuito per le licenze personali di grado inferiore.'
       ] },
     { id:4, name:'Grande Corporazione', patente:'P.O.E.', fee:12500, feeRange:'10.000–15.000', tax:875, taxRange:'750–1.000', sumFee:16225,
-      motto:'Il colosso: influenza su politica e <span class="nw">commercio del Regno.</span>',
+      motto:'Il colosso: influenza su <span class="nw">politica e commercio.</span>',
       sede:'Un complesso edilizio o una grande sede di rappresentanza (es. Palazzo della Gilda).',
       requisiti:[
         'Almeno <strong>5 PG soci</strong>',
@@ -78,7 +83,7 @@ const DATA = {
       benefici:[
         '<strong>Sconto Massivo di Gruppo:</strong> materie prime e tempi di crafting dimezzati del 50% per tutto il gruppo.',
         '<strong>Influenza Politica:</strong> accesso a informazioni riservate, contatti d\u0027alto bordo e supporto logistico nelle quest (es. trasporti gratuiti, mercenari di supporto).',
-        '<span class="opt-tag">opzionale</span><strong>Diritto di Monopolio / Brevetti:</strong> diritto esclusivo di produrre o distribuire determinati beni speciali nell\u0027area, imponendo royalty ad altri artigiani.'
+        '<span class="opt-tag">opzionale</span><strong>Diritto di Monopolio / Brevetti:</strong> diritto esclusivo su beni speciali nell\u0027area, con royalty sugli altri artigiani.'
       ] },
   ],
   fondi: { init: 30, deposit: 0 },

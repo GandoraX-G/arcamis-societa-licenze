@@ -9,22 +9,24 @@
 <body>
 
 <header>
-  <h1><b>⚖️ Società &amp; Licenze</b> di Arcamis</h1>
-  <p>Imprese · Società · Patenti · Camera del Commercio — Arcadia</p>
+  <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="Menu">☰</button>
+  <div class="head-titles">
+    <h1><b>⚖️ Società &amp; Licenze</b> di Arcamis</h1>
+    <p>Imprese · Società · Patenti · Camera del Commercio — Arcadia</p>
+  </div>
   <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambia tema">🌙</button>
 </header>
 
-<div class="tabs" id="tabs">
-  <div class="tabs-row" id="tabsRow"></div>
-  <div class="tabs-row" id="searchRow" style="padding: 8px 20px 12px; border-top: 1px solid var(--border); display: none;">
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-search" id="searchRow">
     <div class="search-wrap">
       <input type="search" class="search-input" id="globalSearch" placeholder="🔍 Cerca in tutto il documento..." aria-label="Ricerca globale">
     </div>
     <div id="activeFilters" style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;"></div>
   </div>
-</div>
-
-<nav class="page-index" id="pageIndex" aria-label="Indice della pagina"></nav>
+  <nav class="sidebar-nav" id="sidebarNav" aria-label="Indice del documento"></nav>
+</aside>
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
 
 <main class="content" id="content"></main>
 

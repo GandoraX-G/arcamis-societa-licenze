@@ -22,15 +22,16 @@ function patLink(sigla) {
   if (!p) return abbr(sigla);
   return '<button class="pat-link tip" data-tip="Vai alla Patente '+sigla+'" onclick="goto(\u0027licenze\u0027,\u0027'+p.sezione+'\u0027)">'+sigla+'</button>';
 }
+function secId(pg, sec) { return 'sec-' + sec + (pg === 'licenze' ? '-lic' : ''); }
+
 function goto(pg, sec) {
   if (PAGES.indexOf(pg) === -1) pg = 'gilde';
   closeModal();
-  if (pg !== currentPage || !document.getElementById('sec-' + (sec || 'panoramica'))) {
-    currentPage = pg;
-    currentSection = sec || 'panoramica';
-    render();
-  }
-  if (sec) scrollToId('sec-' + sec); else scrollTop();
+  currentPage = pg;
+  currentSection = sec || 'panoramica';
+  if (!document.getElementById(secId(pg, currentSection))) render();
+  markSidebarActive();
+  if (sec) scrollToId(secId(pg, sec)); else scrollTop();
 }
 
 function scrollToId(id) {
@@ -40,20 +41,6 @@ function scrollToId(id) {
 }
 function scrollTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-//  RENDER TABS
-// ════════════════════════════════════════════════
-function renderTabs() {
-  const labels = { gilde:'🏛️ Società & Imprese', licenze:'⚖️ Licenze & Patenti' };
-  const tabsRow = document.getElementById('tabsRow');
-  tabsRow.innerHTML = PAGES.map(p =>
-    `<button class="tab-btn ${p===currentPage?'active':''}" onclick="setPage('${p}')">${labels[p]}</button>`
-  ).join('');
-  document.getElementById('searchRow').style.display = currentPage === 'gilde' ? 'flex' : 'none';
-  setupGlobalSearch();
-  setupTableSort();
-}
-
-// ════════════════════════════════════════════════
 //  HELPERS
 // ════════════════════════════════════════════════
 function sectionTitle(icon, label) {
@@ -607,7 +594,7 @@ pmt: () => `
         <ul>
           <li>Produzione di armi, armature pesanti, strutture civili/militari.</li>
           <li>Oggetti magici <strong style="color:var(--gold)">Comuni</strong>.</li>
-          <li>Emissione di documenti legali e <span class="nw">mappe ufficiali.</span></li>
+          <li>Emissione di <span class="nw">documenti e mappe ufficiali.</span></li>
         </ul>
       </div>
       <div class="licenza-block">
@@ -680,7 +667,7 @@ poe: () => `
         <h5>🏆 Privilegi</h5>
         <ul>
           <li>Diritto di formare fino a <strong style="color:var(--gold)">3 apprendisti</strong>.</li>
-          <li>Certificare la qualità delle opere: <strong style="color:var(--gold)"><span class="nw">+20% valore di mercato</span></strong>.</li>
+          <li><span class="nw">Certificare le opere di pregio:</span> <strong style="color:var(--gold)">+20% valore di mercato</strong>.</li>
         </ul>
       </div>
       <div class="licenza-block">
@@ -698,31 +685,27 @@ inchiostri: () => `
     ${sectionTitle('🖋️', 'Sezione Tecnica: Materiali Vincolati e Inchiostri')}
     <p class="txt-intro">L'uso di inchiostri magici è strettamente regolamentato per evitare abusi arcani. <strong style="color:var(--gold)">Solo la P.A.S.V.</strong> permette l'acquisto di inchiostri magici.</p>
     ${tableWrap(`<table>
-      <thead><tr><th>Grado Inchiostro</th><th>Patente Richiesta</th><th>Limite (3 anni)</th><th>Uso Tipico</th></tr></thead>
+      <thead><tr><th>Grado &amp; Patente</th><th>Limite (3 anni)</th><th>Uso Tipico</th></tr></thead>
       <tbody>
         <tr class="row-pmc">
-          <td><span class="dot-i" style="background:var(--common)"></span>Grado I</td>
-          <td>${abbr('P.M.C.')}</td>
+          <td><span class="dot-i" style="background:var(--common)"></span>Grado I · <span class="nw">${abbr('P.M.C.')}</span></td>
           <td>Uso libero entro soglie ordinarie</td>
-          <td>Inchiostri comuni, scrittura base, documenti</td>
+          <td>Inchiostri comuni, scrittura e documenti base.</td>
         </tr>
         <tr class="row-pmt">
-          <td><span class="dot-i" style="background:var(--uncommon)"></span>Grado II</td>
-          <td>${abbr('P.M.T.')}</td>
+          <td><span class="dot-i" style="background:var(--uncommon)"></span>Grado II · <span class="nw">${abbr('P.M.T.')}</span></td>
           <td>Tracciato nel Libretto degli Acquisti</td>
-          <td>Mappe ufficiali, documenti legali sigillati, Hextech Grado I</td>
+          <td>Mappe ufficiali e documenti legali sigillati.</td>
         </tr>
         <tr class="row-pasv">
-          <td><span class="dot-i" style="background:var(--amber)"></span>Grado III</td>
-          <td>${abbr('P.A.S.V.')}</td>
+          <td><span class="dot-i" style="background:var(--amber)"></span>Grado III · <span class="nw">${abbr('P.A.S.V.')}</span></td>
           <td>Tracciato con <span class="nw">Marchio Spettrale</span></td>
-          <td>Pergamene magiche, Tattoo magici, componenti alchemici avanzati</td>
+          <td>Pergamene, rune e componenti alchemici.</td>
         </tr>
         <tr class="row-poe">
-          <td><span class="dot-i" style="background:var(--legendary)"></span>Grado IV+</td>
-          <td class="nw">${abbr('P.O.E.')} + approvazione U.R.V.</td>
+          <td><span class="dot-i" style="background:var(--legendary)"></span>Grado IV+ · <span class="nw">${abbr('P.O.E.')} + U.R.V.</span></td>
           <td><span class="nw">Approvazione caso per caso</span></td>
-          <td>Manufatti leggendari, opere della Corte, Grimori avanzati</td>
+          <td>Manufatti leggendari e Grimori avanzati.</td>
         </tr>
       </tbody>
     </table>`)}
@@ -741,7 +724,7 @@ strumenti: () => `
     ${tableWrap(`<table>
       <thead><tr><th>Patente</th><th>Costo (3 anni)</th><th>Cauzione</th><th>Totale</th><th>Durata</th><th>Destinatari</th></tr></thead>
       <tbody>
-        ${DATA.patenti.map(p => `<tr class="${p.cls}"><td><strong>${p.sigla}</strong> — ${p.nome}</td><td><span class="nw">${p.costo} Mo</span></td><td><span class="nw">${p.cauzione} Mo</span></td><td><strong><span class="nw">${p.totale} Mo</span></strong></td><td><span class="nw">${p.durata}</span></td><td>${p.destinatari}</td></tr>`).join('')}
+        ${DATA.patenti.map(p => `<tr class="${p.cls}"><td><span class="nw">${p.sigla}</span><span class="td-sub">${p.nome}</span></td><td><span class="nw">${p.costo} Mo</span></td><td><span class="nw">${p.cauzione} Mo</span></td><td><strong><span class="nw">${p.totale} Mo</span></strong></td><td><span class="nw">${p.durata}</span></td><td>${p.destinatari}</td></tr>`).join('')}
       </tbody>
     </table>`)}
   </div>
@@ -757,45 +740,63 @@ strumenti: () => `
 // ════════════════════════════════════════════════
 function renderPage() {
   const el = document.getElementById('content');
-  const map = currentPage === 'gilde' ? RENDER_GILDE : RENDER_LICENZE;
-  const nav = NAV[currentPage];
-  el.innerHTML = nav.map(n => {
-    const fn = map[n.id];
-    const body = fn ? fn() : '<p class="txt-note">Sezione non trovata.</p>';
-    return `<section class="page-block" id="sec-${n.id}">${body}</section>`;
-  }).join('');
-  buildPageIndex();
+  const groups = [['gilde', RENDER_GILDE], ['licenze', RENDER_LICENZE]];
+  const parts = [];
+  groups.forEach(function(pair) {
+    const pg = pair[0], map = pair[1];
+    NAV[pg].forEach(function(n) {
+      const fn = map[n.id];
+      const body = fn ? fn() : '<p class="txt-note">Sezione non trovata.</p>';
+      parts.push('<section class="page-block' + (pg === 'licenze' ? ' page-block-lic' : '') + '" id="' + secId(pg, n.id) + '" data-page="' + pg + '">' + body + '</section>');
+    });
+  });
+  el.innerHTML = parts.join('');
+  buildSidebar();
   attachScrollSpy();
   window.__gInitDone = false;
   if (currentPage === 'gilde' && currentSection === 'gestore') gInit();
+  setupGlobalSearch();
   setupTableSort();
   applyGlobalSearch();
 }
 
-function buildPageIndex() {
-  const idx = document.getElementById('pageIndex');
-  if (!idx) return;
-  idx.innerHTML = NAV[currentPage].map(n =>
-    `<button class="idx-btn ${currentSection === n.id ? 'active' : ''}" data-sec="${n.id}" onclick="setSection('${n.id}')">${n.label}</button>`
-  ).join('');
+function buildSidebar() {
+  const sb = document.getElementById('sidebarNav');
+  sb.innerHTML = SIDEBAR.map(function(g) {
+    return '<div class="sb-group"><div class="sb-group-title">' + g.group + '</div>' +
+      g.items.map(function(n) {
+        const act = (g.pg === currentPage && n.id === currentSection) ? ' active' : '';
+        return '<button class="sb-btn' + act + '" data-sec="' + n.id + '" data-page="' + g.pg + '" onclick="setSection(\'' + g.pg + '\',\'' + n.id + '\')">' + n.label + '</button>';
+      }).join('') +
+    '</div>';
+  }).join('');
+}
+
+function markSidebarActive() {
+  const sb = document.getElementById('sidebarNav');
+  if (!sb) return;
+  sb.querySelectorAll('.sb-btn').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.page === currentPage && b.dataset.sec === currentSection);
+  });
 }
 
 var __scrollSpy = null;
 function attachScrollSpy() {
   if (__scrollSpy) { window.removeEventListener('scroll', __scrollSpy); window.removeEventListener('resize', __scrollSpy); }
   const content = document.getElementById('content');
-  const OFFSET = 160;
+  const OFFSET = 140;
   __scrollSpy = function () {
-    let cur = null;
+    let cur = null, curPg = null;
     content.querySelectorAll('section.page-block').forEach(s => {
-      if (s.getBoundingClientRect().top <= OFFSET) cur = s.id.slice(4);
+      if (s.getBoundingClientRect().top <= OFFSET) { cur = s.id.slice(4); curPg = s.dataset.page; }
     });
-    if (cur && cur !== currentSection) {
+    if (cur && (curPg !== currentPage || cur !== currentSection)) {
+      if (curPg === 'licenze' && cur.slice(-4) === '-lic') cur = cur.slice(0, -4);
+      currentPage = curPg;
       currentSection = cur;
-      const idx = document.getElementById('pageIndex');
-      if (idx) idx.querySelectorAll('.idx-btn').forEach(b => b.classList.toggle('active', b.dataset.sec === cur));
+      markSidebarActive();
     }
-    if (cur === 'gestore' && typeof gInit === 'function' && !window.__gInitDone) {
+    if (currentSection === 'gestore' && typeof gInit === 'function' && !window.__gInitDone) {
       window.__gInitDone = true;
       try { gInit(); } catch (e) {}
     }
@@ -813,11 +814,24 @@ function setPage(p) {
   goto(p, 'panoramica');
 }
 
-function setSection(s) {
+function setSection(pg, s) {
+  currentPage = pg;
   currentSection = s;
-  const idx = document.getElementById('pageIndex');
-  if (idx) idx.querySelectorAll('.idx-btn').forEach(b => b.classList.toggle('active', b.dataset.sec === s));
-  scrollToId('sec-' + s);
+  markSidebarActive();
+  closeSidebar();
+  scrollToId(secId(pg, s));
+}
+
+// ════════════════════════════════════════════════
+//  SIDEBAR (responsive)
+// ════════════════════════════════════════════════
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarBackdrop').classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarBackdrop').classList.remove('open');
 }
 
 // ════════════════════════════════════════════════
@@ -943,7 +957,6 @@ function toggleTheme() {
 applyTheme();
 
 function render() {
-  renderTabs();
   renderPage();
 }
 
