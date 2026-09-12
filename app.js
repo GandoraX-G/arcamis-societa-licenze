@@ -24,19 +24,21 @@ function patLink(sigla) {
 }
 function goto(pg, sec) {
   if (PAGES.indexOf(pg) === -1) pg = 'gilde';
-  currentPage = pg;
-  currentSection = sec || 'panoramica';
   closeModal();
-  closeDrawer();
-  render();
-  window.scrollTo({ top:0, behavior:'smooth' });
+  if (pg !== currentPage || !document.getElementById('sec-' + (sec || 'panoramica'))) {
+    currentPage = pg;
+    currentSection = sec || 'panoramica';
+    render();
+  }
+  if (sec) scrollToId('sec-' + sec); else scrollTop();
 }
 
-//  MOBILE
-// ════════════════════════════════════════════════
-function openDrawer() { document.getElementById('mobileDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeDrawer() { document.getElementById('mobileDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
-function syncMobile() { const d = document.getElementById('mobileDrawerNav'); const s = document.getElementById('sidenav'); if (d && s) d.innerHTML = s.innerHTML; }
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (!el) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function scrollTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
 //  RENDER TABS
 // ════════════════════════════════════════════════
@@ -49,19 +51,6 @@ function renderTabs() {
   document.getElementById('searchRow').style.display = currentPage === 'gilde' ? 'flex' : 'none';
   setupGlobalSearch();
   setupTableSort();
-}
-
-//  RENDER SIDENAV
-// ════════════════════════════════════════════════
-function renderSideNav() {
-  const el = document.getElementById('sidenav');
-  const nav = NAV[currentPage];
-  let h = '<div class="sidenav-section"><div class="sidenav-title">Sezioni</div>';
-  nav.forEach(n => {
-    h += `<button class="sidenav-btn ${currentSection===n.id?'active':''}" onclick="setSection('${n.id}')">${n.label}</button>`;
-  });
-  h += '</div>';
-  el.innerHTML = h;
 }
 
 // ════════════════════════════════════════════════
@@ -766,31 +755,69 @@ strumenti: () => `
 };
 
 // ════════════════════════════════════════════════
-function renderContent() {
+function renderPage() {
   const el = document.getElementById('content');
   const map = currentPage === 'gilde' ? RENDER_GILDE : RENDER_LICENZE;
-  const fn = map[currentSection];
-  el.innerHTML = fn ? fn() : '<div style="color:var(--text3);padding:40px;text-align:center">Sezione non trovata.</div>';
+  const nav = NAV[currentPage];
+  el.innerHTML = nav.map(n => {
+    const fn = map[n.id];
+    const body = fn ? fn() : '<p class="txt-note">Sezione non trovata.</p>';
+    return `<section class="page-block" id="sec-${n.id}">${body}</section>`;
+  }).join('');
+  buildPageIndex();
+  attachScrollSpy();
+  window.__gInitDone = false;
   if (currentPage === 'gilde' && currentSection === 'gestore') gInit();
   setupTableSort();
   applyGlobalSearch();
+}
+
+function buildPageIndex() {
+  const idx = document.getElementById('pageIndex');
+  if (!idx) return;
+  idx.innerHTML = NAV[currentPage].map(n =>
+    `<button class="idx-btn ${currentSection === n.id ? 'active' : ''}" data-sec="${n.id}" onclick="setSection('${n.id}')">${n.label}</button>`
+  ).join('');
+}
+
+var __scrollSpy = null;
+function attachScrollSpy() {
+  if (__scrollSpy) { window.removeEventListener('scroll', __scrollSpy); window.removeEventListener('resize', __scrollSpy); }
+  const content = document.getElementById('content');
+  const OFFSET = 160;
+  __scrollSpy = function () {
+    let cur = null;
+    content.querySelectorAll('section.page-block').forEach(s => {
+      if (s.getBoundingClientRect().top <= OFFSET) cur = s.id.slice(4);
+    });
+    if (cur && cur !== currentSection) {
+      currentSection = cur;
+      const idx = document.getElementById('pageIndex');
+      if (idx) idx.querySelectorAll('.idx-btn').forEach(b => b.classList.toggle('active', b.dataset.sec === cur));
+    }
+    if (cur === 'gestore' && typeof gInit === 'function' && !window.__gInitDone) {
+      window.__gInitDone = true;
+      try { gInit(); } catch (e) {}
+    }
+  };
+  if (typeof window.addEventListener !== 'function') { __scrollSpy(); return; }
+  window.addEventListener('scroll', __scrollSpy, { passive: true });
+  window.addEventListener('resize', __scrollSpy);
+  __scrollSpy();
 }
 
 // ════════════════════════════════════════════════
 //  STATE SETTERS
 // ════════════════════════════════════════════════
 function setPage(p) {
-  currentPage = p;
-  currentSection = 'panoramica';
-  render();
-  window.scrollTo({top:0,behavior:'smooth'});
+  goto(p, 'panoramica');
 }
 
 function setSection(s) {
   currentSection = s;
-  render();
-  closeDrawer();
-  window.scrollTo({top:0,behavior:'smooth'});
+  const idx = document.getElementById('pageIndex');
+  if (idx) idx.querySelectorAll('.idx-btn').forEach(b => b.classList.toggle('active', b.dataset.sec === s));
+  scrollToId('sec-' + s);
 }
 
 // ════════════════════════════════════════════════
@@ -903,25 +930,21 @@ function patentiImport() {
 // ════════════════════════════════════════════════
 var THEME_KEY = 'arcamis_theme';
 function applyTheme() {
-  var light = localStorage.getItem(THEME_KEY) === 'light';
-  document.body.classList.toggle('light', light);
+  var dark = localStorage.getItem(THEME_KEY) === 'dark';
+  document.body.classList.toggle('dark', dark);
   var btn = document.getElementById('themeToggle');
-  if (btn) btn.textContent = light ? '☀️' : '🌙';
+  if (btn) btn.textContent = dark ? '☀️' : '🌙';
 }
 function toggleTheme() {
-  var light = document.body.classList.toggle('light');
-  localStorage.setItem(THEME_KEY, light ? 'light' : 'dark');
+  var dark = document.body.classList.toggle('dark');
+  localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
   applyTheme();
 }
 applyTheme();
 
 function render() {
   renderTabs();
-  renderSideNav();
-  renderContent();
-  syncMobile();
-  const btn = document.getElementById('mobileNavBtn');
-  if (btn) btn.style.display = 'flex';
+  renderPage();
 }
 
 render();
