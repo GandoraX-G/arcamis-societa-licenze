@@ -403,7 +403,7 @@ body.light tbody tr:hover { background: rgba(0,0,0,0.03); }
 .dot-i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: baseline; }
 
 /* ── RULE BOX ── */
-.rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: var(--sp-md); }
+.rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(430px, 100%), 1fr)); gap: var(--sp-lg) var(--sp-md); }
 .rule-box {
   background: var(--bg-2); border: 1px solid var(--line);
   border-radius: var(--radius-s); padding: var(--sp-md) var(--sp-lg);
