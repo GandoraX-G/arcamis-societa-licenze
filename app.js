@@ -223,7 +223,7 @@ panoramica: () => `
       <div class="rule-box">
         <h4>👥 Requisiti minimi (Livello 1 — Bottega Artigiana)</h4>
         <ul>
-          <li>Almeno <strong>2 PG</strong> personaggi (il responsabile e almeno un socio)</li>
+          <li>Almeno <strong>2 PG</strong>: il Responsabile e almeno un socio</li>
           <li>Un <strong>Responsabile</strong> con la patente <strong>${patLink('P.M.C.')}</strong></li>
           <li>Almeno un socio non-apprendista con una <strong>Patente valida</strong></li>
           <li>Una <strong>sede fisica modesta</strong>: Magazzino (300 Mo) o locale di quartiere</li>
@@ -232,11 +232,11 @@ panoramica: () => `
       <div class="rule-box">
         <h4>💰 Costi di fondazione</h4>
         <ul>
-          <li><strong>Tassa di costituzione</strong> (una tantum): ${DATA.livelli[0].feeRange} Mo</li>
-          <li><strong>Sede fisica modesta</strong> (es. Magazzino): 300 Mo</li>
-          <li><strong>Fondo iniziale</strong> per la cassa comune: ${DATA.fondi.init} Mo</li>
-          <li><strong>Manutenzione triennale</strong>: ${DATA.livelli[0].tax} Mo ogni 3 anni</li>
-          <li style="color:var(--amber)">Totale minimo: ~${DATA.livelli[0].fee + 300 + DATA.fondi.init} Mo da investire subito (+ ${DATA.livelli[0].tax} Mo/3 anni)</li>
+          <li><strong>Tassa di costituzione</strong> (una tantum): <span class="nw">${DATA.livelli[0].feeRange} Mo</span></li>
+          <li><strong>Sede fisica modesta</strong> (es. Magazzino): <span class="nw">300 Mo</span></li>
+          <li><strong>Fondo iniziale</strong> per la cassa comune: <span class="nw">${DATA.fondi.init} Mo</span></li>
+          <li><strong>Manutenzione triennale</strong>: <span class="nw">${DATA.livelli[0].tax} Mo ogni 3 anni</span></li>
+          <li style="color:var(--amber)">Totale minimo: <span class="nw">~${DATA.livelli[0].fee + 300 + DATA.fondi.init} Mo</span> subito, più <span class="nw">${DATA.livelli[0].tax} Mo ogni 3 anni</span>.</li>
         </ul>
       </div>
       <div class="rule-box">
@@ -274,10 +274,10 @@ panoramica: () => `
     ${tableWrap(`<table>
       <thead><tr><th>Livello</th><th>Nome</th><th>Patente collegata</th><th>In una frase</th></tr></thead>
       <tbody>
-        <tr class="row-pmc"><td>1</td><td>Bottega Artigiana</td><td>${patLink('P.M.C.')}</td><td>${DATA.livelli[0].motto}</td></tr>
-        <tr class="row-pmt"><td>2</td><td>Fondaco / Officina</td><td>${patLink('P.M.T.')}</td><td>${DATA.livelli[1].motto}</td></tr>
-        <tr class="row-pasv"><td>3</td><td>Compagnia Commerciale</td><td>${patLink('P.A.S.V.')}</td><td>${DATA.livelli[2].motto}</td></tr>
-        <tr class="row-poe"><td>4</td><td>Grande Corporazione</td><td>${patLink('P.O.E.')}</td><td>${DATA.livelli[3].motto}</td></tr>
+        <tr class="row-pmc"><td>1</td><td class="nw">Bottega Artigiana</td><td>${patLink('P.M.C.')}</td><td>${DATA.livelli[0].motto}</td></tr>
+        <tr class="row-pmt"><td>2</td><td class="nw">Fondaco / Officina</td><td>${patLink('P.M.T.')}</td><td>${DATA.livelli[1].motto}</td></tr>
+        <tr class="row-pasv"><td>3</td><td class="nw">Compagnia Commerciale</td><td>${patLink('P.A.S.V.')}</td><td>${DATA.livelli[2].motto}</td></tr>
+        <tr class="row-poe"><td>4</td><td class="nw">Grande Corporazione</td><td>${patLink('P.O.E.')}</td><td>${DATA.livelli[3].motto}</td></tr>
       </tbody>
     </table>`)}
   </div>
@@ -298,9 +298,9 @@ livelli: () => `
     </div>
     <div class="impresa-body">
       <div class="info-block">
-        <p><strong>Costo ${l.id === 1 ? 'di costituzione' : 'di upgrade'}${l.id > 1 ? ' (dal livello ' + (l.id - 1) + ')' : ''}:</strong> ${l.feeRange} Mo</p>
-        ${l.id > 1 ? '<p><strong>Investimento cumulativo in tasse al Livello ' + l.id + ':</strong> ' + l.sumFee + ' Mo</p>' : ''}
-        <p><strong>Manutenzione triennale:</strong> ${l.taxRange} Mo ogni 3 anni</p>
+        <p><strong>Costo ${l.id === 1 ? 'di costituzione' : 'di upgrade'}${l.id > 1 ? ' (dal livello ' + (l.id - 1) + ')' : ''}:</strong> <span class="nw">${l.feeRange} Mo</span></p>
+        ${l.id > 1 ? '<p><strong>Investimento cumulativo in tasse al Livello ' + l.id + ':</strong> <span class="nw">' + l.sumFee + ' Mo</span></p>' : ''}
+        <p><strong>Manutenzione triennale:</strong> <span class="nw">${l.taxRange} Mo ogni 3 anni</span></p>
         <p><strong>Sede fisica:</strong> ${l.sede}</p>
         <h5>Requisiti</h5>
         <ul class="limit-list">${l.requisiti.map(r => '<li>' + r + '</li>').join('')}</ul>
@@ -319,8 +319,8 @@ livelli: () => `
     <div class="rule-box">
       <p>Un percorso concreto, passo dopo passo:</p>
       <p><strong style="color:var(--gold2)">L1 — Bottega Artigiana:</strong> Aldric (Responsabile, P.M.C. 50 Mo) e Brenna (Socia, P.M.C. 50 Mo). Costituzione 100 Mo + Magazzino 300 Mo + Fondo 30 Mo = <strong>430 Mo</strong>; manutenzione triennale 15 Mo.</p>
-      <p><strong style="color:var(--gold2)">L2 — Fondaco / Officina (dopo ~3 mesi):</strong> +625 Mo di upgrade + P.M.T. per il Responsabile 110 Mo ≈ <strong>+735 Mo</strong> (totale investito ~1.165 Mo). Apertura a un terzo socio: si lavora in 3.</p>
-      <p><strong style="color:var(--gold2)">L3 — Compagnia Commerciale (dopo ~6 mesi):</strong> +3.000 Mo di upgrade + P.A.S.V. 180 Mo = <strong>+3.180 Mo</strong> (totale ~4.345 Mo). Un quarto socio conduce appalti del Regno e ottiene sconti sulle licenze personali.</p>
+      <p><strong style="color:var(--gold2)">L2 — Fondaco / Officina (dopo ~3 mesi):</strong> +625 Mo di upgrade + P.M.T. per il Responsabile 110 Mo = <strong>+735 Mo</strong> (totale investito ~1.165 Mo). Apertura a un terzo socio: si lavora in 3.</p>
+      <p><strong style="color:var(--gold2)">L3 — Compagnia Commerciale (dopo ~6 mesi):</strong> +3.000 Mo di upgrade + P.A.S.V. 180 Mo = <strong>+3.180 Mo</strong> (totale ~4.345 Mo). Un quarto socio apre agli appalti del Regno e alle licenze scontate.</p>
       <p><strong style="color:var(--gold2)">L4 — Grande Corporazione (il grande salto):</strong> +12.500 Mo di upgrade + P.O.E. 400 Mo + approvazione della Camera = <strong>+12.900 Mo</strong> (totale ≈ <strong>17.245 Mo</strong>). In cambio: sconto massivo sulle risorse, influenza politica e (a scelta del gruppo) monopoli.</p>
       <p class="txt-note">I numeri sono indicativi: usate i valori centrali dei range e adattateli alla vostra campagna.</p>
     </div>
@@ -339,9 +339,9 @@ procedura: () => `
     ${tableWrap(`<table>
       <thead><tr><th>Cosa serve</th><th>Costo</th></tr></thead>
       <tbody>
-        <tr><td>Tassa di costituzione (Bottega Artigiana)</td><td><strong>${DATA.livelli[0].feeRange} Mo</strong></td></tr>
-        <tr><td>Sede minima: Magazzino (o locale modesto)</td><td><strong>300 Mo</strong></td></tr>
-        <tr><td>Fondo Iniziale (cassa comune)</td><td><strong>${DATA.fondi.init} Mo</strong></td></tr>
+        <tr><td>Tassa di costituzione (Bottega Artigiana)</td><td><strong><span class="nw">${DATA.livelli[0].feeRange} Mo</span></strong></td></tr>
+        <tr><td>Sede minima: Magazzino (o locale modesto)</td><td><strong><span class="nw">300 Mo</span></strong></td></tr>
+        <tr><td>Fondo Iniziale (cassa comune)</td><td><strong><span class="nw">${DATA.fondi.init} Mo</span></strong></td></tr>
       </tbody>
     </table>`)}
     <p class="txt-note">Presenti l'Atto alla Camera del Commercio, paghi, e ricevi il <strong>Certificato</strong> e il <strong>Timbro d'Impresa</strong>. Un socio può entrare/uscire in seguito (ingresso: voto di 2/3 dei soci, 20 Mo).</p>
@@ -557,7 +557,7 @@ quadro: () => `
     ${tableWrap(`<table>
       <thead><tr><th>Sigla</th><th>Denominazione</th><th style="text-align:right">Costo (3 anni)</th><th style="text-align:right">Cauzione</th><th style="text-align:right">Totale</th></tr></thead>
       <tbody>
-        ${DATA.patenti.map(p => `<tr class="${p.cls}"><td>${abbr(p.sigla)}</td><td>${p.nome}</td><td style="text-align:right">${p.costo} Mo</td><td style="text-align:right">${p.cauzione} Mo</td><td style="text-align:right"><strong>${p.totale} Mo</strong></td></tr>`).join('')}
+        ${DATA.patenti.map(p => `<tr class="${p.cls}"><td>${abbr(p.sigla)}</td><td>${p.nome}</td><td style="text-align:right"><span class="nw">${p.costo} Mo</span></td><td style="text-align:right"><span class="nw">${p.cauzione} Mo</span></td><td style="text-align:right"><strong><span class="nw">${p.totale} Mo</span></strong></td></tr>`).join('')}
       </tbody>
     </table>`)}
   </div>`,
@@ -566,7 +566,7 @@ pmc: () => `
   <div class="licenza-card">
     <div class="licenza-header">
       <h3 style="color:var(--common)">🟢 P.M.C. — Manifattura Comune</h3>
-      <p class="lh-meta">Costo: 40 Mo · Cauzione: 10 Mo · <strong style="color:var(--text2)">Totale: 50 Mo</strong> · Durata: 3 anni</p>
+      <p class="lh-meta">Costo: <span class="nw">40 Mo</span> · Cauzione: <span class="nw">10 Mo</span> · <strong style="color:var(--text2)">Totale: <span class="nw">50 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
       <p class="lh-meta">Ideale per: Osti, Sarti, Falegnami e Artisti.</p>
     </div>
     <div class="licenza-body">
@@ -598,7 +598,7 @@ pmt: () => `
   <div class="licenza-card">
     <div class="licenza-header">
       <h3 style="color:var(--uncommon)">🔵 P.M.T. — Manifattura Tecnica</h3>
-      <p class="lh-meta">Costo: 85 Mo · Cauzione: 25 Mo · <strong style="color:var(--text2)">Totale: 110 Mo</strong> · Durata: 3 anni</p>
+      <p class="lh-meta">Costo: <span class="nw">85 Mo</span> · Cauzione: <span class="nw">25 Mo</span> · <strong style="color:var(--text2)">Totale: <span class="nw">110 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
       <p class="lh-meta">Ideale per: Fabbri, Gioiellieri, Architetti e Cartografi ufficiali.</p>
     </div>
     <div class="licenza-body">
@@ -607,7 +607,7 @@ pmt: () => `
         <ul>
           <li>Produzione di armi, armature pesanti, strutture civili/militari.</li>
           <li>Oggetti magici <strong style="color:var(--gold)">Comuni</strong>.</li>
-          <li>Emissione di documenti legali e mappe ufficiali.</li>
+          <li>Emissione di documenti legali e <span class="nw">mappe ufficiali.</span></li>
         </ul>
       </div>
       <div class="licenza-block">
@@ -632,7 +632,7 @@ pasv: () => `
   <div class="licenza-card">
     <div class="licenza-header">
       <h3 style="color:var(--amber)">🟠 P.A.S.V. — Alchimia e Sostanze Vincolate</h3>
-      <p class="lh-meta">Costo: 140 Mo · Cauzione: 40 Mo · <strong style="color:var(--text2)">Totale: 180 Mo</strong> · Durata: 3 anni</p>
+      <p class="lh-meta">Costo: <span class="nw">140 Mo</span> · Cauzione: <span class="nw">40 Mo</span> · <strong style="color:var(--text2)">Totale: <span class="nw">180 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
       <p class="lh-meta">Ideale per: Alchimisti e Artigiani Hextech.</p>
     </div>
     <div class="licenza-body">
@@ -666,7 +666,7 @@ poe: () => `
   <div class="licenza-card">
     <div class="licenza-header">
       <h3 style="color:var(--legendary)">🟡 P.O.E. — Opere Eccezionali</h3>
-      <p class="lh-meta">Costo: 300 Mo · Cauzione: 100 Mo · <strong style="color:var(--text2)">Totale: 400 Mo</strong> · Durata: 3 anni</p>
+      <p class="lh-meta">Costo: <span class="nw">300 Mo</span> · Cauzione: <span class="nw">100 Mo</span> · <strong style="color:var(--text2)">Totale: <span class="nw">400 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
       <p class="lh-meta">Riservata ai Maestri Artigiani (Livello 4+).</p>
     </div>
     <div class="licenza-body">
@@ -680,7 +680,7 @@ poe: () => `
         <h5>🏆 Privilegi</h5>
         <ul>
           <li>Diritto di formare fino a <strong style="color:var(--gold)">3 apprendisti</strong>.</li>
-          <li>Certificare la qualità delle opere (<strong style="color:var(--gold)">+20% valore di mercato</strong>).</li>
+          <li>Certificare la qualità delle opere: <strong style="color:var(--gold)"><span class="nw">+20% valore di mercato</span></strong>.</li>
         </ul>
       </div>
       <div class="licenza-block">
@@ -715,13 +715,13 @@ inchiostri: () => `
         <tr class="row-pasv">
           <td><span class="dot-i" style="background:var(--amber)"></span>Grado III</td>
           <td>${abbr('P.A.S.V.')}</td>
-          <td>Tracciato con Marchio Spettrale</td>
+          <td>Tracciato con <span class="nw">Marchio Spettrale</span></td>
           <td>Pergamene magiche, Tattoo magici, componenti alchemici avanzati</td>
         </tr>
         <tr class="row-poe">
           <td><span class="dot-i" style="background:var(--legendary)"></span>Grado IV+</td>
-          <td>${abbr('P.O.E.')} + approvazione U.R.V.</td>
-          <td>Approvazione caso per caso</td>
+          <td class="nw">${abbr('P.O.E.')} + approvazione U.R.V.</td>
+          <td><span class="nw">Approvazione caso per caso</span></td>
           <td>Manufatti leggendari, opere della Corte, Grimori avanzati</td>
         </tr>
       </tbody>
@@ -741,7 +741,7 @@ strumenti: () => `
     ${tableWrap(`<table>
       <thead><tr><th>Patente</th><th>Costo (3 anni)</th><th>Cauzione</th><th>Totale</th><th>Durata</th><th>Destinatari</th></tr></thead>
       <tbody>
-        ${DATA.patenti.map(p => `<tr class="${p.cls}"><td><strong>${p.sigla}</strong> — ${p.nome}</td><td>${p.costo} Mo</td><td>${p.cauzione} Mo</td><td><strong>${p.totale} Mo</strong></td><td>${p.durata}</td><td>${p.destinatari}</td></tr>`).join('')}
+        ${DATA.patenti.map(p => `<tr class="${p.cls}"><td><strong>${p.sigla}</strong> — ${p.nome}</td><td><span class="nw">${p.costo} Mo</span></td><td><span class="nw">${p.cauzione} Mo</span></td><td><strong><span class="nw">${p.totale} Mo</span></strong></td><td><span class="nw">${p.durata}</span></td><td>${p.destinatari}</td></tr>`).join('')}
       </tbody>
     </table>`)}
   </div>

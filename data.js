@@ -35,7 +35,7 @@ const DATA = {
       motto:'Fondazione: un piccolo laboratorio o negozietto di quartiere per muovere i primi passi.',
       sede:'Un luogo modesto, non troppo piccolo ma neanche troppo grande (laboratorio o negozietto di quartiere).',
       requisiti:[
-        'Almeno <strong>2 PG soci</strong> (divisibile tra 2+ soci)',
+        'Almeno <strong>2 PG soci</strong> (divisibile tra <span class="nw">2+ soci</span>)',
         'Un <strong>Responsabile</strong> con la patente <strong>P.M.C.</strong>'
       ],
       benefici:[
@@ -44,23 +44,23 @@ const DATA = {
         '<strong>Vendita Diretta:</strong> possibilità di vendere manufatti base al prezzo di listino pieno, senza intermediazione.'
       ] },
     { id:2, name:'Fondaco / Officina', patente:'P.M.T.', fee:625, feeRange:'500–750', tax:50, taxRange:'50', sumFee:725,
-      motto:'Espansione: più capacità produttiva, personale e un nome in città.',
+      motto:'Espansione: più produzione e un nome nuovo <span class="nw">in città.</span>',
       sede:'Un intero edificio piccolo: negozio con retrobottega, piccola fucina o alambicco.',
       requisiti:[
         'Almeno <strong>3 PG soci</strong>',
         'Un socio con mestiere tecnico qualificato (<strong>P.M.T.</strong>)'
       ],
       benefici:[
-        '<strong>Crafting Aumentato:</strong> riduzione del costo in materie prime (<em>−10%</em>) o del tempo (<em>−25%</em>) per la creazione di manufatti.',
-        '<strong>Dipendenti NPG (Downtime Passivo):</strong> 1–2 NPG che producono risorse base nei Downtime: rendimento minimo di <strong>10 Mo/mese</strong> a testa (risorse o vendite).',
+        '<strong>Crafting Aumentato:</strong> riduce del 10% il costo in materie prime o del 25% il tempo di creazione dei manufatti.',
+        '<strong>Dipendenti NPG (Downtime Passivo):</strong> 1–2 NPG che producono risorse base nei Downtime: rendimento minimo di <strong><span class="nw">10 Mo/mese</span></strong> a testa (risorse o vendite).',
         '<strong>Magazzino Sicuro:</strong> protezione contro furti ed eventi sfortunati per le scorte.'
       ] },
     { id:3, name:'Compagnia Commerciale', patente:'P.A.S.V.', fee:3000, feeRange:'2.500–3.500', tax:200, taxRange:'200', sumFee:3725,
-      motto:'Il salto commerciale: filiali minori, contratti ufficiali e materiali rari.',
+      motto:'Il salto commerciale: filiali, contratti e materiali <span class="nw">rari.</span>',
       sede:'Un palazzo commerciale, un grande laboratorio o un magazzino portuale.',
       requisiti:[
         'Almeno <strong>4 PG soci</strong>',
-        '<strong>Licenza speciale</strong> di commercio/regno (<strong>P.A.S.V.</strong> al Responsabile)'
+        '<strong>Licenza speciale</strong> di commercio: <strong>P.A.S.V.</strong> per il Responsabile'
       ],
       benefici:[
         '<strong>Appalti del Regno:</strong> accesso prioritario alle missioni/bacheche di fornitura per il regno o le fazioni (ricompense in monete o reputazione).',
@@ -68,7 +68,7 @@ const DATA = {
         '<strong>Sconto sulle Licenze:</strong> i soci ottengono sconti o rinnovo gratuito per le licenze personali di grado inferiore.'
       ] },
     { id:4, name:'Grande Corporazione', patente:'P.O.E.', fee:12500, feeRange:'10.000–15.000', tax:875, taxRange:'750–1.000', sumFee:16225,
-      motto:'Il colosso: capace di influenzare politica e commercio del Regno.',
+      motto:'Il colosso: influenza su politica e <span class="nw">commercio del Regno.</span>',
       sede:'Un complesso edilizio o una grande sede di rappresentanza (es. Palazzo della Gilda).',
       requisiti:[
         'Almeno <strong>5 PG soci</strong>',
@@ -76,7 +76,7 @@ const DATA = {
         '<strong>Approvazione</strong> della Camera di Commercio / Consiglio del Regno'
       ],
       benefici:[
-        '<strong>Sconto Massivo di Gruppo:</strong> sconti sull\u0027acquisto delle materie prime e tempi di crafting dimezzati (<strong>−50%</strong>).',
+        '<strong>Sconto Massivo di Gruppo:</strong> materie prime e tempi di crafting dimezzati del 50% per tutto il gruppo.',
         '<strong>Influenza Politica:</strong> accesso a informazioni riservate, contatti d\u0027alto bordo e supporto logistico nelle quest (es. trasporti gratuiti, mercenari di supporto).',
         '<span class="opt-tag">opzionale</span><strong>Diritto di Monopolio / Brevetti:</strong> diritto esclusivo di produrre o distribuire determinati beni speciali nell\u0027area, imponendo royalty ad altri artigiani.'
       ] },

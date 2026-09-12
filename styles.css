@@ -355,7 +355,7 @@ thead th.sort-desc::after { content: '▼'; opacity: 1; color: var(--ink); }
 tbody tr { border-bottom: 1px solid var(--border); }
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--bg-soft); }
-tbody td { padding: 11px 14px; color: var(--ink-2); vertical-align: top; line-height: 1.65; }
+tbody td { padding: 11px 14px; color: var(--ink-2); vertical-align: top; line-height: 1.65; text-wrap: pretty; }
 tbody td:first-child { color: var(--ink); font-weight: 600; }
 tbody td strong { color: var(--ink); }
 tbody td:last-child, thead th:last-child { padding-right: 14px; }
@@ -364,6 +364,7 @@ tbody td:last-child, thead th:last-child { padding-right: 14px; }
 .table-filter-row input { width: 100%; background: none; border: 1px solid var(--border); color: var(--ink); font-size: .75rem; padding: 4px 8px; border-radius: var(--radius-s); }
 .table-filter-row input:focus { outline: none; border-color: var(--accent); }
 .highlight { background: color-mix(in srgb, var(--accent) 18%, transparent); border-radius: 2px; padding: 0 2px; }
+.nw { white-space: nowrap; }
 
 .row-app  td { color: var(--ink-4) !important; }
 .row-art  td:first-child { color: var(--common) !important; }
