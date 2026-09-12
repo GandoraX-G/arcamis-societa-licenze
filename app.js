@@ -275,7 +275,7 @@ panoramica: () => `
     </div>
 
     <div class="note-box">
-      🏷️ <strong>Scelta del settore:</strong> il settore identifica il <strong>mestiere principale</strong> dell\u0027Impresa (quello del Responsabile e per cui è registrata la sede). <strong>Non è un vincolo permanente</strong>: ogni nuovo socio porta il proprio mestiere, quindi con il tempo l\u0027Impresa può allargare le attività (più patenti, strutture e contratti diversi) fino a diventare <strong>plurisettoriale</strong>.
+      🏷️ <strong>Scelta del settore:</strong> è il <strong>mestiere principale</strong> dell'Impresa (quello del Responsabile). <strong>Non vincola per sempre</strong>: ogni nuovo socio porta il suo mestiere e, col tempo, l'Impresa può allargarsi fino a diventare <strong>plurisettoriale</strong>.
     </div>
   </div>
 
@@ -401,12 +401,12 @@ procedura: () => `
 entrate: () => `
   <div class="page-hero gilde">
     <h2>💰 Entrate dell'Impresa</h2>
-    <p>Quattro fonti di guadagno: <strong>contratti di fornitura</strong>, <strong>vendita diretta</strong>, <strong>affitti di struttura</strong> e <strong>lavori su commissione</strong>. Qui spieghiamo come funzionano e come si calcola il fatturato del mese.</p>
+    <p>Quattro fonti di guadagno: <strong>contratti di fornitura</strong>, <strong>vendita diretta</strong>, <strong>affitti di struttura</strong> e <strong>lavori su commissione</strong>. Qui come funzionano e come si calcola il fatturato.</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('💵', 'Contratti di Fornitura')}
-    <p class="txt-intro">Un contratto di fornitura è un <strong>impegno di consegna a pagamento</strong>: si stipula <strong>una volta</strong> (con un roleplay o un Downtime) e da quel mese l'Impresa <strong>consegna ogni mese una quota di produzione</strong> — materiali o manufatti della categoria della propria patente — alla Camera o a un ente. In cambio riceve la <strong>Rendita mensile</strong> in tabella. Quindi è a tutti gli effetti una <strong>vendita garantita</strong> (guadagno monetario certo), non denaro passivo incondizionato: <em>chi non consegna, non incassa</em>.</p>
+    <p class="txt-intro">Il contratto di fornitura è una <strong>vendita garantita</strong>: l'Impresa <strong>consegna ogni mese</strong> una quota di produzione (materiali o manufatti della propria categoria) e l'ente paga la <strong>Rendita mensile</strong>. Non è denaro passivo: <em>chi non consegna, non incassa</em>.</p>
     ${tableWrap(`<table>
       <thead><tr><th>Patente richiesta</th><th style="text-align:right">Investimento</th><th style="text-align:right">Rendita/mese</th><th style="text-align:right">Rientro</th></tr></thead>
       <tbody>
@@ -416,12 +416,12 @@ entrate: () => `
         }).join('')}
       </tbody>
     </table>`)}
-    <p class="txt-note">Un solo contratto attivo per socio che possiede la Patente richiesta. <strong>Tetto massimo:</strong> i contratti attivi non possono superare il Livello dell'Impresa (max 1 al Livello 1, max 4 alla Grande Corporazione). La rendita presuppone la <strong>consegna fisica dei beni</strong> del mese (dal magazzino o dalla produzione dei soci): se la produzione non c'è o l'Impresa è sospesa, la rendita non matura.</p>
+    <p class="txt-note">Un contratto per socio dotato della patente; max pari al <strong>Livello</strong> dell'Impresa (1 al L1, 4 alla Grande Corporazione). Le consegne escono da magazzino o dalla produzione dei soci: senza produzione — o da sospesi — la rendita non matura.</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('🛍️', 'Vendita diretta a Bottega')}
-    <p class="txt-intro">La vendita diretta è il pane quotidiano: si vendono i manufatti al pubblico e il guadagno è la differenza tra <strong>prezzo di vendita</strong> e <strong>costo dei materiali</strong>. Regole semplici consigliate:</p>
+    <p class="txt-intro">Si vendono i manufatti al pubblico: il guadagno è la differenza tra <strong>prezzo di vendita</strong> e <strong>costo dei materiali</strong>. Regole semplici:</p>
     ${tableWrap(`<table>
       <thead><tr><th>Voce</th><th>Regola</th></tr></thead>
       <tbody>
@@ -435,7 +435,18 @@ entrate: () => `
 
   <div class="doc-section">
     ${sectionTitle('📝', 'Lavori su Commissione privata')}
-    <p>I prezzi sotto sono <strong>stime di vendita</strong> — cioè quanto il cliente paga per l'oggetto finito — <strong>non aggiunte</strong> da sommare ad altri guadagni: l'utile dell'Impresa è la differenza tra l'incasso e i materiali impiegati. Prezzi orientativi <em>(adattate alla campagna)</em>: oggetto comune 1–20 Mo, non comune 20–80 Mo, raro 80–200 Mo, molto raro 200–500 Mo, leggendario: trattativa. La <strong style="color:var(--gold2)">P.O.E.</strong> può certificare la qualità (<strong>+20% valore</strong>), ma la certificazione è un costo/beneficio separato dal prezzo base.</p>
+    <p>I prezzi sotto sono <strong>stime di vendita</strong> (quanto paga il cliente per il pezzo finito), <strong>non aggiunte</strong> da sommare: l'utile dell'Impresa è la differenza tra incasso e materiali. Prezzi orientativi <em>(adattate alla campagna)</em>:</p>
+    ${tableWrap(`<table>
+      <thead><tr><th>Oggetto</th><th style="text-align:right">Prezzo di vendita</th></tr></thead>
+      <tbody>
+        <tr><td>Comune</td><td style="text-align:right">1–20 Mo</td></tr>
+        <tr><td>Non comune</td><td style="text-align:right">20–80 Mo</td></tr>
+        <tr><td>Raro</td><td style="text-align:right">80–200 Mo</td></tr>
+        <tr><td>Molto raro</td><td style="text-align:right">200–500 Mo</td></tr>
+        <tr><td>Leggendario</td><td style="text-align:right">Trattativa</td></tr>
+      </tbody>
+    </table>`)}
+    <p class="txt-note">La <strong style="color:var(--gold2)">P.O.E.</strong> certifica la qualità: <strong>+20% valore</strong> (a parte).</p>
   </div>
 
   <div class="doc-section">
@@ -447,17 +458,19 @@ entrate: () => `
     ${sectionTitle('🧮', 'Come calcolare il Fatturato mensile')}
     <div class="rule-box">
       <p><strong>Fatturato (lordo) = Vendite dirette + Rendita Contratti + Affitti</strong></p>
-      <p>Dal lordo si tolgono le <strong>spese del mese</strong> (materie prime, apprendisti), poi la <strong>Tassa Camera (1% sul lordo)</strong>; sull'utile si accantona il <strong>Fondo di Riserva (10%)</strong>. Il resto è l'<strong>utile netto</strong> che finisce in cassa.</p>
-
+      <p>Dal lordo si tolgono le <strong>spese del mese</strong> (materie prime, apprendisti) e la <strong>Tassa Camera (1% sul lordo)</strong>; sull'utile si accantona il <strong>Fondo di Riserva (10%)</strong>. Il resto è l'<strong>utile netto</strong>.</p>
       <h5>Esempio — Osteria, Livello 1 (Oste con Cucina + Contratto)</h5>
-      <ul>
-        <li>Costo materiali (carbone): <strong>4 Mo/sett.</strong> → <strong>−16 Mo/mese</strong></li>
-        <li>Vendita ricette in bottega: +25% sul materiale → <strong>+20 Mo</strong></li>
-        <li>Rendita Contratto (Manifattura Comune): <strong>+15 Mo</strong></li>
-        <li>Lordo = 20 + 15 = <strong>35 Mo</strong> · Tassa Camera 1% ≈ <strong>0 Mo</strong> · Materiali −16 = utile ≈ 19 Mo</li>
-        <li>Fondo di Riserva 10% ≈ <strong>−2 Mo</strong> → <strong>Utile netto ≈ 17 Mo/mese</strong></li>
-      </ul>
-      <p class="txt-note">Investimento dell'esempio: Cucina <strong>70 Mo</strong> + stipula contratto <strong>45 Mo</strong> = 115 Mo → rientro in ~7 mesi. Da soli, i 15 Mo del contratto non coprono il carbone: la rendita reale nasce dalla <strong>combinazione</strong> di produzione, vendita diretta e contratti.</p>
+      ${tableWrap(`<table>
+        <thead><tr><th>Voce</th><th style="text-align:right">Mo/mese</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Vendite</strong> — ricette in bottega (+25% sul materiale)</td><td style="text-align:right">+20</td></tr>
+          <tr><td><strong>Rendita contratto</strong> — Manifattura Comune</td><td style="text-align:right">+15</td></tr>
+          <tr><td><strong>Materiali</strong> — carbone (4 Mo/sett.)</td><td style="text-align:right">−16</td></tr>
+          <tr><td><strong>Tassa Camera</strong> — 1% sul lordo ≈ 0</td><td style="text-align:right">0</td></tr>
+          <tr class="total"><td><strong>Utile netto</strong> (20 + 15 − 16; riserva 10% ≈ 2)</td><td style="text-align:right"><strong>≈ 17</strong></td></tr>
+        </tbody>
+      </table>`)}
+      <p class="txt-note">Investimento: Cucina 70 + stipula 45 = <strong>115 Mo</strong> → rientro in ~7 mesi. Un contratto da solo non copre il carbone: la rendita reale nasce da <strong>produzione + vendita + contratti</strong>.</p>
     </div>
   </div>
 

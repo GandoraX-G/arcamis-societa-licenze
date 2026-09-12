@@ -52,7 +52,7 @@ const DATA = {
       ],
       benefici:[
         '<strong>Crafting Aumentato:</strong> riduzione del costo in materie prime (<em>−10%</em>) o del tempo (<em>−25%</em>) per la creazione di manufatti.',
-        '<strong>Dipendenti NPG (Downtime Passivo):</strong> possibilità di ingaggiare 1–2 NPG che producono risorse base durante i Downtime: ogni mese generano un rendimento minimo passivo (es. <strong>10 Mo/mese</strong> a testa, in risorse prodotte o vendite generate dai soci).',
+        '<strong>Dipendenti NPG (Downtime Passivo):</strong> 1–2 NPG che producono risorse base nei Downtime: rendimento minimo di <strong>10 Mo/mese</strong> a testa (risorse o vendite).',
         '<strong>Magazzino Sicuro:</strong> protezione contro furti ed eventi sfortunati per le scorte.'
       ] },
     { id:3, name:'Compagnia Commerciale', patente:'P.A.S.V.', fee:3000, feeRange:'2.500–3.500', tax:200, taxRange:'200', sumFee:3725,
