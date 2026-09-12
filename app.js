@@ -574,8 +574,8 @@ quadro: () => `
   </div>`,
 
 pmc: () => `
-  <div class="licenza-card" style="border-color:var(--common)">
-    <div class="licenza-header" style="background:rgba(96,184,64,.07)">
+  <div class="licenza-card">
+    <div class="licenza-header">
       <h3 style="color:var(--common)">🟢 P.M.C. — Manifattura Comune</h3>
       <p class="lh-meta">Costo: 40 Mo · Cauzione: 10 Mo · <strong style="color:var(--text2)">Totale: 50 Mo</strong> · Durata: 3 anni</p>
       <p class="lh-meta">Ideale per: Osti, Sarti, Falegnami e Artisti.</p>
@@ -606,8 +606,8 @@ pmc: () => `
   </div>`,
 
 pmt: () => `
-  <div class="licenza-card" style="border-color:var(--uncommon)">
-    <div class="licenza-header" style="background:rgba(90,138,216,.07)">
+  <div class="licenza-card">
+    <div class="licenza-header">
       <h3 style="color:var(--uncommon)">🔵 P.M.T. — Manifattura Tecnica</h3>
       <p class="lh-meta">Costo: 85 Mo · Cauzione: 25 Mo · <strong style="color:var(--text2)">Totale: 110 Mo</strong> · Durata: 3 anni</p>
       <p class="lh-meta">Ideale per: Fabbri, Gioiellieri, Architetti e Cartografi ufficiali.</p>
@@ -640,8 +640,8 @@ pmt: () => `
   </div>`,
 
 pasv: () => `
-  <div class="licenza-card" style="border-color:var(--amber)">
-    <div class="licenza-header" style="background:rgba(212,149,74,.07)">
+  <div class="licenza-card">
+    <div class="licenza-header">
       <h3 style="color:var(--amber)">🟠 P.A.S.V. — Alchimia e Sostanze Vincolate</h3>
       <p class="lh-meta">Costo: 140 Mo · Cauzione: 40 Mo · <strong style="color:var(--text2)">Totale: 180 Mo</strong> · Durata: 3 anni</p>
       <p class="lh-meta">Ideale per: Alchimisti e Artigiani Hextech.</p>
@@ -674,8 +674,8 @@ pasv: () => `
   </div>`,
 
 poe: () => `
-  <div class="licenza-card" style="border-color:var(--legendary)">
-    <div class="licenza-header" style="background:rgba(216,176,32,.07)">
+  <div class="licenza-card">
+    <div class="licenza-header">
       <h3 style="color:var(--legendary)">🟡 P.O.E. — Opere Eccezionali</h3>
       <p class="lh-meta">Costo: 300 Mo · Cauzione: 100 Mo · <strong style="color:var(--text2)">Totale: 400 Mo</strong> · Durata: 3 anni</p>
       <p class="lh-meta">Riservata ai Maestri Artigiani (Livello 4+).</p>
