@@ -128,8 +128,8 @@ var GEN_MESTIERI = [
   { name:'Architetto', pat:'P.M.T.', lv:2 },
   { name:'Alchimista', pat:'P.A.S.V.', lv:3 },
   { name:'Artigiano Hextech', pat:'P.A.S.V.', lv:3 },
-  { name:'Maestro Artigiano', pat:'P.O.E.', lv:3 },
-  { name:'Arcanista delle Corporazioni', pat:'P.O.E.', lv:3 },
+  { name:'Maestro Artigiano', pat:'P.O.E.', lv:4 },
+  { name:'Arcanista delle Corporazioni', pat:'P.O.E.', lv:4 },
 ];
 var GEN_SOCIO_NAMES = ['Aldric','Brenna','Calla','Darian','Elara','Finn','Greta','Haldor','Isolde','Jarek','Kira','Loric','Mira','Norvin','Oria','Pellin','Quinn','Renna','Sorin','Thessa','Ulric','Vessa','Wrenn','Xara','Yves','Zara'];
 function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
@@ -150,10 +150,10 @@ function gRandomData() {
   soci.push({ nome: GEN_SOCIO_NAMES[0], mestiere: resp.name, patente: resp.pat, ruolo: 'Responsabile', tipo: 'PG' });
   var poolNoResp = pool.filter(function(m){ return m.name !== resp.name; });
   var mastro = rand(poolNoResp.length ? poolNoResp : pool);
-  soci.push({ nome: GEN_SOCIO_NAMES[1 % GEN_SOCIO_NAMES.length], mestiere: mastro.name, patente: mastro.pat, ruolo: 'Mastro Artigiano', tipo: 'PG' });
+  soci.push({ nome: GEN_SOCIO_NAMES[1 % GEN_SOCIO_NAMES.length], mestiere: mastro.name, patente: mastro.pat, ruolo: 'Socio', tipo: 'PG' });
   for (var i = 2; i < sociCount; i++) {
     var m = rand(pool);
-    if (level < 3 && m.pat === 'P.O.E.') m = rand(pool.filter(function(x){ return x.pat !== 'P.O.E.'; }));
+    if (level < 4 && m.pat === 'P.O.E.') m = rand(pool.filter(function(x){ return x.pat !== 'P.O.E.'; }));
     if (i === sociCount - 1 && sociCount >= 4) {
       soci.push({ nome: GEN_SOCIO_NAMES[i % GEN_SOCIO_NAMES.length], mestiere: m.name, patente: '—', ruolo: 'Apprendista', tipo: Math.random() > .5 ? 'PG' : 'NPC', isApprendista: true });
     } else {
@@ -161,7 +161,7 @@ function gRandomData() {
     }
   }
 
-  var strutture = [{ nome:'Magazzino', cost:150 }];
+  var strutture = [{ nome:'Magazzino', cost:300 }];
   if (soci.some(function(s){ return s.mestiere === 'Oste'; })) strutture.push({ nome:'Cucina', cost:70 });
   var lv2pool = DATA.strutture.filter(function(s){ return s.lv === 2; });
   if (level >= 2 && lv2pool.length) strutture.push({ nome: lv2pool[randInt(0, lv2pool.length - 1)].nome, cost:250 });
@@ -200,10 +200,10 @@ function gRequisiti(d) {
   add(soci.length >= minSoc, 'Livello ' + lv + ': almeno <strong>' + minSoc + ' PG soci</strong> in organico.');
   add(!!resp, 'Serve un Responsabile (★).');
   add(respOk, 'Il Responsabile deve avere la licenza minima del Livello ' + lv + ' (' + lvPatente(lv) + ' o superiore).');
-  add(soci.some(function(s){ return s.ruolo === 'Mastro Artigiano'; }), 'Serve almeno un Mastro Artigiano (♦).');
   add(soci.some(function(s){ return !s.isApprendista && s.patente && s.patente !== '—'; }), 'Almeno un socio non-apprendista con una Patente valida.');
-  add((d.strutture || []).some(function(s){ return s.nome === 'Magazzino'; }), 'Sede minima: Magazzino (150 Mo).');
+  add((d.strutture || []).some(function(s){ return s.nome === 'Magazzino'; }), 'Sede minima: Magazzino (300 Mo).');
   if (lv === 4) {
+    add(soci.some(function(s){ return !s.isApprendista && s.patente === 'P.O.E.'; }), 'Grande Corporazione: un socio con licenza P.O.E. (Mastro Artigiano, mestiere lv 4).');
     add(!!d.approvazione, 'Grande Corporazione: <strong>approvazione</strong> della Camera di Commercio / Consiglio del Regno.');
   }
   add(contr <= lv, 'Contratti attivi ≤ Livello (max ' + lv + ').');
@@ -243,6 +243,9 @@ function gPathHtml(d) {
       var pt = lvPatente(j);
       if (!have[pt]) { pats.push(pt + ' ' + patTotale(pt) + ' Mo'); tot += patTotale(pt); }
     }
+    var ptTgt = lvPatente(L);
+    if (!have[ptTgt]) { pats.push(ptTgt + ' ' + patTotale(ptTgt) + ' Mo'); tot += patTotale(ptTgt); }
+    have[ptTgt] = true;
     if (pats.length) notes.push('Patenti da acquisire: ' + pats.join(', '));
     if (L === 4 && !d.approvazione) notes.push('Approvazione Camera / Consiglio (Downtime politico)');
     html += '<div class="calc-row"><span class="label">→ L' + L + ' — ' + DATA.livelli[L - 1].name + '</span><span class="value">' + tot + ' Mo</span></div>';
@@ -405,7 +408,7 @@ function gSociHtml(d) {
     + '<button class="btn" onclick="gAddSocio()">＋ Aggiungi</button></div>';
   if (nApp >= maxApp) addForm = '<div class="note-box" style="margin-bottom:8px">⚠ Limite apprendisti raggiunto (' + nApp + '/' + maxApp + '): serve un Responsabile con P.O.E. per averne 3.</div>' + addForm;
   html += addForm;
-  if (!soci.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessun socio: aggiungi almeno un Responsabile, un Mastro Artigiano e altri soci (min 2).</p>';
+  if (!soci.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessun socio: aggiungi almeno un Responsabile e altri soci (min 2).</p>';
   html += '<table><thead><tr><th>Nome</th><th>Mestiere</th><th>Patente</th><th>Ruolo</th><th>Tipo</th><th>Cost. Appr.</th><th></th></tr></thead><tbody>';
   soci.forEach(function(s, i) {
     var cost = s.isApprendista ? (s.tipo === 'PG' ? 20 : 8) + ' Mo' : '—';
@@ -466,7 +469,7 @@ function gStruttHtml(d) {
   var html = '<h4>🏗 Strutture e sedi <span class="small" style="color:var(--text3)">(' + strutt.length + ')</span></h4>';
   html += '<div class="add-row"><select id="tNome">' + opts + '</select>'
     + '<button class="btn" onclick="gAddStrutt()">＋ Acquista</button></div>';
-  if (!strutt.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessuna struttura: ogni società deve partire dal Magazzino (150 Mo).</p>';
+  if (!strutt.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessuna struttura: ogni società deve partire dal Magazzino (300 Mo).</p>';
   html += '<table><thead><tr><th>Struttura</th><th>Costo</th><th>Tipo</th><th></th></tr></thead><tbody>';
   var totCost = 0;
   strutt.forEach(function(s, i) {

@@ -236,19 +236,18 @@ panoramica: () => `
         <ul>
           <li>Almeno <strong>2 PG</strong> personaggi (il responsabile e almeno un socio)</li>
           <li>Un <strong>Responsabile</strong> con la patente <strong>${patLink('P.M.C.')}</strong></li>
-          <li>Un <strong>Mastro Artigiano</strong> (♦) in organico</li>
           <li>Almeno un socio non-apprendista con una <strong>Patente valida</strong></li>
-          <li>Una <strong>sede fisica modesta</strong>: Magazzino (150 Mo) o locale di quartiere</li>
+          <li>Una <strong>sede fisica modesta</strong>: Magazzino (300 Mo) o locale di quartiere</li>
         </ul>
       </div>
       <div class="rule-box">
         <h4>💰 Costi di fondazione</h4>
         <ul>
           <li><strong>Tassa di costituzione</strong> (una tantum): ${DATA.livelli[0].feeRange} Mo</li>
-          <li><strong>Sede fisica modesta</strong> (es. Magazzino): 150 Mo</li>
+          <li><strong>Sede fisica modesta</strong> (es. Magazzino): 300 Mo</li>
           <li><strong>Fondo iniziale</strong> per la cassa comune: ${DATA.fondi.init} Mo</li>
           <li><strong>Manutenzione triennale</strong>: ${DATA.livelli[0].tax} Mo ogni 3 anni</li>
-          <li style="color:var(--amber)">Totale minimo: ~${DATA.livelli[0].fee + 150 + DATA.fondi.init} Mo da investire subito (+ ${DATA.livelli[0].tax} Mo/3 anni)</li>
+          <li style="color:var(--amber)">Totale minimo: ~${DATA.livelli[0].fee + 300 + DATA.fondi.init} Mo da investire subito (+ ${DATA.livelli[0].tax} Mo/3 anni)</li>
         </ul>
       </div>
       <div class="rule-box">
@@ -274,6 +273,10 @@ panoramica: () => `
     <div class="note-box">
       💡 <strong>Suggerimento:</strong> usa il <strong>Gestore di Società</strong> per simulare la creazione e verificare che tutti i requisiti siano soddisfatti prima di andare al Castello. Puoi anche generare un\u0027Impresa casuale con il pulsante 🎲 per avere un\u0027ispirazione.
     </div>
+
+    <div class="note-box">
+      🏷️ <strong>Scelta del settore:</strong> il settore identifica il <strong>mestiere principale</strong> dell\u0027Impresa (quello del Responsabile e per cui è registrata la sede). <strong>Non è un vincolo permanente</strong>: ogni nuovo socio porta il proprio mestiere, quindi con il tempo l\u0027Impresa può allargare le attività (più patenti, strutture e contratti diversi) fino a diventare <strong>plurisettoriale</strong>.
+    </div>
   </div>
 
   <div class="doc-section">
@@ -284,8 +287,8 @@ panoramica: () => `
       <tbody>
         <tr class="row-pmc"><td>1</td><td>Bottega Artigiana</td><td>${patLink('P.M.C.')}</td><td>${DATA.livelli[0].motto}</td></tr>
         <tr class="row-pmt"><td>2</td><td>Fondaco / Officina</td><td>${patLink('P.M.T.')}</td><td>${DATA.livelli[1].motto}</td></tr>
-        <tr class="row-poe"><td>3</td><td>Compagnia Commerciale</td><td>${patLink('P.O.E.')}</td><td>${DATA.livelli[2].motto}</td></tr>
-        <tr class="row-poe"><td>4</td><td>Grande Corporazione</td><td>—</td><td>${DATA.livelli[3].motto}</td></tr>
+        <tr class="row-pasv"><td>3</td><td>Compagnia Commerciale</td><td>${patLink('P.A.S.V.')}</td><td>${DATA.livelli[2].motto}</td></tr>
+        <tr class="row-poe"><td>4</td><td>Grande Corporazione</td><td>${patLink('P.O.E.')}</td><td>${DATA.livelli[3].motto}</td></tr>
       </tbody>
     </table>`)}
   </div>
@@ -301,7 +304,8 @@ livelli: () => `
   <div class="impresa-card">
     <div class="impresa-header">
       <h3>Livello ${l.id} — ${l.name}</h3>
-      ${l.patente ? patBtn(l.patente) : '<span class="tip pat-poe" data-tip="Approvazione istituzionale, non una patente" style="font-size:.9rem;padding:4px 10px;border-radius:12px">🏛 Approvazione</span>'}
+      ${l.patente ? patBtn(l.patente) : ''}
+      ${l.id === 4 ? '<span class="tip pat-poe" data-tip="Approvazione istituzionale, oltre alla patente" style="font-size:.9rem;padding:4px 10px;border-radius:12px">🏛 Approvazione</span>' : ''}
     </div>
     <div class="impresa-body">
       <div class="info-block">
@@ -325,10 +329,10 @@ livelli: () => `
     ${sectionTitle('🧮', 'Esempio Pratico — La Bottega dei Martelli')}
     <div class="rule-box">
       <p>Un percorso concreto, passo dopo passo:</p>
-      <p><strong style="color:var(--gold2)">L1 — Bottega Artigiana:</strong> Aldric (Responsabile, P.M.C. 50 Mo) e Brenna (Mastro Artigiano, P.M.C. 50 Mo). Costituzione 100 Mo + Magazzino 150 Mo + Fondo 30 Mo = <strong>280 Mo</strong>; manutenzione triennale 15 Mo.</p>
-      <p><strong style="color:var(--gold2)">L2 — Fondaco / Officina (dopo ~3 mesi):</strong> +625 Mo di upgrade + P.M.T. per il Responsabile 110 Mo ≈ <strong>+735 Mo</strong> (totale investito ~1.015 Mo). Apertura a un terzo socio: si lavora in 3.</p>
-      <p><strong style="color:var(--gold2)">L3 — Compagnia Commerciale (dopo ~6 mesi):</strong> +3.000 Mo di upgrade + P.O.E. 400 Mo = <strong>+3.400 Mo</strong> (totale ~4.415 Mo). Un quarto socio conduce appalti del Regno e ottiene sconti sulle licenze personali.</p>
-      <p><strong style="color:var(--gold2)">L4 — Grande Corporazione (il grande salto):</strong> +12.500 Mo di upgrade, 5+ soci e approvazione della Camera = <strong>+12.500 Mo</strong> (totale ≈ <strong>16.915 Mo</strong>). In cambio: sconto massivo sulle risorse, influenza politica e (a scelta del gruppo) monopoli.</p>
+      <p><strong style="color:var(--gold2)">L1 — Bottega Artigiana:</strong> Aldric (Responsabile, P.M.C. 50 Mo) e Brenna (Socia, P.M.C. 50 Mo). Costituzione 100 Mo + Magazzino 300 Mo + Fondo 30 Mo = <strong>430 Mo</strong>; manutenzione triennale 15 Mo.</p>
+      <p><strong style="color:var(--gold2)">L2 — Fondaco / Officina (dopo ~3 mesi):</strong> +625 Mo di upgrade + P.M.T. per il Responsabile 110 Mo ≈ <strong>+735 Mo</strong> (totale investito ~1.165 Mo). Apertura a un terzo socio: si lavora in 3.</p>
+      <p><strong style="color:var(--gold2)">L3 — Compagnia Commerciale (dopo ~6 mesi):</strong> +3.000 Mo di upgrade + P.A.S.V. 180 Mo = <strong>+3.180 Mo</strong> (totale ~4.345 Mo). Un quarto socio conduce appalti del Regno e ottiene sconti sulle licenze personali.</p>
+      <p><strong style="color:var(--gold2)">L4 — Grande Corporazione (il grande salto):</strong> +12.500 Mo di upgrade + P.O.E. 400 Mo + approvazione della Camera = <strong>+12.900 Mo</strong> (totale ≈ <strong>17.245 Mo</strong>). In cambio: sconto massivo sulle risorse, influenza politica e (a scelta del gruppo) monopoli.</p>
       <p class="txt-note">I numeri sono indicativi: usate i valori centrali dei range e adattateli alla vostra campagna.</p>
     </div>
   </div>
@@ -347,7 +351,7 @@ procedura: () => `
       <thead><tr><th>Cosa serve</th><th>Costo</th></tr></thead>
       <tbody>
         <tr><td>Tassa di costituzione (Bottega Artigiana)</td><td><strong>${DATA.livelli[0].feeRange} Mo</strong></td></tr>
-        <tr><td>Sede minima: Magazzino (o locale modesto)</td><td><strong>150 Mo</strong></td></tr>
+        <tr><td>Sede minima: Magazzino (o locale modesto)</td><td><strong>300 Mo</strong></td></tr>
         <tr><td>Fondo Iniziale (cassa comune)</td><td><strong>${DATA.fondi.init} Mo</strong></td></tr>
       </tbody>
     </table>`)}
@@ -376,7 +380,7 @@ procedura: () => `
         ${DATA.strutture.map(s => `<tr class="${s.lv === 2 ? 'row-pmt' : ''}"><td>${s.nome}</td><td>${s.lv}</td><td style="text-align:right">${s.cost} Mo</td><td>${s.effetto}</td></tr>`).join('')}
       </tbody>
     </table>`)}
-    <p class="txt-note">Max <strong>1 struttura LV2 per tipo</strong> per sede. Costo di costruzione (Downtime) a carico dell'Architetto.</p>
+    <p class="txt-note">Max <strong>1 struttura LV2 per tipo</strong> per sede. I costi indicati in tabella sono i <strong>prezzi dei materiali di costruzione</strong> (non prezzi di vendita): la manodopera si svolge nei Downtime dei soci (es. l\u0027Architetto per le strutture), a carico dell\u0027Impresa.</p>
   </div>
 
   <div class="doc-section">
@@ -397,12 +401,12 @@ procedura: () => `
 entrate: () => `
   <div class="page-hero gilde">
     <h2>💰 Entrate dell'Impresa</h2>
-    <p>Come guadagna un'Impresa, senza regole complicate.</p>
+    <p>Quattro fonti di guadagno: <strong>contratti di fornitura</strong>, <strong>vendita diretta</strong>, <strong>affitti di struttura</strong> e <strong>lavori su commissione</strong>. Qui spieghiamo come funzionano e come si calcola il fatturato del mese.</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('💵', 'Contratti di Fornitura')}
-    <p class="txt-intro">Negozi <strong>una volta</strong> (con un roleplay o un Downtime) e ottieni una rendita <strong>automatica ogni mese</strong>, finché l'Impresa resta attiva. Investimento a rientro rapido (≈ 3 mesi).</p>
+    <p class="txt-intro">Un contratto di fornitura è un <strong>impegno di consegna a pagamento</strong>: si stipula <strong>una volta</strong> (con un roleplay o un Downtime) e da quel mese l'Impresa <strong>consegna ogni mese una quota di produzione</strong> — materiali o manufatti della categoria della propria patente — alla Camera o a un ente. In cambio riceve la <strong>Rendita mensile</strong> in tabella. Quindi è a tutti gli effetti una <strong>vendita garantita</strong> (guadagno monetario certo), non denaro passivo incondizionato: <em>chi non consegna, non incassa</em>.</p>
     ${tableWrap(`<table>
       <thead><tr><th>Patente richiesta</th><th style="text-align:right">Investimento</th><th style="text-align:right">Rendita/mese</th><th style="text-align:right">Rientro</th></tr></thead>
       <tbody>
@@ -412,17 +416,12 @@ entrate: () => `
         }).join('')}
       </tbody>
     </table>`)}
-    <p class="txt-note">Un solo contratto attivo per socio che possiede la Patente richiesta. <strong>Tetto massimo:</strong> i Contratti attivi non possono superare il Livello dell'Impresa (max 1 al Livello 1, max 4 alla Grande Corporazione).</p>
-  </div>
-
-  <div class="doc-section">
-    ${sectionTitle('🏠', 'Affitto di Struttura')}
-    <p>Una struttura inutilizzata può essere affittata: rendita del <strong>5–10%</strong> del suo valore, ogni mese.</p>
+    <p class="txt-note">Un solo contratto attivo per socio che possiede la Patente richiesta. <strong>Tetto massimo:</strong> i contratti attivi non possono superare il Livello dell'Impresa (max 1 al Livello 1, max 4 alla Grande Corporazione). La rendita presuppone la <strong>consegna fisica dei beni</strong> del mese (dal magazzino o dalla produzione dei soci): se la produzione non c'è o l'Impresa è sospesa, la rendita non matura.</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('🛍️', 'Vendita diretta a Bottega')}
-    <p class="txt-intro">La vendita diretta è il pane quotidiano. Regole semplici consigliate:</p>
+    <p class="txt-intro">La vendita diretta è il pane quotidiano: si vendono i manufatti al pubblico e il guadagno è la differenza tra <strong>prezzo di vendita</strong> e <strong>costo dei materiali</strong>. Regole semplici consigliate:</p>
     ${tableWrap(`<table>
       <thead><tr><th>Voce</th><th>Regola</th></tr></thead>
       <tbody>
@@ -436,14 +435,29 @@ entrate: () => `
 
   <div class="doc-section">
     ${sectionTitle('📝', 'Lavori su Commissione privata')}
-    <p>Prezzi orientativi <em>(adattate alla campagna)</em>: oggetto comune 1–20 Mo, oggetto non comune 20–80 Mo, oggetto raro 80–200 Mo, oggetto molto raro 200–500 Mo, leggendario: trattativa. La <strong style="color:var(--gold2)">P.O.E.</strong> può certificare (+20% valore).</p>
+    <p>I prezzi sotto sono <strong>stime di vendita</strong> — cioè quanto il cliente paga per l'oggetto finito — <strong>non aggiunte</strong> da sommare ad altri guadagni: l'utile dell'Impresa è la differenza tra l'incasso e i materiali impiegati. Prezzi orientativi <em>(adattate alla campagna)</em>: oggetto comune 1–20 Mo, non comune 20–80 Mo, raro 80–200 Mo, molto raro 200–500 Mo, leggendario: trattativa. La <strong style="color:var(--gold2)">P.O.E.</strong> può certificare la qualità (<strong>+20% valore</strong>), ma la certificazione è un costo/beneficio separato dal prezzo base.</p>
+  </div>
+
+  <div class="doc-section">
+    ${sectionTitle('🏠', 'Affitto di Struttura')}
+    <p>Una struttura inutilizzata può essere affittata: rendita del <strong>5–10%</strong> del suo valore, ogni mese.</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('🧮', 'Come calcolare il Fatturato mensile')}
     <div class="rule-box">
-      <p><strong>Fatturato = Vendite dirette + Rendita Contratti + Affitti</strong></p>
-      <p>La <strong>Tassa Camera (1%)</strong> si calcola sul fatturato complessivo (quindi anche su contratti e affitti). Il <strong>Fondo di Riserva (10%)</strong> si accantona sull'utile netto. Durante una sospensione (sanzione Grave o superiore) i contratti e gli affitti <strong>si sospendono</strong>.</p>
+      <p><strong>Fatturato (lordo) = Vendite dirette + Rendita Contratti + Affitti</strong></p>
+      <p>Dal lordo si tolgono le <strong>spese del mese</strong> (materie prime, apprendisti), poi la <strong>Tassa Camera (1% sul lordo)</strong>; sull'utile si accantona il <strong>Fondo di Riserva (10%)</strong>. Il resto è l'<strong>utile netto</strong> che finisce in cassa.</p>
+
+      <h5>Esempio — Osteria, Livello 1 (Oste con Cucina + Contratto)</h5>
+      <ul>
+        <li>Costo materiali (carbone): <strong>4 Mo/sett.</strong> → <strong>−16 Mo/mese</strong></li>
+        <li>Vendita ricette in bottega: +25% sul materiale → <strong>+20 Mo</strong></li>
+        <li>Rendita Contratto (Manifattura Comune): <strong>+15 Mo</strong></li>
+        <li>Lordo = 20 + 15 = <strong>35 Mo</strong> · Tassa Camera 1% ≈ <strong>0 Mo</strong> · Materiali −16 = utile ≈ 19 Mo</li>
+        <li>Fondo di Riserva 10% ≈ <strong>−2 Mo</strong> → <strong>Utile netto ≈ 17 Mo/mese</strong></li>
+      </ul>
+      <p class="txt-note">Investimento dell'esempio: Cucina <strong>70 Mo</strong> + stipula contratto <strong>45 Mo</strong> = 115 Mo → rientro in ~7 mesi. Da soli, i 15 Mo del contratto non coprono il carbone: la rendita reale nasce dalla <strong>combinazione</strong> di produzione, vendita diretta e contratti.</p>
     </div>
   </div>
 
@@ -453,25 +467,13 @@ entrate: () => `
 riferimenti: () => `
   <div class="page-hero gilde">
     <h2>📚 Riferimenti Avanzati</h2>
-    <p>Tutto il resto, per chi gioca da più tempo o vuole approfondire. Qui trovi alleanze, conflitti, eventi, organizzazioni e glossario.</p>
+    <p>Tutto il resto, per chi gioca da più tempo o vuole approfondire. Qui trovi alleanze, eventi, organizzazioni e glossario.</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('🤝', 'Alleanze e Joint Venture')}
     <p><strong>Alleanza Commerciale</strong> (fino a 3 Imprese): registrazione 20 Mo/impresa, sconto 5% su acquisti congiunti, bandi oltre 1.000 Mo, durata 3 mesi-1 anno.</p>
     <p><strong>Joint Venture:</strong> progetto condiviso con budget dedicato. Registrazione 30 Mo alla Camera, Amministratore eletto, responsabilità separate.</p>
-  </div>
-
-  <div class="doc-section">
-    ${sectionTitle('⚔️', 'Conflitti e Spionaggio')}
-    <p class="txt-intro"><strong>Conflitto Commerciale:</strong> dichiarazione ${DATA.conflitti.dichiarazione} Mo, poi −10% prezzi vendita per 3 mesi. Escalation ${DATA.conflitti.escalation} Mo/mese, mediazione ${DATA.conflitti.mediazione} Mo. Dopo ${DATA.conflitti.durataMax} mesi termina da solo e il vincitore ottiene Privilegio di Preferenza. Max 1 conflitto attivo.</p>
-    <button class="btn secondary small" onclick="goto('gilde','gestore')">⚔️ Registra un conflitto nel Gestore</button>
-    ${tableWrap(`<table>
-      <thead><tr><th>Mezzo</th><th>Costo/Durata</th><th>CD</th><th>Se scoperti</th></tr></thead>
-      <tbody>
-        ${DATA.sponsaggio.map(s => `<tr><td>${s.livello}</td><td>${s.dt}</td><td>${s.cd}</td><td>${s.san}</td></tr>`).join('')}
-      </tbody>
-    </table>`)}
   </div>
 
   <div class="doc-section">
@@ -502,6 +504,7 @@ riferimenti: () => `
         <tr><td><strong>Fondo di Categoria</strong></td><td>Riserva obbligatoria delle Corporazioni per le commesse pubbliche.</td></tr>
         <tr><td><strong>Sigillo Spezzato</strong></td><td>Bollo di disonore su un ex socio dopo uno scioglimento coatto.</td></tr>
         <tr><td><strong>Monopolio / Brevetti</strong></td><td>Privilegio (opzionale) della Grande Corporazione di produrre o distribuire beni speciali in esclusiva.</td></tr>
+        <tr><td><strong>Mastro Artigiano</strong></td><td>Chi ha portato il proprio mestiere al <strong>Livello 4</strong>. Non serve per fondare un'Impresa: è il titolo richiesto (con licenza <strong>P.O.E.</strong>) dalla <strong>Grande Corporazione</strong>.</td></tr>
         <tr><td><strong>Mo</strong></td><td>Monete d'oro: tutta la valuta del Codice.</td></tr>
         <tr><td><strong>DT (Downtime)</strong></td><td>Tempo libero tra le avventure, per costruire, produrre o negoziare.</td></tr>
       </tbody>
