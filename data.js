@@ -41,7 +41,8 @@ const DATA = {
       sede:'Un luogo modesto, non troppo piccolo ma neanche troppo grande (laboratorio o negozietto di quartiere).',
       requisiti:[
         'Almeno <strong>2 PG soci</strong> (divisibile tra <span class="nw">2+ soci</span>)',
-        'Un <strong>Responsabile</strong> con la patente <strong>P.M.C.</strong>'
+        'Un <strong>Responsabile</strong> con la patente <strong>P.M.C.</strong>',
+        'Un <strong>PG addetto alla contabilità</strong> (tiene il Registro Entrate/Uscite)'
       ],
       benefici:[
         '<strong>Spazio Comune:</strong> cassa comune e magazzino condiviso per i soci.',
@@ -82,8 +83,7 @@ const DATA = {
       ],
       benefici:[
         '<strong>Sconto Massivo di Gruppo:</strong> materie prime e tempi di crafting dimezzati del 50% per tutto il gruppo.',
-        '<strong>Influenza Politica:</strong> accesso a informazioni riservate, contatti d\u0027alto bordo e supporto logistico nelle quest (es. trasporti gratuiti, mercenari di supporto).',
-        '<span class="opt-tag">opzionale</span><strong>Diritto di Monopolio / Brevetti:</strong> diritto esclusivo su beni speciali nell\u0027area, con royalty sugli altri artigiani.'
+        '<strong>Influenza Politica:</strong> accesso a informazioni riservate, contatti d\u0027alto bordo e supporto logistico nelle quest (es. trasporti gratuiti, mercenari di supporto).'
       ] },
   ],
   fondi: { init: 30, deposit: 0 },
@@ -131,7 +131,6 @@ const DATA = {
     { tipo:'Gravissima', name:'Contraffazione del Timbro d\u0027Impresa', multa:0, sosp:'Scioglimento', effetto:'Scioglimento coatto + confisca cassa.', cls:'sanz-graviss' },
     { tipo:'Gravissima', name:'Esercizio senza patente valida per la categoria', multa:0, sosp:'Scioglimento', effetto:'Scioglimento coatto + Sigillo Spezzato ai soci.', cls:'sanz-graviss' },
     { tipo:'Gravissima', name:'Corporazione: uso scorretto del Sigillo', multa:0, sosp:'Scioglimento', effetto:'Revoca dell\u0027approvazione della Camera + confisca cassa + scioglimento.', cls:'sanz-graviss' },
-    { tipo:'Gravissima', name:'Corporazione: abuso del Monopolio (commesse)', multa:0, sosp:'Scioglimento', effetto:'Perdita del monopolio + scioglimento.', cls:'sanz-graviss' },
   ],
   eventi: [
     { nome:'Prima Fiera della Rinascita', stagione:'Primavera', mese:'1° mese', effetto:'+15% ai prezzi di vendita per il mese.', entita:15 },

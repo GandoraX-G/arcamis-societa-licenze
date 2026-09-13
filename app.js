@@ -450,7 +450,6 @@ riferimenti: () => `
         <tr><td><strong>Timbro Imperiale</strong></td><td>Sigillo premium che aumenta del 15% il valore percepito delle opere.</td></tr>
         <tr><td><strong>Fondo di Categoria</strong></td><td>Riserva obbligatoria delle Corporazioni per le commesse pubbliche.</td></tr>
         <tr><td><strong>Sigillo Spezzato</strong></td><td>Bollo di disonore su un ex socio dopo uno scioglimento coatto.</td></tr>
-        <tr><td><strong>Monopolio / Brevetti</strong></td><td>Privilegio (opzionale) della Grande Corporazione di produrre o distribuire beni speciali in esclusiva.</td></tr>
         <tr><td><strong>Mastro Artigiano</strong></td><td>Chi ha portato il proprio mestiere al <strong>Livello 4</strong>. Non serve per fondare un'Impresa: è il titolo richiesto (con licenza <strong>P.O.E.</strong>) dalla <strong>Grande Corporazione</strong>.</td></tr>
         <tr><td><strong>Mo</strong></td><td>Monete d'oro: tutta la valuta del Codice.</td></tr>
         <tr><td><strong>DT (Downtime)</strong></td><td>Tempo libero tra le avventure, per costruire, produrre o negoziare.</td></tr>
@@ -565,7 +564,7 @@ pmt: () => `
         <ul>
           <li>Produzione di armi, armature pesanti, strutture civili/militari.</li>
           <li>Oggetti magici <strong style="color:var(--gold)">Comuni</strong>.</li>
-          <li>Emissione di <span class="nw">documenti e mappe ufficiali.</span></li>
+          <li>Emissione di documenti e mappe ufficiali.</li>
         </ul>
       </div>
       <div class="licenza-block">
@@ -638,7 +637,7 @@ poe: () => `
         <h5>🏆 Privilegi</h5>
         <ul>
           <li>Diritto di formare fino a <strong style="color:var(--gold)">3 apprendisti</strong>.</li>
-          <li><span class="nw">Certificare le opere di pregio:</span> <strong style="color:var(--gold)">+20% valore di mercato</strong>.</li>
+          <li>Certificare le opere di pregio: <strong style="color:var(--gold)">+20% valore di mercato</strong>.</li>
         </ul>
       </div>
       <div class="licenza-block">
@@ -675,7 +674,7 @@ inchiostri: () => `
         </tr>
         <tr class="row-poe">
           <td><span class="dot-i" style="background:var(--legendary)"></span>Grado IV+ · <span class="nw">${abbr('P.O.E.')} + U.R.V.</span></td>
-          <td><span class="nw">Approvazione caso per caso</span></td>
+          <td>Approvazione caso per caso</td>
           <td>Manufatti leggendari e Grimori avanzati.</td>
         </tr>
       </tbody>
