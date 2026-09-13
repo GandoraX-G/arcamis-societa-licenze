@@ -591,24 +591,6 @@ tbody td:last-child, thead th:last-child { padding-right: 14px; }
 
 .dot-i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: baseline; background: var(--ink-4); }
 
-/* ── FONTI ENTRA E PASSIVE (card) ── */
-.src-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 16px; margin: 6px 0 4px; }
-.src-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: var(--radius-s);
-  padding: 20px 22px;
-  box-shadow: var(--shadow-s);
-  transition: transform .18s, box-shadow .18s;
-}
-.src-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-m); }
-.src-card:nth-child(2) { border-left-color: var(--olive); }
-.src-card:nth-child(3) { border-left-color: var(--gold3); }
-.src-card .src-tag { display: inline-block; font-size: .6rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
-.src-card h5 { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); margin-bottom: 6px; }
-.src-card p { font-size: .88rem; color: var(--ink-2); line-height: 1.65; }
-
 /* ── MODAL ── */
 .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: color-mix(in srgb, var(--ink) 45%, transparent); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 .modal-overlay.open { display: flex; align-items: center; justify-content: center; padding: 20px; }

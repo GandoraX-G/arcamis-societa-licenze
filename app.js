@@ -379,73 +379,36 @@ procedura: () => `
 entrate: () => `
   <div class="page-hero gilde">
     <h2>💰 Entrate dell'Impresa</h2>
-    <p>Due grandi famiglie: le <strong>entrate passive</strong> (contratti di fornitura, affitti e dipendenti NPG) e le <strong>entrate dirette</strong> (vendita a bottega). Le prime sono la spina dorsale di ogni Impresa.</p>
+    <p>Tutte le fonti di guadagno in un colpo d'occhio, e come si calcola l'utile in 2 passi.</p>
   </div>
 
   <div class="doc-section">
-    ${sectionTitle('💵', 'Contratti di Fornitura')}
-    <p class="txt-intro">Il contratto è una <strong>rendita garantita</strong>: l'Impresa consegna ogni mese una quota di produzione e l'ente paga la <strong>Rendita mensile</strong>. È la fonte di reddito passivo più solida: una volta stipulato, genera entrate regolari finché si mantiene la produzione.</p>
+    ${sectionTitle('💵', 'Le Fonti di Reddito')}
     ${tableWrap(`<table>
-      <thead><tr><th>Patente richiesta</th><th style="text-align:right">Investimento</th><th style="text-align:right">Rendita/mese</th><th style="text-align:right">Rientro</th></tr></thead>
+      <thead><tr><th>Fonte</th><th style="text-align:right">Investimento</th><th style="text-align:right">Rendita/mese</th></tr></thead>
       <tbody>
         ${DATA.fornitura.map(f => {
           const mesi = Math.ceil(f.cost / f.rent);
-          return `<tr class="${dataCls(f.pat)}"><td>${patLink(f.pat)}</td><td style="text-align:right">${f.cost} Mo</td><td style="text-align:right"><strong>${f.rent} Mo</strong></td><td style="text-align:right">${mesi} mesi</td></tr>`;
+          return `<tr class="${dataCls(f.pat)}"><td>${patLink(f.pat)} — fornitura consegnata</td><td style="text-align:right">${f.cost} Mo</td><td style="text-align:right"><strong>${f.rent} Mo</strong> <span class="td-sub">rientro ${mesi} mesi</span></td></tr>`;
         }).join('')}
+        <tr><td>Affitto di una struttura libera</td><td style="text-align:right">—</td><td style="text-align:right"><strong>10–15%</strong> del valore</td></tr>
+        <tr><td>Dipendenti NPG (da L2)</td><td style="text-align:right">—</td><td style="text-align:right"><strong>10 Mo</strong> a testa</td></tr>
+        <tr><td>Orto</td><td style="text-align:right">80 Mo</td><td style="text-align:right"><strong>30 Mo</strong></td></tr>
+        <tr><td>Vendita diretta in bottega</td><td style="text-align:right">—</td><td style="text-align:right"><strong>+20–40%</strong> sui materiali</td></tr>
       </tbody>
     </table>`)}
-    <div class="note-box">💡 <strong>Regola:</strong> un contratto per socio dotato della patente corrispondente. Massimo pari al <strong>Livello</strong> dell'Impresa (1 a L1, 4 alla Grande Corporazione). La rendita si matura solo con consegne effettive: produzione ferma = rendita zero.</div>
+    <div class="note-box">💡 <strong>Una regola sola:</strong> i contratti di fornitura sono al massimo pari al <strong>Livello</strong> dell'Impresa (1 a L1, 4 alla Grande Corporazione) e servono un socio con la patente giusta. Produzione ferma o Impresa sospesa = rendita zero.</div>
   </div>
 
   <div class="doc-section">
-    ${sectionTitle('🏠', 'Affitti e Rendite Passive')}
-    <p class="txt-intro">Oltre ai contratti, ogni Impresa può generare entrate passive da <strong>strutture inutilizzate</strong> e <strong>dipendenti NPG</strong>.</p>
-    <div class="src-grid">
-      <div class="src-card">
-        <span class="src-tag">Affitti</span>
-        <h5>🏠 Affitto Struttura</h5>
-        <p>Una struttura inutilizzata si affitta al <strong>10–15%</strong> del suo valore al mese.</p>
-      </div>
-      <div class="src-card">
-        <span class="src-tag">Produzione NPG</span>
-        <h5>👥 Dipendenti NPG</h5>
-        <p>Da Fondaco (L2) in poi: 1–2 NPG che producono nei Downtime, minimo <strong>10 Mo/mese a testa</strong>.</p>
-      </div>
-      <div class="src-card">
-        <span class="src-tag">Risorse</span>
-        <h5>🌱 Orto</h5>
-        <p><strong>+30 Mo</strong> di erbe/mese (max 2 per sede).</p>
-      </div>
-    </div>
-    <p class="txt-note">Gli affitti sono il reddito più passivo: non richiedono produzione ma solo che la struttura sia libera. I dipendenti NPG lavorano nei Downtime e generano profitti autonomi.</p>
-  </div>
-
-  <div class="doc-section">
-    ${sectionTitle('🛍️', 'Vendita Diretta')}
-    <p class="txt-intro">Vendere manufatti al pubblico: il guadagno è la differenza tra prezzo di vendita e costo dei materiali. Margine tipico: <strong>+20–40%</strong> sul costo delle materie prime.</p>
+    ${sectionTitle('🧮', 'Il Calcolo in 2 Passi')}
     <div class="rule-box">
-      <p><strong>In Bottega (sede):</strong> senza commissione. <strong>Fuori sede:</strong> 10% di commissione sulle vendite.</p>
+      <p><strong>1 · Il fatturato (lordo)</strong> = vendite + rendite (contratti e affitti).</p>
+      <p><strong>2 · L'utile netto</strong> = lordo − spese del mese − tassa Camera 1% − riserva 10%.</p>
     </div>
   </div>
 
-  <div class="doc-section">
-    ${sectionTitle('🧮', 'Esempio Pratico')}
-    <p class="txt-intro">Un'Osteria (L1) con Contratto P.M.C. e Produzione diretta:</p>
-    ${tableWrap(`<table>
-      <thead><tr><th>Voce</th><th style="text-align:right">Mo/mese</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Rendita contratto</strong> — Manifattura Comune</td><td style="text-align:right">+30</td></tr>
-        <tr><td><strong>Vendite</strong> — ricette in bottega (+25%)</td><td style="text-align:right">+20</td></tr>
-        <tr><td><strong>Materiali</strong> — carbone</td><td style="text-align:right">−16</td></tr>
-        <tr><td><strong>Tassa Camera</strong> — 1% sul lordo (50 Mo)</td><td style="text-align:right">−1</td></tr>
-        <tr><td><strong>Fondo di Riserva</strong> — 10% del netto</td><td style="text-align:right">−3</td></tr>
-        <tr class="total"><td><strong>Utile netto</strong></td><td style="text-align:right"><strong>≈ 30</strong></td></tr>
-      </tbody>
-    </table>`)}
-    <p class="txt-note">Investimento: Cucina 70 + contratto 45 = <strong>115 Mo</strong> → rientro in ~4 mesi grazie alla rendita raddoppiata.</p>
-  </div>
-
-  <div class="note-box">⚠ <strong>Sospensione:</strong> contratti e affitti si sospendono se l'Impresa riceve una sanzione <strong>Grave</strong> o superiore.</div>
+  <div class="note-box">⚠ <strong>Sospensione:</strong> con una sanzione <strong>Grave</strong> o superiore, contratti e affitti si fermano fino a regolarizzazione.</div>
 `,
 // ─────────────────────────────────────────────
 riferimenti: () => `
