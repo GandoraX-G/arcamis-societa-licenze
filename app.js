@@ -392,7 +392,7 @@ entrate: () => `
           return `<tr class="${dataCls(f.pat)}"><td>${patLink(f.pat)} — fornitura consegnata</td><td style="text-align:right">${f.cost} Mo</td><td style="text-align:right"><strong>${f.rent} Mo</strong> <span class="td-sub">rientro ${mesi} mesi</span></td></tr>`;
         }).join('')}
         <tr><td>Affitto di una struttura libera</td><td style="text-align:right">—</td><td style="text-align:right"><strong>10–15%</strong> del valore</td></tr>
-        <tr><td>Dipendenti NPG (da L2)</td><td style="text-align:right">—</td><td style="text-align:right"><strong>10 Mo</strong> a testa</td></tr>
+        <tr><td>Dipendenti NPC (da L2)</td><td style="text-align:right">—</td><td style="text-align:right"><strong>10 Mo</strong> a testa</td></tr>
         <tr><td>Orto</td><td style="text-align:right">80 Mo</td><td style="text-align:right"><strong>30 Mo</strong></td></tr>
         <tr><td>Vendita diretta in bottega</td><td style="text-align:right">—</td><td style="text-align:right"><strong>+20–40%</strong> sui materiali</td></tr>
       </tbody>

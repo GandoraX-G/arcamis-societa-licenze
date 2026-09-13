@@ -57,7 +57,7 @@ const DATA = {
       ],
       benefici:[
         '<strong>Crafting Aumentato:</strong> riduce del 10% il costo in materie prime o del 25% il tempo di creazione dei manufatti.',
-        '<strong>Dipendenti NPG:</strong> 1–2 NPG che producono nei Downtime (minimo <strong><span class="nw">10 Mo/mese a testa</span></strong>).',
+        '<strong>Dipendenti NPC:</strong> 1–2 NPC che producono nei Downtime (minimo <strong><span class="nw">10 Mo/mese a testa</span></strong>).',
         '<strong>Magazzino Sicuro:</strong> protezione contro furti ed eventi sfortunati per le scorte.'
       ] },
     { id:3, name:'Compagnia Commerciale', patente:'P.A.S.V.', fee:3000, feeRange:'2.500–3.500', tax:200, taxRange:'200', sumFee:3725,
