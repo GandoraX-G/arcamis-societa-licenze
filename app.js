@@ -258,15 +258,15 @@ panoramica: () => `
   <div class="doc-section">
     ${sectionTitle('⚖️', 'I 4 Livelli in Sintesi')}
     <div class="note-box">💡 <strong>Regola d'oro:</strong> sali di livello quando hai soddisfatto i requisiti e paghi la tassa di espansione. Più è alto il Livello, più privilegi ottieni — ma anche più controlli. Ogni sigla è un pulsante: il gioco è <strong>intrecciato con le Patenti</strong>, clicca per approfondire.</div>
-    ${tableWrap(`<table>
-      <thead><tr><th>Livello</th><th>Nome</th><th>Patente collegata</th><th>In una frase</th></tr></thead>
-      <tbody>
-        <tr class="row-pmc"><td>1</td><td class="nw">Bottega Artigiana</td><td>${patLink('P.M.C.')}</td><td>${DATA.livelli[0].motto}</td></tr>
-        <tr class="row-pmt"><td>2</td><td class="nw">Fondaco / Officina</td><td>${patLink('P.M.T.')}</td><td>${DATA.livelli[1].motto}</td></tr>
-        <tr class="row-pasv"><td>3</td><td class="nw">Compagnia Commerciale</td><td>${patLink('P.A.S.V.')}</td><td>${DATA.livelli[2].motto}</td></tr>
-        <tr class="row-poe"><td>4</td><td class="nw">Grande Corporazione</td><td>${patLink('P.O.E.')}</td><td>${DATA.livelli[3].motto}</td></tr>
-      </tbody>
-    </table>`)}
+    <div class="lv-mini-grid">
+      ${DATA.livelli.map(l => `
+        <button class="lv-mini ${dataCls(l.patente).replace('row-', 'pat-')}" onclick="setSection('gilde','livelli')">
+          <span class="lv-mini-num">Livello ${l.id}</span>
+          <span class="lv-mini-name">${l.name}</span>
+          <span class="lv-mini-pat">${l.patente}</span>
+          <span class="lv-mini-motto">${l.motto.replace(/<[^>]+>/g, '')}</span>
+        </button>`).join('')}
+    </div>
   </div>
 `,
 // ─────────────────────────────────────────────
@@ -276,6 +276,7 @@ livelli: () => `
     <p>Ogni Impresa parte da una <strong>Bottega Artigiana</strong>. Salendo di livello si amplia la sede produttiva, si aumenta il personale e si sbloccano <strong>più benefici meccanici</strong>; crescono anche i requisiti, le tasse di manutenzione e i controlli.</p>
   </div>
 
+  <div class="lv-grid">
   ${DATA.livelli.map(l => `
   <div class="impresa-card">
     <div class="impresa-header">
@@ -298,6 +299,7 @@ livelli: () => `
       </div>
     </div>
   </div>`).join('')}
+</div>
 
   <div class="note-box">⚠ <strong>Le tasse di costituzione / upgrade si sommano:</strong> per arrivare alla Grande Corporazione servono ${DATA.livelli.map(l => l.feeRange).join(' + ')} ≈ <strong>${DATA.livelli[3].sumFee} Mo</strong> cumulativi (tasse di struttura). A queste si aggiungono le <strong>manutenzioni triennali</strong> di ogni Livello e una <strong>sede adeguata</strong>. Il Fondo Iniziale di <strong>${DATA.fondi.init} Mo</strong> è separato dalla cassa.</div>
 
@@ -377,12 +379,12 @@ procedura: () => `
 entrate: () => `
   <div class="page-hero gilde">
     <h2>💰 Entrate dell'Impresa</h2>
-    <p>Quattro fonti di guadagno: <strong>contratti di fornitura</strong>, <strong>vendita diretta</strong>, <strong>affitti di struttura</strong> e <strong>lavori su commissione</strong>. Qui come funzionano e come si calcola il fatturato.</p>
+    <p>Due grandi famiglie: le <strong>entrate passive</strong> (contratti di fornitura, affitti e dipendenti NPG) e le <strong>entrate dirette</strong> (vendita a bottega). Le prime sono la spina dorsale di ogni Impresa.</p>
   </div>
 
   <div class="doc-section">
     ${sectionTitle('💵', 'Contratti di Fornitura')}
-    <p class="txt-intro">Il contratto di fornitura è una <strong>vendita garantita</strong>: l'Impresa <strong>consegna ogni mese</strong> una quota di produzione (materiali o manufatti della propria categoria) e l'ente paga la <strong>Rendita mensile</strong>. Non è denaro passivo: <em>chi non consegna, non incassa</em>.</p>
+    <p class="txt-intro">Il contratto è una <strong>rendita garantita</strong>: l'Impresa consegna ogni mese una quota di produzione e l'ente paga la <strong>Rendita mensile</strong>. È la fonte di reddito passivo più solida: una volta stipulato, genera entrate regolari finché si mantiene la produzione.</p>
     ${tableWrap(`<table>
       <thead><tr><th>Patente richiesta</th><th style="text-align:right">Investimento</th><th style="text-align:right">Rendita/mese</th><th style="text-align:right">Rientro</th></tr></thead>
       <tbody>
@@ -392,62 +394,55 @@ entrate: () => `
         }).join('')}
       </tbody>
     </table>`)}
-    <p class="txt-note">Un contratto per socio dotato della patente; max pari al <strong>Livello</strong> dell'Impresa (1 al L1, 4 alla Grande Corporazione). Le consegne escono da magazzino o dalla produzione dei soci: senza produzione — o da sospesi — la rendita non matura.</p>
+    <div class="note-box">💡 <strong>Regola:</strong> un contratto per socio dotato della patente corrispondente. Massimo pari al <strong>Livello</strong> dell'Impresa (1 a L1, 4 alla Grande Corporazione). La rendita si matura solo con consegne effettive: produzione ferma = rendita zero.</div>
   </div>
 
   <div class="doc-section">
-    ${sectionTitle('🛍️', 'Vendita diretta a Bottega')}
-    <p class="txt-intro">Si vendono i manufatti al pubblico: il guadagno è la differenza tra <strong>prezzo di vendita</strong> e <strong>costo dei materiali</strong>. Regole semplici:</p>
-    ${tableWrap(`<table>
-      <thead><tr><th>Voce</th><th>Regola</th></tr></thead>
-      <tbody>
-        <tr><td>Margine tipico</td><td><strong>+20–40%</strong> sul costo delle materie prime usate (a mano libera del DM).</td></tr>
-        <tr><td>In Bottega (sede)</td><td>Senza commissione se l'Impresa ha accesso al mercato comunale (Livello 1+).</td></tr>
-        <tr><td>Fuori sede</td><td>Al mercato di un'altra città: <strong>10% di commissione</strong> sulle vendite.</td></tr>
-        <tr><td>Contratti a termine</td><td>Ordini che richiedono più Downtime: paga anticipata <strong>50%</strong>, saldo a consegna.</td></tr>
-      </tbody>
-    </table>`)}
-  </div>
-
-  <div class="doc-section">
-    ${sectionTitle('📝', 'Lavori su Commissione privata')}
-    <p>I prezzi sotto sono <strong>stime di vendita</strong> (quanto paga il cliente per il pezzo finito), <strong>non aggiunte</strong> da sommare: l'utile dell'Impresa è la differenza tra incasso e materiali. Prezzi orientativi <em>(adattate alla campagna)</em>:</p>
-    ${tableWrap(`<table>
-      <thead><tr><th>Oggetto</th><th style="text-align:right">Prezzo di vendita</th></tr></thead>
-      <tbody>
-        <tr><td>Comune</td><td style="text-align:right">1–20 Mo</td></tr>
-        <tr><td>Non comune</td><td style="text-align:right">20–80 Mo</td></tr>
-        <tr><td>Raro</td><td style="text-align:right">80–200 Mo</td></tr>
-        <tr><td>Molto raro</td><td style="text-align:right">200–500 Mo</td></tr>
-        <tr><td>Leggendario</td><td style="text-align:right">Trattativa</td></tr>
-      </tbody>
-    </table>`)}
-    <p class="txt-note">La <strong style="color:var(--gold2)">P.O.E.</strong> certifica la qualità: <strong>+20% valore</strong> (a parte).</p>
-  </div>
-
-  <div class="doc-section">
-    ${sectionTitle('🏠', 'Affitto di Struttura')}
-    <p>Una struttura inutilizzata può essere affittata: rendita del <strong>5–10%</strong> del suo valore, ogni mese.</p>
-  </div>
-
-  <div class="doc-section">
-    ${sectionTitle('🧮', 'Come calcolare il Fatturato mensile')}
-    <div class="rule-box">
-      <p><strong>Fatturato (lordo) = Vendite dirette + Rendita Contratti + Affitti</strong></p>
-      <p>Dal lordo si tolgono le <strong>spese del mese</strong> (materie prime, apprendisti) e la <strong>Tassa Camera (1% sul lordo)</strong>; sull'utile si accantona il <strong>Fondo di Riserva (10%)</strong>. Il resto è l'<strong>utile netto</strong>.</p>
-      <h5>Esempio — Osteria, Livello 1 (Oste con Cucina + Contratto)</h5>
-      ${tableWrap(`<table>
-        <thead><tr><th>Voce</th><th style="text-align:right">Mo/mese</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Vendite</strong> — ricette in bottega (+25% sul materiale)</td><td style="text-align:right">+20</td></tr>
-          <tr><td><strong>Rendita contratto</strong> — Manifattura Comune</td><td style="text-align:right">+15</td></tr>
-          <tr><td><strong>Materiali</strong> — carbone (4 Mo/sett.)</td><td style="text-align:right">−16</td></tr>
-          <tr><td><strong>Tassa Camera</strong> — 1% sul lordo ≈ 0</td><td style="text-align:right">0</td></tr>
-          <tr class="total"><td><strong>Utile netto</strong> (20 + 15 − 16; riserva 10% ≈ 2)</td><td style="text-align:right"><strong>≈ 17</strong></td></tr>
-        </tbody>
-      </table>`)}
-      <p class="txt-note">Investimento: Cucina 70 + stipula 45 = <strong>115 Mo</strong> → rientro in ~7 mesi. Un contratto da solo non copre il carbone: la rendita reale nasce da <strong>produzione + vendita + contratti</strong>.</p>
+    ${sectionTitle('🏠', 'Affitti e Rendite Passive')}
+    <p class="txt-intro">Oltre ai contratti, ogni Impresa può generare entrate passive da <strong>strutture inutilizzate</strong> e <strong>dipendenti NPG</strong>.</p>
+    <div class="src-grid">
+      <div class="src-card">
+        <span class="src-tag">Affitti</span>
+        <h5>🏠 Affitto Struttura</h5>
+        <p>Una struttura inutilizzata si affitta al <strong>10–15%</strong> del suo valore al mese.</p>
+      </div>
+      <div class="src-card">
+        <span class="src-tag">Produzione NPG</span>
+        <h5>👥 Dipendenti NPG</h5>
+        <p>Da Fondaco (L2) in poi: 1–2 NPG che producono nei Downtime, minimo <strong>10 Mo/mese a testa</strong>.</p>
+      </div>
+      <div class="src-card">
+        <span class="src-tag">Risorse</span>
+        <h5>🌱 Orto</h5>
+        <p><strong>+30 Mo</strong> di erbe/mese (max 2 per sede).</p>
+      </div>
     </div>
+    <p class="txt-note">Gli affitti sono il reddito più passivo: non richiedono produzione ma solo che la struttura sia libera. I dipendenti NPG lavorano nei Downtime e generano profitti autonomi.</p>
+  </div>
+
+  <div class="doc-section">
+    ${sectionTitle('🛍️', 'Vendita Diretta')}
+    <p class="txt-intro">Vendere manufatti al pubblico: il guadagno è la differenza tra prezzo di vendita e costo dei materiali. Margine tipico: <strong>+20–40%</strong> sul costo delle materie prime.</p>
+    <div class="rule-box">
+      <p><strong>In Bottega (sede):</strong> senza commissione. <strong>Fuori sede:</strong> 10% di commissione sulle vendite.</p>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    ${sectionTitle('🧮', 'Esempio Pratico')}
+    <p class="txt-intro">Un'Osteria (L1) con Contratto P.M.C. e Produzione diretta:</p>
+    ${tableWrap(`<table>
+      <thead><tr><th>Voce</th><th style="text-align:right">Mo/mese</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Rendita contratto</strong> — Manifattura Comune</td><td style="text-align:right">+30</td></tr>
+        <tr><td><strong>Vendite</strong> — ricette in bottega (+25%)</td><td style="text-align:right">+20</td></tr>
+        <tr><td><strong>Materiali</strong> — carbone</td><td style="text-align:right">−16</td></tr>
+        <tr><td><strong>Tassa Camera</strong> — 1% sul lordo (50 Mo)</td><td style="text-align:right">−1</td></tr>
+        <tr><td><strong>Fondo di Riserva</strong> — 10% del netto</td><td style="text-align:right">−3</td></tr>
+        <tr class="total"><td><strong>Utile netto</strong></td><td style="text-align:right"><strong>≈ 30</strong></td></tr>
+      </tbody>
+    </table>`)}
+    <p class="txt-note">Investimento: Cucina 70 + contratto 45 = <strong>115 Mo</strong> → rientro in ~4 mesi grazie alla rendita raddoppiata.</p>
   </div>
 
   <div class="note-box">⚠ <strong>Sospensione:</strong> contratti e affitti si sospendono se l'Impresa riceve una sanzione <strong>Grave</strong> o superiore.</div>
@@ -521,6 +516,9 @@ panoramica: () => `
     <h2>⚖️ Codice Patenti di Arcadia<br><small class="hero-sub">Ufficio del Registro e della Vigilanza (U.R.V.) — Regno di Arcadia</small></h2>
     <p>Il presente regolamento disciplina l'esercizio dei mestieri, la compravendita dei manufatti e la gestione delle sostanze speciali all'interno del Regno.</p>
     <p>Ogni licenza ha una <strong style="color:var(--gold)">validità di tre anni</strong>. Lo status legale dell'artigiano e la legittimità delle sue attività sono formalmente attestati dal possesso del <strong style="color:var(--gold)">Sigillo di Riconoscimento</strong>, un medaglione incantato personalizzato.</p>
+    <div class="hero-links">
+      ${DATA.patenti.map(p => `<button class="hero-link-btn" onclick="goto('licenze','${p.sezione}')">${p.sigla} · ${p.nome}</button>`).join('')}
+    </div>
   </div>`,
 
 vantaggi: () => `
@@ -541,12 +539,22 @@ vantaggi: () => `
 quadro: () => `
   <div class="doc-section">
     ${sectionTitle('📋', 'Quadro Generale delle Patenti')}
-    ${tableWrap(`<table>
-      <thead><tr><th>Sigla</th><th>Denominazione</th><th style="text-align:right">Costo (3 anni)</th><th style="text-align:right">Cauzione</th><th style="text-align:right">Totale</th></tr></thead>
-      <tbody>
-        ${DATA.patenti.map(p => `<tr class="${p.cls}"><td>${abbr(p.sigla)}</td><td>${p.nome}</td><td style="text-align:right"><span class="nw">${p.costo} Mo</span></td><td style="text-align:right"><span class="nw">${p.cauzione} Mo</span></td><td style="text-align:right"><strong><span class="nw">${p.totale} Mo</span></strong></td></tr>`).join('')}
-      </tbody>
-    </table>`)}
+    <div class="pat-grid">
+      ${DATA.patenti.map(p => `
+        <button class="pat-card" style="border-top:5px solid ${p.col}" onclick="setSection('licenze','${p.sezione}')">
+          <div class="pat-card-head">
+            <span class="pat-dot" style="background:${p.col}"></span>
+            <span class="pat-sigla">${p.sigla}</span>
+          </div>
+          <div class="pat-card-name">${p.nome}</div>
+          <div class="pat-card-meta">
+            <div><span>Cost</span><strong>${p.costo} Mo</strong></div>
+            <div><span>Cauzione</span><strong>${p.cauzione} Mo</strong></div>
+            <div><span>Totale</span><strong>${p.totale} Mo</strong></div>
+          </div>
+          <div class="pat-card-foot">${p.durata} · ${p.destinatari}</div>
+        </button>`).join('')}
+    </div>
   </div>`,
 
 pmc: () => `

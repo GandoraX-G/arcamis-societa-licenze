@@ -88,10 +88,10 @@ const DATA = {
   ],
   fondi: { init: 30, deposit: 0 },
   fornitura: [
-    { name:'Manifattura Comune',    pat:'P.M.C.',  cost:45,  rent:15  },
-    { name:'Manifattura Tecnica',   pat:'P.M.T.',  cost:120, rent:40  },
-    { name:'Alchimia e Sostanze Vincolate', pat:'P.A.S.V.', cost:300, rent:100 },
-    { name:'Opere Eccezionali',     pat:'P.O.E.',  cost:750, rent:250 },
+    { name:'Manifattura Comune',    pat:'P.M.C.',  cost:45,  rent:30  },
+    { name:'Manifattura Tecnica',   pat:'P.M.T.',  cost:120, rent:80  },
+    { name:'Alchimia e Sostanze Vincolate', pat:'P.A.S.V.', cost:300, rent:200 },
+    { name:'Opere Eccezionali',     pat:'P.O.E.',  cost:750, rent:500 },
   ],
   patenti: [
     { sigla:'P.M.C.',  nome:'Manifattura Comune',                 costo:40, cauzione:10, totale:50,  durata:'3 anni', cls:'row-pmc',  col:'var(--common)',    sezione:'pmc',  destinatari:'Osti, Sarti, Falegnami e Artisti' },
@@ -102,7 +102,7 @@ const DATA = {
   strutture: [
     { nome:'Magazzino', lv:1, cost:300, effetto:'Stoccaggio materiali, approvvigionamento più rapido.' },
     { nome:'Cucina', lv:1, cost:70, effetto:'Permette all\u0027Oste di produrre ricette (4 Mo carbone/sett.).' },
-    { nome:'Orto', lv:1, cost:80, effetto:'+15 Mo di erbe/mese (max 2 per sede).' },
+    { nome:'Orto', lv:1, cost:80, effetto:'+30 Mo di erbe/mese (max 2 per sede).' },
     { nome:'Stalla', lv:1, cost:70, effetto:'Fino a 5 animali, consegne più economiche.' },
     { nome:'Scantinato', lv:1, cost:100, effetto:'Deposito nascosto: capienza extra e meno controlli.' },
     { nome:'Recinzione', lv:1, cost:70, effetto:'Delimita il perimetro, riduce il rischio di furti.' },
