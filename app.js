@@ -192,8 +192,8 @@ const RENDER_GILDE = {
 panoramica: () => `
   <div class="page-hero gilde">
     <h2>🏛️ Le Imprese di Arcadia<br><small class="hero-sub">Camera del Commercio e dei Mestieri — Regno di Arcadia</small></h2>
-    <p><strong style="color:var(--gold)">Che cos'è un'Impresa?</strong> Un'Impresa è l'unione di due o più personaggi che condividono una cassa comune e una sede fisica per produrre e vendere il frutto dei propri mestieri.</p>
-    <p>Il percorso di crescita è strutturato in <strong style="color:var(--gold)">4 livelli progressivi</strong>: si parte da una semplice <strong style="color:var(--gold)">Bottega Artigiana</strong> per evolversi, passo dopo passo, fino a diventare una <strong style="color:var(--gold)">Grande Corporazione</strong>. Il meccanismo di avanzamento è diretto e intuitivo: versando la tassa di espansione richiesta, l'Impresa ingrandisce la propria sede e sblocca immediatamente nuovi benefici e privilegi.</p>
+    <p><strong class="hl">Che cos'è un'Impresa?</strong> Un'Impresa è l'unione di due o più personaggi che condividono una cassa comune e una sede fisica per produrre e vendere il frutto dei propri mestieri.</p>
+    <p>Il percorso di crescita è strutturato in <strong class="hl">4 livelli progressivi</strong>: si parte da una semplice <strong class="hl">Bottega Artigiana</strong> per evolversi, passo dopo passo, fino a diventare una <strong class="hl">Grande Corporazione</strong>. Il meccanismo di avanzamento è diretto e intuitivo: versando la tassa di espansione richiesta, l'Impresa ingrandisce la propria sede e sblocca immediatamente nuovi benefici e privilegi.</p>
     <div class="hero-links">
       ${DATA.patenti.map(p => `<button class="hero-link-btn" onclick="goto('licenze','${p.sezione}')">${p.sigla} · ${p.nome}</button>`).join('')}
     </div>
@@ -223,7 +223,7 @@ panoramica: () => `
           <li><strong>Sede fisica modesta</strong> (es. Magazzino): <span class="nw">300 Mo</span></li>
           <li><strong>Fondo iniziale</strong> per la cassa comune: <span class="nw">${DATA.fondi.init} Mo</span></li>
           <li><strong>Manutenzione triennale</strong>: <span class="nw">${DATA.livelli[0].tax} Mo ogni 3 anni</span></li>
-          <li style="color:var(--amber)">Totale minimo: <span class="nw">~${DATA.livelli[0].fee + 300 + DATA.fondi.init} Mo</span> subito, più <span class="nw">${DATA.livelli[0].tax} Mo ogni 3 anni</span>.</li>
+          <li class="hl-warn">Totale minimo: <span class="nw">~${DATA.livelli[0].fee + 300 + DATA.fondi.init} Mo</span> subito, più <span class="nw">${DATA.livelli[0].tax} Mo ogni 3 anni</span>.</li>
         </ul>
       </div>
       <div class="rule-box">
@@ -282,7 +282,7 @@ livelli: () => `
     <div class="impresa-header">
       <h3>Livello ${l.id} — ${l.name}</h3>
       ${l.patente ? patBtn(l.patente) : ''}
-      ${l.id === 4 ? '<span class="tip pat-poe" data-tip="Approvazione istituzionale, oltre alla patente" style="font-size:.9rem;padding:4px 10px;border-radius:12px">🏛 Approvazione</span>' : ''}
+      ${l.id === 4 ? '<span class="tip pat-poe approv-chip" data-tip="Approvazione istituzionale, oltre alla patente">🏛 Approvazione</span>' : ''}
     </div>
     <div class="impresa-body">
       <div class="info-block">
@@ -307,10 +307,10 @@ livelli: () => `
     ${sectionTitle('🧮', 'Esempio Pratico — La Bottega dei Martelli')}
     <div class="rule-box">
       <p>Un percorso concreto, passo dopo passo:</p>
-      <p><strong style="color:var(--gold2)">L1 — Bottega Artigiana:</strong> Aldric (Responsabile, P.M.C. 50 Mo) e Brenna (Socia, P.M.C. 50 Mo). Costituzione 100 Mo + Magazzino 300 Mo + Fondo 30 Mo = <strong>430 Mo</strong>; manutenzione triennale 15 Mo.</p>
-      <p><strong style="color:var(--gold2)">L2 — Fondaco / Officina (dopo ~3 mesi):</strong> +625 Mo di upgrade + P.M.T. per il Responsabile 110 Mo = <strong>+735 Mo</strong> (totale investito ~1.165 Mo). Apertura a un terzo socio: si lavora in 3.</p>
-      <p><strong style="color:var(--gold2)">L3 — Compagnia Commerciale (dopo ~6 mesi):</strong> +3.000 Mo di upgrade + P.A.S.V. 180 Mo = <strong>+3.180 Mo</strong> (totale ~4.345 Mo). Un quarto socio apre agli appalti del Regno e alle licenze scontate.</p>
-      <p><strong style="color:var(--gold2)">L4 — Grande Corporazione (il grande salto):</strong> +12.500 Mo di upgrade + P.O.E. 400 Mo + approvazione della Camera = <strong>+12.900 Mo</strong> (totale ≈ <strong>17.245 Mo</strong>). In cambio: sconto massivo sulle risorse, influenza politica e (a scelta del gruppo) monopoli.</p>
+      <p><strong class="hl">L1 — Bottega Artigiana:</strong> Aldric (Responsabile, P.M.C. 50 Mo) e Brenna (Socia, P.M.C. 50 Mo). Costituzione 100 Mo + Magazzino 300 Mo + Fondo 30 Mo = <strong>430 Mo</strong>; manutenzione triennale 15 Mo.</p>
+      <p><strong class="hl">L2 — Fondaco / Officina (dopo ~3 mesi):</strong> +625 Mo di upgrade + P.M.T. per il Responsabile 110 Mo = <strong>+735 Mo</strong> (totale investito ~1.165 Mo). Apertura a un terzo socio: si lavora in 3.</p>
+      <p><strong class="hl">L3 — Compagnia Commerciale (dopo ~6 mesi):</strong> +3.000 Mo di upgrade + P.A.S.V. 180 Mo = <strong>+3.180 Mo</strong> (totale ~4.345 Mo). Un quarto socio apre agli appalti del Regno e alle licenze scontate.</p>
+      <p><strong class="hl">L4 — Grande Corporazione (il grande salto):</strong> +12.500 Mo di upgrade + P.O.E. 400 Mo + approvazione della Camera = <strong>+12.900 Mo</strong> (totale ≈ <strong>17.245 Mo</strong>). In cambio: sconto massivo sulle risorse, influenza politica e (a scelta del gruppo) monopoli.</p>
       <p class="txt-note">I numeri sono indicativi: usate i valori centrali dei range e adattateli alla vostra campagna.</p>
     </div>
   </div>
@@ -353,9 +353,9 @@ procedura: () => `
     ${sectionTitle('🏗️', 'Passo 3 — Sede e Strutture')}
     <p class="txt-intro">Le strutture della sede danno <strong>bonus concreti</strong>. Le LV1 sono economiche; le LV2 costano 250 Mo ciascuna e danno un <strong>bonus meccanico di classe per un PG, una volta per Riposo Lungo</strong> (tematico per ogni struttura).</p>
     ${tableWrap(`<table>
-      <thead><tr><th>Struttura</th><th>Liv</th><th style="text-align:right">Costo</th><th>Effetto</th></tr></thead>
+      <thead><tr><th>Struttura</th><th>Liv</th><th class="num">Costo</th><th>Effetto</th></tr></thead>
       <tbody>
-        ${DATA.strutture.map(s => `<tr class="${s.lv === 2 ? 'row-pmt' : ''}"><td>${s.nome}</td><td>${s.lv}</td><td style="text-align:right">${s.cost} Mo</td><td>${s.effetto}</td></tr>`).join('')}
+        ${DATA.strutture.map(s => `<tr class="${s.lv === 2 ? 'row-pmt' : ''}"><td>${s.nome}</td><td>${s.lv}</td><td class="num">${s.cost} Mo</td><td>${s.effetto}</td></tr>`).join('')}
       </tbody>
     </table>`)}
     <p class="txt-note">Max <strong>1 struttura LV2 per tipo</strong> per sede. I costi indicati in tabella sono i <strong>prezzi dei materiali di costruzione</strong> (non prezzi di vendita): la manodopera si svolge nei Downtime dei soci (es. l\u0027Architetto per le strutture), a carico dell\u0027Impresa.</p>
@@ -385,16 +385,16 @@ entrate: () => `
   <div class="doc-section">
     ${sectionTitle('💵', 'Le Fonti di Reddito')}
     ${tableWrap(`<table>
-      <thead><tr><th>Fonte</th><th style="text-align:right">Investimento</th><th style="text-align:right">Rendita/mese</th></tr></thead>
+      <thead><tr><th>Fonte</th><th class="num">Investimento</th><th class="num">Rendita/mese</th></tr></thead>
       <tbody>
         ${DATA.fornitura.map(f => {
           const mesi = Math.ceil(f.cost / f.rent);
-          return `<tr class="${dataCls(f.pat)}"><td>${patLink(f.pat)} — fornitura consegnata</td><td style="text-align:right">${f.cost} Mo</td><td style="text-align:right"><strong>${f.rent} Mo</strong> <span class="td-sub">rientro ${mesi} mesi</span></td></tr>`;
+          return `<tr class="${dataCls(f.pat)}"><td>${patLink(f.pat)} — fornitura consegnata</td><td class="num">${f.cost} Mo</td><td class="num"><strong>${f.rent} Mo</strong> <span class="td-sub">rientro ${mesi} mesi</span></td></tr>`;
         }).join('')}
-        <tr><td>Affitto di una struttura libera</td><td style="text-align:right">—</td><td style="text-align:right"><strong>10–15%</strong> del valore</td></tr>
-        <tr><td>Dipendenti NPC (da L2)</td><td style="text-align:right">—</td><td style="text-align:right"><strong>10 Mo</strong> a testa</td></tr>
-        <tr><td>Orto</td><td style="text-align:right">80 Mo</td><td style="text-align:right"><strong>30 Mo</strong></td></tr>
-        <tr><td>Vendita diretta in bottega</td><td style="text-align:right">—</td><td style="text-align:right"><strong>+20–40%</strong> sui materiali</td></tr>
+        <tr><td>Affitto di una struttura libera</td><td class="num">—</td><td class="num"><strong>10–15%</strong> del valore</td></tr>
+        <tr><td>Dipendenti NPC (da L2)</td><td class="num">—</td><td class="num"><strong>10 Mo</strong> a testa</td></tr>
+        <tr><td>Orto</td><td class="num">80 Mo</td><td class="num"><strong>30 Mo</strong></td></tr>
+        <tr><td>Vendita diretta in bottega</td><td class="num">—</td><td class="num"><strong>+20–40%</strong> sui materiali</td></tr>
       </tbody>
     </table>`)}
     <div class="note-box">💡 <strong>Una regola sola:</strong> i contratti di fornitura sono al massimo pari al <strong>Livello</strong> dell'Impresa (1 a L1, 4 alla Grande Corporazione) e servono un socio con la patente giusta. Produzione ferma o Impresa sospesa = rendita zero.</div>
@@ -477,7 +477,7 @@ panoramica: () => `
   <div class="page-hero licenze">
     <h2>⚖️ Codice Patenti di Arcadia<br><small class="hero-sub">Ufficio del Registro e della Vigilanza (U.R.V.) — Regno di Arcadia</small></h2>
     <p>Il presente regolamento disciplina l'esercizio dei mestieri, la compravendita dei manufatti e la gestione delle sostanze speciali all'interno del Regno.</p>
-    <p>Ogni licenza ha una <strong style="color:var(--gold)">validità di tre anni</strong>. Lo status legale dell'artigiano e la legittimità delle sue attività sono formalmente attestati dal possesso del <strong style="color:var(--gold)">Sigillo di Riconoscimento</strong>, un medaglione incantato personalizzato.</p>
+    <p>Ogni licenza ha una <strong class="hl">validità di tre anni</strong>. Lo status legale dell'artigiano e la legittimità delle sue attività sono formalmente attestati dal possesso del <strong class="hl">Sigillo di Riconoscimento</strong>, un medaglione incantato personalizzato.</p>
     <div class="hero-links">
       ${DATA.patenti.map(p => `<button class="hero-link-btn" onclick="goto('licenze','${p.sezione}')">${p.sigla} · ${p.nome}</button>`).join('')}
     </div>
@@ -523,7 +523,7 @@ pmc: () => `
   <div class="licenza-card">
     <div class="licenza-header">
       <h3 style="color:var(--common)">🟢 P.M.C. — Manifattura Comune</h3>
-      <p class="lh-meta">Costo: <span class="nw">40 Mo</span> · Cauzione: <span class="nw">10 Mo</span> · <strong style="color:var(--text2)">Totale: <span class="nw">50 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
+      <p class="lh-meta">Costo: <span class="nw">40 Mo</span> · Cauzione: <span class="nw">10 Mo</span> · <strong>Totale: <span class="nw">50 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
       <p class="lh-meta">Ideale per: Osti, Sarti, Falegnami e Artisti.</p>
     </div>
     <div class="licenza-body">
@@ -531,7 +531,7 @@ pmc: () => `
         <h5>✦ Permessi</h5>
         <ul>
           <li>Vendita di beni comuni (cibo, abiti, mobili, arte non magica).</li>
-          <li>Commesse fino a <strong style="color:var(--gold)">500 Mo</strong>.</li>
+          <li>Commesse fino a <strong class="hl">500 Mo</strong>.</li>
         </ul>
       </div>
       <div class="licenza-block">
@@ -555,7 +555,7 @@ pmt: () => `
   <div class="licenza-card">
     <div class="licenza-header">
       <h3 style="color:var(--uncommon)">🔵 P.M.T. — Manifattura Tecnica</h3>
-      <p class="lh-meta">Costo: <span class="nw">85 Mo</span> · Cauzione: <span class="nw">25 Mo</span> · <strong style="color:var(--text2)">Totale: <span class="nw">110 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
+      <p class="lh-meta">Costo: <span class="nw">85 Mo</span> · Cauzione: <span class="nw">25 Mo</span> · <strong>Totale: <span class="nw">110 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
       <p class="lh-meta">Ideale per: Fabbri, Gioiellieri, Architetti e Cartografi ufficiali.</p>
     </div>
     <div class="licenza-body">
@@ -563,7 +563,7 @@ pmt: () => `
         <h5>✦ Permessi</h5>
         <ul>
           <li>Produzione di armi, armature pesanti, strutture civili/militari.</li>
-          <li>Oggetti magici <strong style="color:var(--gold)">Comuni</strong>.</li>
+          <li>Oggetti magici <strong class="hl">Comuni</strong>.</li>
           <li>Emissione di documenti e mappe ufficiali.</li>
         </ul>
       </div>
@@ -588,17 +588,17 @@ pmt: () => `
 pasv: () => `
   <div class="licenza-card">
     <div class="licenza-header">
-      <h3 style="color:var(--amber)">🟠 P.A.S.V. — Alchimia e Sostanze Vincolate</h3>
-      <p class="lh-meta">Costo: <span class="nw">140 Mo</span> · Cauzione: <span class="nw">40 Mo</span> · <strong style="color:var(--text2)">Totale: <span class="nw">180 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
+      <h3 class="hl-warn">🟠 P.A.S.V. — Alchimia e Sostanze Vincolate</h3>
+      <p class="lh-meta">Costo: <span class="nw">140 Mo</span> · Cauzione: <span class="nw">40 Mo</span> · <strong>Totale: <span class="nw">180 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
       <p class="lh-meta">Ideale per: Alchimisti e Artigiani Hextech.</p>
     </div>
     <div class="licenza-body">
       <div class="licenza-block">
         <h5>✦ Permessi</h5>
         <ul>
-          <li>Produzione di pozioni fino a <strong style="color:var(--gold)">Non Comuni</strong>.</li>
+          <li>Produzione di pozioni fino a <strong class="hl">Non Comuni</strong>.</li>
           <li>Veleni etichettati e motori Hextech.</li>
-          <li><strong style="color:var(--gold)">Unica licenza</strong> che permette l'acquisto di Inchiostri Magici.</li>
+          <li><strong class="hl">Unica licenza</strong> che permette l'acquisto di Inchiostri Magici.</li>
         </ul>
       </div>
       <div class="licenza-block">
@@ -611,7 +611,7 @@ pasv: () => `
       <div class="licenza-block">
         <h5>⚠ Rigore</h5>
         <ul>
-          <li>Ogni boccetta è tracciata tramite il <strong style="color:var(--gold)">Marchio Spettrale</strong>.</li>
+          <li>Ogni boccetta è tracciata tramite il <strong class="hl">Marchio Spettrale</strong>.</li>
           <li>Ogni transazione registrata nel Libretto degli Acquisti.</li>
         </ul>
       </div>
@@ -623,7 +623,7 @@ poe: () => `
   <div class="licenza-card">
     <div class="licenza-header">
       <h3 style="color:var(--legendary)">🟡 P.O.E. — Opere Eccezionali</h3>
-      <p class="lh-meta">Costo: <span class="nw">300 Mo</span> · Cauzione: <span class="nw">100 Mo</span> · <strong style="color:var(--text2)">Totale: <span class="nw">400 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
+      <p class="lh-meta">Costo: <span class="nw">300 Mo</span> · Cauzione: <span class="nw">100 Mo</span> · <strong>Totale: <span class="nw">400 Mo</span></strong> · Durata: <span class="nw">3 anni</span></p>
       <p class="lh-meta">Riservata ai Maestri Artigiani (Livello 4+).</p>
     </div>
     <div class="licenza-body">
@@ -636,8 +636,8 @@ poe: () => `
       <div class="licenza-block">
         <h5>🏆 Privilegi</h5>
         <ul>
-          <li>Diritto di formare fino a <strong style="color:var(--gold)">3 apprendisti</strong>.</li>
-          <li>Certificare le opere di pregio: <strong style="color:var(--gold)">+20% valore di mercato</strong>.</li>
+          <li>Diritto di formare fino a <strong class="hl">3 apprendisti</strong>.</li>
+          <li>Certificare le opere di pregio: <strong class="hl">+20% valore di mercato</strong>.</li>
         </ul>
       </div>
       <div class="licenza-block">
@@ -653,7 +653,7 @@ poe: () => `
 inchiostri: () => `
   <div class="doc-section">
     ${sectionTitle('🖋️', 'Sezione Tecnica: Materiali Vincolati e Inchiostri')}
-    <p class="txt-intro">L'uso di inchiostri magici è strettamente regolamentato per evitare abusi arcani. <strong style="color:var(--gold)">Solo la P.A.S.V.</strong> permette l'acquisto di inchiostri magici.</p>
+    <p class="txt-intro">L'uso di inchiostri magici è strettamente regolamentato per evitare abusi arcani. <strong class="hl">Solo la P.A.S.V.</strong> permette l'acquisto di inchiostri magici.</p>
     ${tableWrap(`<table>
       <thead><tr><th>Grado &amp; Patente</th><th>Limite (3 anni)</th><th>Uso Tipico</th></tr></thead>
       <tbody>
@@ -714,10 +714,12 @@ function renderPage() {
   const parts = [];
   groups.forEach(function(pair) {
     const pg = pair[0], map = pair[1];
-    NAV[pg].forEach(function(n) {
+    NAV[pg].forEach(function(n, idx) {
       const fn = map[n.id];
       const body = fn ? fn() : '<p class="txt-note">Sezione non trovata.</p>';
-      parts.push('<section class="page-block' + (pg === 'licenze' ? ' page-block-lic' : '') + '" id="' + secId(pg, n.id) + '" data-page="' + pg + '">' + body + '</section>');
+      // la prima sezione di ogni pagina è il capitolo: apre con l'intestazione grande
+      const cls = 'page-block' + (idx === 0 ? ' is-first' : '') + (pg === 'licenze' ? ' page-block-lic' : '');
+      parts.push('<section class="' + cls + '" id="' + secId(pg, n.id) + '" data-page="' + pg + '">' + body + '</section>');
     });
   });
   el.innerHTML = parts.join('');
@@ -750,12 +752,23 @@ function markSidebarActive() {
   });
 }
 
+// barra di avanzamento della lettura nell'intestazione
+function updateReadProgress() {
+  const bar = document.getElementById('readProgress');
+  if (!bar) return;
+  const doc = document.documentElement;
+  const max = doc.scrollHeight - window.innerHeight;
+  const pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+  bar.style.width = pct.toFixed(2) + '%';
+}
+
 var __scrollSpy = null;
 function attachScrollSpy() {
   if (__scrollSpy) { window.removeEventListener('scroll', __scrollSpy); window.removeEventListener('resize', __scrollSpy); }
   const content = document.getElementById('content');
   const OFFSET = 140;
   __scrollSpy = function () {
+    updateReadProgress();
     let cur = null, curPg = null;
     content.querySelectorAll('section.page-block').forEach(s => {
       if (s.getBoundingClientRect().top <= OFFSET) { cur = s.id.slice(4); curPg = s.dataset.page; }
@@ -838,19 +851,19 @@ function openPatentiTracker() {
   var list = loadPatenti();
   var body = '<div class="calc-section"><h4>Patenti Registrate (U.R.V.)</h4>';
   if (!list.length) {
-    body += '<p style="color:var(--text3);font-size:.82rem">Nessuna patente registrata. Aggiungi la prima patente di un licenziatario.</p>';
+    body += '<p class="muted-note">Nessuna patente registrata. Aggiungi la prima patente di un licenziatario.</p>';
   } else {
     body += '<table><thead><tr><th>Licenziatario</th><th>Patente</th><th>Costo</th><th>Scadenza</th><th>Stato</th><th></th></tr></thead><tbody>';
     body += list.map(function(p, i) {
       var cls = DATA.patenti.filter(function(x) { return x.sigla === p.sigla; })[0];
       var rowCls = cls ? cls.cls : '';
       var stato = p.stato || 'attiva';
-      var badge = stato === 'attiva' ? '<span style="color:var(--green2);font-weight:700">Attiva</span>' : (stato === 'scaduta' ? '<span style="color:var(--red2);font-weight:700">Scaduta</span>' : '<span style="color:var(--amber);font-weight:700">' + escHtml(stato) + '</span>');
-      body += '<tr class="' + rowCls + '"><td><strong>' + escHtml(p.nome) + '</strong></td><td>' + escHtml(p.sigla) + '</td><td>' + (p.costo || '') + ' Mo</td><td>' + escHtml(p.scadenza || '-') + '</td><td>' + badge + '</td><td><button class="btn secondary" style="padding:4px 8px;font-size:.72rem" onclick="togglePatenteStato(' + i + ')">↺</button> <button class="btn danger" style="padding:4px 8px;font-size:.72rem" onclick="removePatente(' + i + ')">✕</button></td></tr>';
+      var badge = stato === 'attiva' ? '<span class="num-in">Attiva</span>' : (stato === 'scaduta' ? '<span class="num-out">Scaduta</span>' : '<span class="hl-warn">' + escHtml(stato) + '</span>');
+      body += '<tr class="' + rowCls + '"><td><strong>' + escHtml(p.nome) + '</strong></td><td>' + escHtml(p.sigla) + '</td><td>' + (p.costo || '') + ' Mo</td><td>' + escHtml(p.scadenza || '-') + '</td><td>' + badge + '</td><td><button class="btn secondary small" onclick="togglePatenteStato(' + i + ')">↺</button> <button class="btn danger small" onclick="removePatente(' + i + ')">✕</button></td></tr>';
     }).join('');
     body += '</tbody></table>';
   }
-  body += '<button class="btn secondary" style="margin-top:8px" onclick="addPatente()">+ Aggiungi Patente</button></div>';
+  body += '<button class="btn secondary btn-block" onclick="addPatente()">+ Aggiungi Patente</button></div>';
   var footer = '<button class="btn secondary" onclick="patentiExport()">💾 Export JSON</button><button class="btn secondary" onclick="patentiImport()">📂 Import JSON</button><button class="btn" onclick="closeModal()">Chiudi</button>';
   openModal('📊 Tracker Patenti', body, footer);
 }

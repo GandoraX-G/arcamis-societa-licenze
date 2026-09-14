@@ -214,15 +214,15 @@ function gRequisiti(d) {
 function gRequisitiHtml(d) {
   var r = gRequisiti(d);
   var sospeso = d.stato === 'sospesa' || d.stato === 'sanzione';
-  var html = '<div class="rule-box" style="margin-top:8px">';
+  var html = '<div class="rule-box mt">';
   r.list.forEach(function(c) {
-    var mark = c.ok ? '<span style="color:var(--green2)">✓</span>' : (c.warn ? '<span style="color:var(--amber)">⚠</span>' : '<span style="color:var(--red2)">✕</span>');
-    html += '<div style="padding:2px 0;font-size:.85rem;color:var(--text2)">' + mark + ' ' + c.msg + '</div>';
+    var mark = c.ok ? '<span class="dot-ok">✓</span>' : (c.warn ? '<span class="hl-warn">⚠</span>' : '<span class="dot-bad">✕</span>');
+    html += '<div class="req-row">' + mark + ' ' + c.msg + '</div>';
   });
   html += '</div>';
   html += r.ok
-    ? '<div class="note-box" style="margin-top:10px">✅ Requisiti del Livello ' + (d.livello || 1) + ' <strong>soddisfatti</strong> — la società può operare ' + (sospeso ? 'ma è ' + statoBadge(d.stato) + '.' : 'regolarmente.') + '</div>'
-    : '<div class="note-box" style="margin-top:10px;border-color:rgba(192,64,64,.4)">⚠ Requisiti <strong>non completi</strong>: non puoi superare il Livello ' + (d.livello || 1) + ' finché non li soddisfi (e attenzione all\u0027ispezione U.R.V.).</div>';
+    ? '<div class="note-box mt">✅ Requisiti del Livello ' + (d.livello || 1) + ' <strong>soddisfatti</strong> — la società può operare ' + (sospeso ? 'ma è ' + statoBadge(d.stato) + '.' : 'regolarmente.') + '</div>'
+    : '<div class="note-box mt warn-border">⚠ Requisiti <strong>non completi</strong>: non puoi superare il Livello ' + (d.livello || 1) + ' finché non li soddisfi (e attenzione all\u0027ispezione U.R.V.).</div>';
   return html;
 }
 
@@ -249,10 +249,10 @@ function gPathHtml(d) {
     if (pats.length) notes.push('Patenti da acquisire: ' + pats.join(', '));
     if (L === 4 && !d.approvazione) notes.push('Approvazione Camera / Consiglio (Downtime politico)');
     html += '<div class="calc-row"><span class="label">→ L' + L + ' — ' + DATA.livelli[L - 1].name + '</span><span class="value">' + tot + ' Mo</span></div>';
-    html += '<div class="calc-row" style="border-bottom:none;font-size:.74rem;color:var(--text3)"><span class="label">' + notes.join(' · ') + '</span><span class="value"></span></div>';
+    html += '<div class="calc-row note-line"><span class="label">' + notes.join(' · ') + '</span><span class="value"></span></div>';
     for (var k = lv; k < L; k++) have[lvPatente(k)] = true;
   }
-  if (!html) html = '<p style="color:var(--text3);font-size:.92rem">Sei già al livello massimo (Grande Corporazione).</p>';
+  if (!html) html = '<p class="muted-note">Sei già al livello massimo (Grande Corporazione).</p>';
   return html;
 }
 
@@ -262,16 +262,16 @@ function gFinanzeHtml(d) {
   var appPG = (d.soci || []).filter(function(s){ return s.isApprendista && s.tipo === 'PG'; }).length;
   var appNPC = (d.soci || []).filter(function(s){ return s.isApprendista && s.tipo !== 'PG'; }).length;
   var html = '<div class="calc-row"><span class="label">Vendite dirette (fatturato mensile)</span><span class="value">+' + (d.fatturato || 0) + ' Mo/mese</span></div>';
-  html += '<div class="calc-row"><span class="label">Rendita contratti fornitura</span><span class="value">' + (st.sospeso ? '<span style="color:var(--red2)">SOSPESA</span>' : '+' + st.rendita) + ' Mo/mese</span></div>';
+  html += '<div class="calc-row"><span class="label">Rendita contratti fornitura</span><span class="value">' + (st.sospeso ? '<span class="dot-bad">SOSPESA</span>' : '+' + st.rendita) + ' Mo/mese</span></div>';
   html += '<div class="calc-row"><span class="label">Lordo mensile (fatturato complessivo)</span><span class="value">' + st.lordo + ' Mo</span></div>';
-  html += '<div class="calc-row"><span class="label">Tassa Camera (1% lordo)</span><span class="value" style="color:var(--red2)">-' + st.tassa + ' Mo</span></div>';
-  html += '<div class="calc-row"><span class="label">Apprendisti (PG ' + appPG + ' × 20 · NPC ' + appNPC + ' × 8)</span><span class="value" style="color:var(--red2)">-' + (appPG * 20 + appNPC * 8) + ' Mo</span></div>';
-  html += '<div class="calc-row"><span class="label">Fondo di Riserva (10% netto)</span><span class="value" style="color:var(--red2)">-' + st.riserva + ' Mo</span></div>';
+  html += '<div class="calc-row"><span class="label">Tassa Camera (1% lordo)</span><span class="value neg">-' + st.tassa + ' Mo</span></div>';
+  html += '<div class="calc-row"><span class="label">Apprendisti (PG ' + appPG + ' × 20 · NPC ' + appNPC + ' × 8)</span><span class="value neg">-' + (appPG * 20 + appNPC * 8) + ' Mo</span></div>';
+  html += '<div class="calc-row"><span class="label">Fondo di Riserva (10% netto)</span><span class="value neg">-' + st.riserva + ' Mo</span></div>';
   var lvl = Math.min(d.livello || 1, 4);
-  html += '<div class="calc-row"><span class="label">Manutenzione triennale (L' + (d.livello || 1) + ')</span><span class="value" style="color:var(--amber)">' + DATA.livelli[lvl - 1].tax + ' Mo / 3 anni</span></div>';
+  html += '<div class="calc-row"><span class="label">Manutenzione triennale (L' + (d.livello || 1) + ')</span><span class="value warn">' + DATA.livelli[lvl - 1].tax + ' Mo / 3 anni</span></div>';
   html += '<div class="calc-row total"><span class="label">Utile Netto Stimato</span><span class="value">' + st.netto + ' Mo/mese</span></div>';
-  if (st.sospeso) html += '<div class="note-box" style="margin-top:10px">⚠ <strong>Sospensione attiva:</strong> rendita contratti e affitti azzerata fino a regolarizzazione.</div>';
-  if ((d.livello || 1) >= 4) html += '<div class="note-box" style="margin-top:10px">🏯 <strong>Grande Corporazione:</strong> richiesta l\u0027approvazione della Camera di Commercio / Consiglio del Regno.</div>';
+  if (st.sospeso) html += '<div class="note-box mt">⚠ <strong>Sospensione attiva:</strong> rendita contratti e affitti azzerata fino a regolarizzazione.</div>';
+  if ((d.livello || 1) >= 4) html += '<div class="note-box mt">🏯 <strong>Grande Corporazione:</strong> richiesta l\u0027approvazione della Camera di Commercio / Consiglio del Regno.</div>';
   return html;
 }
 
@@ -279,7 +279,7 @@ function gFinanzeHtml(d) {
 function gTopHtml() {
   var store = trackerStore();
   var active = trackerActiveId();
-  var html = '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">'
+  var html = '<div class="btn-bar">'
     + '<button class="btn" onclick="trackerNew({}); gInit()">＋ Nuova Società</button>'
     + '<button class="btn" onclick="trackerNew(gRandomData()); gInit()">🎲 Nuova Casuale</button>'
     + '<button class="btn secondary" onclick="gImportCompany()">📂 Import Società</button>'
@@ -290,7 +290,7 @@ function gTopHtml() {
     + '<button class="btn secondary" onclick="restoreAll()">📂 Ripristina backup</button>'
     + '</div>';
   if (!store.ordine.length) {
-    html += '<p style="color:var(--text3);font-size:.92rem">Nessuna società salvata: creane una nuova o generane una casuale.</p>';
+    html += '<p class="muted-note">Nessuna società salvata: creane una nuova o generane una casuale.</p>';
     return html;
   }
   html += '<table><thead><tr><th>Società</th><th>Livello</th><th>Stato</th><th>Soci</th><th>Strutture</th><th>Contratti</th><th>Netto/mese</th><th></th></tr></thead><tbody>';
@@ -299,8 +299,8 @@ function gTopHtml() {
     var st = impresaStats(t);
     var isAct = id === active;
     var emoji = (t.livello || 1) >= 4 ? ' 🏯' : ((t.livello || 1) === 3 ? ' 🏛' : ((t.livello || 1) === 2 ? ' 🔧' : ''));
-    html += '<tr' + (isAct ? ' style="background:rgba(201,168,76,.12)"' : '') + '>'
-      + '<td><button class="btn secondary small" onclick="gSelect(\'' + id + '\')">' + att(t.nome || 'senza nome') + emoji + '</button>' + (isAct ? ' <span style="color:var(--green2)">●</span>' : '') + '</td>'
+    html += '<tr' + (isAct ? ' class="row-active"' : '') + '>'
+      + '<td><button class="btn secondary small" onclick="gSelect(\'' + id + '\')">' + att(t.nome || 'senza nome') + emoji + '</button>' + (isAct ? ' <span class="dot-ok">●</span>' : '') + '</td>'
       + '<td>L' + (t.livello || 1) + '</td>'
       + '<td>' + statoBadge(t.stato) + '</td>'
       + '<td>' + (t.soci || []).length + '</td>'
@@ -336,7 +336,7 @@ function gSchedaHtml(d) {
     + '<div class="calc-field"><label>Fondo Iniziale (Mo)</label><input type="number" id="gFondo" value="' + (d.fondo || 0) + '" onchange="gSave()"></div>'
     + '<div class="calc-field"><label>Cassa (Mo)</label><input type="number" id="gCassa" value="' + (d.cassa || 0) + '" onchange="gSave()"></div>'
     + '<div class="calc-field"><label>Fatturato mensile (Mo)</label><input type="number" id="gFatt" value="' + (d.fatturato || 0) + '" onchange="gSave()"></div>'
-    + '<div class="calc-field" style="justify-content:flex-end"><label class="chk tip" data-tip="Necessaria per la Grande Corporazione. Concessa dalla Camera di Commercio / Consiglio del Regno"><input type="checkbox" id="gApprov" ' + (d.approvazione ? 'checked' : '') + ' onchange="gSave()"> Approvazione Camera/Consiglio</label></div>'
+    + '<div class="calc-field align-end"><label class="chk tip" data-tip="Necessaria per la Grande Corporazione. Concessa dalla Camera di Commercio / Consiglio del Regno"><input type="checkbox" id="gApprov" ' + (d.approvazione ? 'checked' : '') + ' onchange="gSave()"> Approvazione Camera/Consiglio</label></div>'
     + '</div></div>';
   html += '<div class="calc-section"><h4>✅ Requisiti del Livello</h4>' + gRequisitiHtml(d) + '</div>';
   html += '<div class="calc-section"><h4>📈 Percorso di crescita</h4>' + gPathHtml(d) + '</div>';
@@ -396,7 +396,7 @@ var RUOLI = ['Responsabile', 'Mastro Artigiano', 'Socio', 'Apprendista'];
 
 function gSociHtml(d) {
   var soci = d.soci || [];
-  var html = '<h4>👥 Soci e dipendenti <span class="small" style="color:var(--text3)">(' + soci.length + ' in organico)</span></h4>';
+  var html = '<h4>👥 Soci e dipendenti <span class="small">(' + soci.length + ' in organico)</span></h4>';
   var maxApp = (soci.some(function(s){ return s.ruolo === 'Responsabile'; }) && soci.filter(function(s){ return s.ruolo === 'Responsabile'; })[0].patente === 'P.O.E.') ? 3 : 1;
   var nApp = soci.filter(function(s){ return s.isApprendista; }).length;
   var addForm = '<div class="add-row"><input type="text" id="sNome" placeholder="Nome socio" value="">'
@@ -406,9 +406,9 @@ function gSociHtml(d) {
     + '<select id="sTipo"><option>PG</option><option>NPC</option></select>'
     + '<label class="chk"><input type="checkbox" id="sApp"> Apprendista</label>'
     + '<button class="btn" onclick="gAddSocio()">＋ Aggiungi</button></div>';
-  if (nApp >= maxApp) addForm = '<div class="note-box" style="margin-bottom:8px">⚠ Limite apprendisti raggiunto (' + nApp + '/' + maxApp + '): serve un Responsabile con P.O.E. per averne 3.</div>' + addForm;
+  if (nApp >= maxApp) addForm = '<div class="note-box mb">⚠ Limite apprendisti raggiunto (' + nApp + '/' + maxApp + '): serve un Responsabile con P.O.E. per averne 3.</div>' + addForm;
   html += addForm;
-  if (!soci.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessun socio: aggiungi almeno un Responsabile e altri soci (min 2).</p>';
+  if (!soci.length) return html + '<p class="muted-note">Nessun socio: aggiungi almeno un Responsabile e altri soci (min 2).</p>';
   html += '<table><thead><tr><th>Nome</th><th>Mestiere</th><th>Patente</th><th>Ruolo</th><th>Tipo</th><th>Cost. Appr.</th><th></th></tr></thead><tbody>';
   soci.forEach(function(s, i) {
     var cost = s.isApprendista ? (s.tipo === 'PG' ? 20 : 8) + ' Mo' : '—';
@@ -466,10 +466,10 @@ function gStruttHtml(d) {
   var opts = DATA.strutture.map(function(s) {
     return '<option value="' + s.nome + '">' + s.nome + ' · ' + s.cost + ' Mo' + (s.lv === 2 ? ' (LV2)' : '') + '</option>';
   }).join('');
-  var html = '<h4>🏗 Strutture e sedi <span class="small" style="color:var(--text3)">(' + strutt.length + ')</span></h4>';
+  var html = '<h4>🏗 Strutture e sedi <span class="small">(' + strutt.length + ')</span></h4>';
   html += '<div class="add-row"><select id="tNome">' + opts + '</select>'
     + '<button class="btn" onclick="gAddStrutt()">＋ Acquista</button></div>';
-  if (!strutt.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessuna struttura: ogni società deve partire dal Magazzino (300 Mo).</p>';
+  if (!strutt.length) return html + '<p class="muted-note">Nessuna struttura: ogni società deve partire dal Magazzino (300 Mo).</p>';
   html += '<table><thead><tr><th>Struttura</th><th>Costo</th><th>Tipo</th><th></th></tr></thead><tbody>';
   var totCost = 0;
   strutt.forEach(function(s, i) {
@@ -510,12 +510,12 @@ function gContrHtml(d) {
     var has = soci.some(function(s){ return s.patente === f.pat; });
     return '<option value="' + f.pat + '|' + f.cost + '|' + f.rent + '"' + (has ? '' : ' disabled') + '>' + f.name + ' · ' + f.cost + ' Mo · ' + f.rent + ' Mo/ges</option>';
   }).join('');
-  var html = '<h4>📜 Contratti di Fornitura <span class="small" style="color:var(--text3)">(' + contr.length + '/' + max + ' — max pari al Livello)</span></h4>';
+  var html = '<h4>📜 Contratti di Fornitura <span class="small">(' + contr.length + '/' + max + ' — max pari al Livello)</span></h4>';
   var can = contr.length < max;
   html += '<div class="add-row"><select id="cSel">' + opts + '</select>'
     + '<button class="btn" onclick="gAddContratto()" ' + (can ? '' : 'disabled') + '>＋ Stipula</button></div>';
-  if (!can) html += '<div class="note-box" style="margin-top:8px">⚠ Hai raggiunto il limite di contratti pari al Livello (' + max + '). Aumenta il Livello per stipularne altri.</div>';
-  if (!contr.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessun contratto attivo con la Camera del Commercio.</p>';
+  if (!can) html += '<div class="note-box mt">⚠ Hai raggiunto il limite di contratti pari al Livello (' + max + '). Aumenta il Livello per stipularne altri.</div>';
+  if (!contr.length) return html + '<p class="muted-note">Nessun contratto attivo con la Camera del Commercio.</p>';
   html += '<table><thead><tr><th>Contratto</th><th>Patente</th><th>Costo stipula</th><th>Rendita</th><th></th></tr></thead><tbody>';
   contr.forEach(function(c, i) {
     html += '<tr><td>' + att(c.name || c.patente) + '</td><td>' + (c.patente || '') + '</td>'
@@ -544,7 +544,7 @@ function gDelContratto(i) {
 }
 function gTransHtml(d) {
   var tx = d.transazioni || [];
-  var html = '<h4>📔 Registro Entrate/Uscite <span class="small" style="color:var(--text3)">(cassa: <strong>' + (d.cassa || 0) + ' Mo</strong>)</span></h4>';
+  var html = '<h4>📔 Registro Entrate/Uscite <span class="small">(cassa: <strong>' + (d.cassa || 0) + ' Mo</strong>)</span></h4>';
   html += '<div class="add-row">'
     + '<input type="text" id="xDesc" placeholder="Descrizione" value="">'
     + '<input type="number" id="xImp" placeholder="Importo (+/-)" value="0">'
@@ -552,18 +552,18 @@ function gTransHtml(d) {
     + '<button class="btn danger" onclick="gAddTrans(false)">− Uscita</button>'
     + '<button class="btn secondary" onclick="gMese()">🗓 Chiudi mese</button>'
     + '</div>';
-  html += '<div class="add-row" style="margin-top:4px">'
+  html += '<div class="add-row mt-sm">'
     + '<label class="chk"><input type="checkbox" id="xAutoRis" checked onchange="gAutoRisToggle()"> Accantonamento automatico Fondo di Riserva (10%)</label>'
     + '<label class="chk"><input type="checkbox" id="xAutoTassa" checked onchange="gAutoTassaToggle()"> Versamento tassa Camera 1%</label>'
     + '</div>';
-  if (!tx.length) return html + '<p style="color:var(--text3);font-size:.92rem">Registro vuoto.</p>';
+  if (!tx.length) return html + '<p class="muted-note">Registro vuoto.</p>';
   html += '<table><thead><tr><th>Data</th><th>Voce</th><th>Importo</th><th>Cassa</th><th></th></tr></thead><tbody>';
   var tot = 0;
   var runs = tx.slice().reverse();
   runs.forEach(function(t, idx) {
     tot += (t.importo || 0);
     html += '<tr><td>' + att(t.data || '—') + '</td><td>' + att(t.tipo) + '</td>'
-      + '<td style="color:' + ((t.importo || 0) < 0 ? 'var(--red2)' : 'var(--green2)') + '">' + ((t.importo || 0) > 0 ? '+' : '') + (t.importo || 0) + '</td>'
+      + '<td class="' + ((t.importo || 0) < 0 ? 'num-out' : 'num-in') + '">' + ((t.importo || 0) > 0 ? '+' : '') + (t.importo || 0) + '</td>'
       + '<td>' + tot + '</td>'
       + '<td><button class="btn danger small" onclick="gDelTrans(' + (tx.length - 1 - idx) + ')">✕</button></td></tr>';
   });
@@ -621,14 +621,14 @@ function gSanHtml(d) {
   var attive = san.filter(function(s){ return s.stato !== 'regolarizzata' && s.stato !== 'decaduta'; });
   var html = '<h4>⚖ Sanzioni e Ispezioni U.R.V.</h4>';
   if (attive.length) {
-    html += '<div class="calc-row" style="margin-bottom:6px"><span class="label">Stato vigente</span><span class="value">' + statoBadge(d.stato) + '</span></div>';
+    html += '<div class="calc-row"><span class="label">Stato vigente</span><span class="value">' + statoBadge(d.stato) + '</span></div>';
   }
   html += '<div class="add-row"><select id="sanSel">'
     + DATA.sanzioni.map(function(s, i){ return '<option value="' + i + '">' + s.name + ' (' + s.multa + ' Mo · ' + (s.sosp && s.sosp !== '—' ? s.sosp : '') + ')</option>'; }).join('')
     + '</select>'
     + '<button class="btn" onclick="gAddSanzione()">＋ Applica sanzione</button>'
     + '</div>';
-  if (!san.length) return html + '<p style="color:var(--text3);font-size:.92rem">Nessuna sanzione registrata. Società pulita.</p>';
+  if (!san.length) return html + '<p class="muted-note">Nessuna sanzione registrata. Società pulita.</p>';
   html += '<table><thead><tr><th>Sanzione</th><th>Tipo</th><th>Penale</th><th>Stato</th><th></th></tr></thead><tbody>';
   san.forEach(function(s, i) {
     html += '<tr><td>' + att(s.name || s.tipo) + '</td><td>' + att(s.tipo) + '</td><td>' + (s.penal || 0) + ' Mo</td>'
@@ -679,9 +679,9 @@ function gDelSanzione(i) {
 
 // ── EVENTI STAGIONALI ──
 function gEvHtml(d) {
-  var html = '<h4>🎲 Eventi stagionali <span class="small" style="color:var(--text3)">(d20 + 2 per Livello)</span></h4>';
+  var html = '<h4>🎲 Eventi stagionali <span class="small">(d20 + 2 per Livello)</span></h4>';
   html += '<div class="add-row"><button class="btn" onclick="gRoll()">🎲 Tira d20 per l\u0027evento</button></div>';
-  html += '<p style="color:var(--text3);font-size:.9rem;margin-top:6px">A ogni stagione tira il dado: il risultato indica l\u0027evento che coinvolge la società (tabella nella guida). Molti eventi chiedono una parata o una penale: trascrivi l\u0027esito nel registro.</p>';
+  html += '<p class="muted-note">A ogni stagione tira il dado: il risultato indica l\u0027evento che coinvolge la società (tabella nella guida). Molti eventi chiedono una parata o una penale: trascrivi l\u0027esito nel registro.</p>';
   return html;
 }
 function gRoll() {
@@ -706,8 +706,8 @@ function gRoll() {
 // ── NOTE ──
 function gNoteHtml(d) {
   return '<h4>📝 Note libere</h4>'
-    + '<textarea id="gNotes" rows="4" style="width:100%;resize:vertical" onchange="gSave()">' + att(d.notes || '') + '</textarea>'
-    + '<p style="color:var(--text3);font-size:.88rem;margin-top:4px">Memorizza accordi, legami, obiettivi e cronaca della società. Il salvataggio è automatico a ogni uscita dal campo.</p>';
+    + '<textarea id="gNotes" rows="4" class="notes-area" onchange="gSave()">' + att(d.notes || '') + '</textarea>'
+    + '<p class="muted-note">Memorizza accordi, legami, obiettivi e cronaca della società. Il salvataggio è automatico a ogni uscita dal campo.</p>';
 }
 function gExportCompany() {
   var d = trackerLoad();

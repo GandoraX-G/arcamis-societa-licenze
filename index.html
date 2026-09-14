@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Codice delle Imprese e delle Patenti del Regno di Arcadia: Camera del Commercio, U.R.V. e i quattro livelli societari.">
 <title>⚖️ Società & Licenze di Arcamis</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,12 +15,13 @@
 <body>
 
 <header>
-  <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="Menu">☰</button>
+  <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="Menu" aria-label="Apri l'indice">☰</button>
   <div class="head-titles">
     <h1><b>⚖️ Società &amp; Licenze</b> di Arcamis</h1>
     <p>Imprese · Società · Patenti · Camera del Commercio — Arcadia</p>
   </div>
-  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambia tema">🌙</button>
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambia tema" aria-label="Cambia tema chiaro o scuro">🌙</button>
+  <div class="read-progress" id="readProgress" role="presentation"></div>
 </header>
 
 <aside class="sidebar" id="sidebar">
