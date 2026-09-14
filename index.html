@@ -10,7 +10,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..900;1,9..144,400..700&family=Work+Sans:wght@400..700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<!--
+  Cache-busting: GitHub Pages serve questi file con max-age=600, quindi senza
+  un numero di versione il browser puo' tenersi CSS e JS vecchi per 10 minuti
+  dopo ogni pubblicazione. Alzare la versione qui sotto a ogni modifica di
+  styles.css, data.js, gestore.js o app.js, mantenendo lo stesso valore su
+  tutti e quattro i riferimenti.
+-->
+<link rel="stylesheet" href="styles.css?v=20260914a">
 </head>
 <body>
 
@@ -53,8 +60,8 @@
   </div>
 </div>
 
-<script src="data.js"></script>
-<script src="gestore.js"></script>
-<script src="app.js"></script>
+<script src="data.js?v=20260914a"></script>
+<script src="gestore.js?v=20260914a"></script>
+<script src="app.js?v=20260914a"></script>
 </body>
 </html>
