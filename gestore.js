@@ -362,7 +362,7 @@ function gSave() {
 
 function gestoreShell() {
   return `
-  <div class="page-hero gilde">
+  <div class="page-hero">
     <h2>🎛️ Gestore di Società</h2>
     <p>Una sola schermata per fondare, gestire e far crescere le società nel rispetto del Codice di Arcadia: requisiti dei 4 Livelli verificati in automatico (2→3→4→5 soci), tasse di espansione, manutenzione triennale, tasse (1%), riserve (10%), apprendisti, sanzioni, eventi e registro.</p>
   </div>

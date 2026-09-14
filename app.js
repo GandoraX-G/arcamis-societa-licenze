@@ -206,7 +206,7 @@ const RENDER_GILDE = {
 
 // ─────────────────────────────────────────────
 panoramica: () => `
-  <div class="page-hero gilde">
+  <div class="page-hero">
     <h2>🏛️ Le Imprese di Arcadia<br><small class="hero-sub">Camera del Commercio e dei Mestieri — Regno di Arcadia</small></h2>
     <p><strong class="hl">Che cos'è un'Impresa?</strong> Un'Impresa è l'unione di due o più personaggi che condividono una cassa comune e una sede fisica per produrre e vendere il frutto dei propri mestieri.</p>
     <p>Il percorso di crescita è strutturato in <strong class="hl">4 livelli progressivi</strong>: si parte da una semplice <strong class="hl">Bottega Artigiana</strong> per evolversi, passo dopo passo, fino a diventare una <strong class="hl">Grande Corporazione</strong>. Il meccanismo di avanzamento è diretto e intuitivo: versando la tassa di espansione richiesta, l'Impresa ingrandisce la propria sede e sblocca immediatamente nuovi benefici e privilegi.</p>
@@ -287,7 +287,7 @@ panoramica: () => `
 `,
 // ─────────────────────────────────────────────
 livelli: () => `
-  <div class="page-hero gilde">
+  <div class="page-hero">
     <h2>🏪 I 4 Livelli dell'Impresa</h2>
     <p>Ogni Impresa parte da una <strong>Bottega Artigiana</strong>. Salendo di livello si amplia la sede produttiva, si aumenta il personale e si sbloccano <strong>più benefici meccanici</strong>; crescono anche i requisiti, le tasse di manutenzione e i controlli.</p>
   </div>
@@ -333,7 +333,7 @@ livelli: () => `
 `,
 // ─────────────────────────────────────────────
 procedura: () => `
-  <div class="page-hero gilde">
+  <div class="page-hero">
     <h2>📜 Come si fonda e si gestisce</h2>
     <p>Tutto quello che serve per creare e far funzionare un'Impresa, in pochi passi.</p>
   </div>
@@ -393,7 +393,7 @@ procedura: () => `
 `,
 // ─────────────────────────────────────────────
 entrate: () => `
-  <div class="page-hero gilde">
+  <div class="page-hero">
     <h2>💰 Entrate dell'Impresa</h2>
     <p>Tutte le fonti di guadagno in un colpo d'occhio, e come si calcola l'utile in 2 passi.</p>
   </div>
@@ -428,7 +428,7 @@ entrate: () => `
 `,
 // ─────────────────────────────────────────────
 riferimenti: () => `
-  <div class="page-hero gilde">
+  <div class="page-hero">
     <h2>📚 Riferimenti Avanzati</h2>
     <p>Tutto il resto, per chi gioca da più tempo o vuole approfondire. Qui trovi alleanze, eventi, organizzazioni e glossario.</p>
   </div>
@@ -490,7 +490,7 @@ function dataCls(sigla) {
 const RENDER_LICENZE = {
 
 panoramica: () => `
-  <div class="page-hero licenze">
+  <div class="page-hero">
     <h2>⚖️ Codice Patenti di Arcadia<br><small class="hero-sub">Ufficio del Registro e della Vigilanza (U.R.V.) — Regno di Arcadia</small></h2>
     <p>Il presente regolamento disciplina l'esercizio dei mestieri, la compravendita dei manufatti e la gestione delle sostanze speciali all'interno del Regno.</p>
     <p>Ogni licenza ha una <strong class="hl">validità di tre anni</strong>. Lo status legale dell'artigiano e la legittimità delle sue attività sono formalmente attestati dal possesso del <strong class="hl">Sigillo di Riconoscimento</strong>, un medaglione incantato personalizzato.</p>
@@ -699,7 +699,7 @@ inchiostri: () => `
   </div>`,
 
 strumenti: () => `
-  <div class="page-hero licenze">
+  <div class="page-hero">
     <h2>🛠️ Strumenti per Patenti</h2>
     <p>Calcolatori e tracker per gestire le Patenti dei licenziatari di Arcadia.</p>
   </div>
@@ -734,7 +734,7 @@ function renderPage() {
       const fn = map[n.id];
       const body = fn ? fn() : '<p class="txt-note">Sezione non trovata.</p>';
       // la prima sezione di ogni pagina è il capitolo: apre con l'intestazione grande
-      const cls = 'page-block' + (idx === 0 ? ' is-first' : '') + (pg === 'licenze' ? ' page-block-lic' : '');
+      const cls = 'page-block' + (idx === 0 ? ' is-first' : '');
       parts.push('<section class="' + cls + '" id="' + secId(pg, n.id) + '" data-page="' + pg + '">' + body + '</section>');
     });
   });
