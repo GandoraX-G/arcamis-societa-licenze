@@ -157,6 +157,22 @@ function setupTableSort() {
     });
     thead.appendChild(filterRow);
   });
+  labelTableCells();
+}
+
+// Etichette di colonna su ogni cella: servono quando la tabella diventa una
+// pila di schede su schermo stretto (vedi il blocco mobile in styles.css).
+function labelTableCells(scope) {
+  (scope || document).querySelectorAll('table').forEach(table => {
+    const headRow = table.querySelector('thead tr');
+    if (!headRow) return;
+    const labels = Array.prototype.map.call(headRow.cells, c => c.textContent.trim());
+    table.querySelectorAll('tbody tr').forEach(tr => {
+      Array.prototype.forEach.call(tr.cells, (td, i) => {
+        td.setAttribute('data-label', labels[i] || '');
+      });
+    });
+  });
 }
 
 function sortTable(th, colIdx) {
@@ -824,6 +840,7 @@ function openModal(title, bodyHtml, footerHtml) {
   document.getElementById('modalTitle').textContent = title;
   document.getElementById('modalBody').innerHTML = bodyHtml;
   document.getElementById('modalFooter').innerHTML = footerHtml || '<button class="btn secondary" onclick="closeModal()">Chiudi</button>';
+  labelTableCells(document.getElementById('modalBody'));
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
