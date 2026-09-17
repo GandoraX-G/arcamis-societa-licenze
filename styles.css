@@ -851,6 +851,69 @@ button.pat-card, button.lv-mini {
 }
 
 /* ══════════════════════════════════════
+   19b · AVVISO REVISIONE IMPRESE
+   ══════════════════════════════════════ */
+.irv-banner {
+  display: none;
+  position: fixed;
+  top: var(--header-h);
+  bottom: 0;
+  left: var(--sidebar-w);
+  right: 0;
+  z-index: 120;
+  background: color-mix(in srgb, var(--ink) 82%, transparent);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  align-items: center;
+  justify-content: center;
+  padding: var(--s5);
+}
+.irv-banner.open { display: flex; }
+.irv-card {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-left: 6px solid var(--amber);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-m);
+  padding: var(--s6);
+  text-align: center;
+  animation: irv-in .28s ease;
+}
+@keyframes irv-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.irv-close {
+  position: absolute; top: var(--s2); right: var(--s2);
+  background: none; border: none; color: var(--ink-3);
+  font-size: 1.3rem; line-height: 1; padding: 8px; cursor: pointer;
+}
+.irv-close:hover { color: var(--danger); }
+.irv-icon { font-size: 2.4rem; line-height: 1; margin-bottom: var(--s3); }
+.irv-title {
+  font-size: var(--t-2xl); font-weight: 650; color: var(--ink);
+  line-height: var(--lh-tight); letter-spacing: -.01em;
+  margin-bottom: var(--s4); text-wrap: balance;
+}
+.irv-title b { font-weight: 700; }
+.irv-text {
+  color: var(--ink-2); max-width: 48ch;
+  margin: 0 auto var(--s2); text-wrap: pretty;
+}
+.irv-note {
+  font-size: var(--t-s); color: var(--ink-3);
+  max-width: 52ch; margin: var(--s3) auto 0;
+}
+.irv-actions {
+  display: flex; gap: var(--s2);
+  justify-content: center; flex-wrap: wrap;
+  margin-top: var(--s5);
+}
+
+/* ══════════════════════════════════════
    20 · SCROLLBAR E STAMPA
    ══════════════════════════════════════ */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
@@ -860,7 +923,7 @@ button.pat-card, button.lv-mini {
 
 @media print {
   header, .sidebar, .sidebar-backdrop, .page-footer, .read-progress, .btn,
-  .sidebar-toggle, .theme-toggle { display: none !important; }
+  .sidebar-toggle, .theme-toggle, .irv-banner { display: none !important; }
   .content, .page-footer { margin-left: 0; }
   body { background: #fff; color: #000; font-size: 11pt; }
   .page-block { padding-top: 0; page-break-inside: avoid; }
@@ -886,6 +949,7 @@ button.pat-card, button.lv-mini {
   }
   .content { margin-left: 0; padding: 0 clamp(18px, 4vw, 32px) 90px; }
   .page-footer { margin-left: 0; }
+  .irv-banner { left: 0; }
 }
 
 @media (max-width: 760px) {
@@ -978,6 +1042,9 @@ button.pat-card, button.lv-mini {
   .modal-body tbody tr.total td:first-child { font-size: var(--t-s); color: var(--ink-2); font-weight: 600; }
   #sec-gestore tbody tr.total td:empty,
   .modal-body tbody tr.total td:empty { display: none; }
+
+  .irv-card { padding: var(--s5) var(--s4); }
+  .irv-title { font-size: clamp(1.4rem, 6vw, 1.8rem); }
 }
 
 @media (max-width: 480px) {

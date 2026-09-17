@@ -31,6 +31,7 @@ function goto(pg, sec) {
   currentSection = sec || 'panoramica';
   if (!document.getElementById(secId(pg, currentSection))) render();
   markSidebarActive();
+  syncRevisionBanner();
   if (sec) scrollToId(secId(pg, sec)); else scrollTop();
 }
 
@@ -794,6 +795,7 @@ function attachScrollSpy() {
       currentPage = curPg;
       currentSection = cur;
       markSidebarActive();
+      syncRevisionBanner();
     }
     if (currentSection === 'gestore' && typeof gInit === 'function' && !window.__gInitDone) {
       window.__gInitDone = true;
@@ -817,6 +819,7 @@ function setSection(pg, s) {
   currentPage = pg;
   currentSection = s;
   markSidebarActive();
+  syncRevisionBanner();
   closeSidebar();
   scrollToId(secId(pg, s));
 }
@@ -831,6 +834,26 @@ function toggleSidebar() {
 function closeSidebar() {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sidebarBackdrop').classList.remove('open');
+}
+
+// ════════════════════════════════════════════════
+//  AVVISO REVISIONE IMPRESE
+// ════════════════════════════════════════════════
+var IRV_KEY = 'arcamis_irv_chiuso';
+function irvDismissed() {
+  try { return (typeof sessionStorage !== 'undefined') && sessionStorage.getItem(IRV_KEY) === '1'; }
+  catch (e) { return false; }
+}
+function syncRevisionBanner() {
+  var banner = document.getElementById('irvBanner');
+  if (!banner) return;
+  var show = currentPage === 'gilde' && !irvDismissed();
+  banner.classList.toggle('open', show);
+}
+function hideRevisionBanner() {
+  try { if (typeof sessionStorage !== 'undefined') sessionStorage.setItem(IRV_KEY, '1'); }
+  catch (e) {}
+  syncRevisionBanner();
 }
 
 // ════════════════════════════════════════════════
@@ -959,5 +982,5 @@ applyTheme();
 function render() {
   renderPage();
 }
-
 render();
+syncRevisionBanner();

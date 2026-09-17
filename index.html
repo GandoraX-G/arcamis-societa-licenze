@@ -17,7 +17,7 @@
   styles.css, data.js, gestore.js o app.js, mantenendo lo stesso valore su
   tutti e quattro i riferimenti.
 -->
-<link rel="stylesheet" href="styles.css?v=20260914b">
+<link rel="stylesheet" href="styles.css?v=20260917a">
 </head>
 <body>
 
@@ -42,6 +42,22 @@
 
 <main class="content" id="content"></main>
 
+<!-- ══════ AVVISO REVISIONE IMPRESE ══════ -->
+<div class="irv-banner" id="irvBanner" role="alert">
+  <div class="irv-card">
+    <button class="irv-close" onclick="hideRevisionBanner()" title="Chiudi avviso" aria-label="Chiudi avviso">✕</button>
+    <div class="irv-icon">⚒️</div>
+    <h2 class="irv-title">La meccanica delle Imprese<br><b>è in revisione</b></h2>
+    <p class="irv-text">La <b>Camera del Commercio e dei Mestieri</b> sta riesaminando le regole delle Imprese. Le indicazioni attuali vanno considerate <b>provvisorie</b>: potrebbero cambiare con il prossimo annuncio ufficiale.</p>
+    <p class="irv-text">Le regole delle <b>Patenti</b> restano invece confermate.</p>
+    <p class="irv-note">🕰️ Ti comunicheremo la data in cui la nuova meccanica entrerà in vigore.</p>
+    <div class="irv-actions">
+      <button class="btn secondary" onclick="hideRevisionBanner()">Ho capito, chiudi</button>
+      <button class="btn" onclick="goto('licenze','panoramica')">Vai alle Patenti →</button>
+    </div>
+  </div>
+</div>
+
 <footer class="page-footer">
   <b>⚖️ Società &amp; Licenze</b> di Arcamis — Manuale di gioco · Regno di Arcadia
 </footer>
@@ -58,8 +74,8 @@
   </div>
 </div>
 
-<script src="data.js?v=20260914b"></script>
-<script src="gestore.js?v=20260914b"></script>
-<script src="app.js?v=20260914b"></script>
+<script src="data.js?v=20260917a"></script>
+<script src="gestore.js?v=20260917a"></script>
+<script src="app.js?v=20260917a"></script>
 </body>
 </html>
